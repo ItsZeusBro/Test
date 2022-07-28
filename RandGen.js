@@ -14,8 +14,8 @@ class RandGen{
     randStrArr(n=this.randInt()){var arr=[]; for(var i=0;i<n;i++){arr.push(this.randStr())}; return arr}
     randObj(n=this.randInt()){if(n){return {[this.randStr()]:this.randObj(n-1)}}};
     randObjArr(n=this.randInt()){var arr=[]; for(var i=0;i<n;i++){arr.push(this.randObj())}; return arr}
-    randKey(guardFuncBag){
-        return guardFuncBag[Math.floor(Math.random() * guardFuncBag.length)];
+    randKey(bag){
+        return bag[Math.floor(Math.random() * bag.length)];
     }
     randRange(min, max){
         return Math.floor(Math.random()*(max-min+1)+min)
