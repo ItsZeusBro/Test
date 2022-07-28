@@ -1,4 +1,4 @@
-class RandGen{
+export class RandGen{
     randStr(){return this.genStr(this.randRange(0, 3))}
     randInt(){return this.randRange(0,3)}
     randArr(n){var arr=[]; for(var i=0;i<n;i++){arr.push(this.rand())}; return arr}
