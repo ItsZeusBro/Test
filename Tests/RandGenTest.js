@@ -1,4 +1,4 @@
-import { Test } from "./Test.js";
+import { Test } from "../Test.js";
 import * as assert from "node:assert";
 class RandGenTest{
 	constructor(n){
