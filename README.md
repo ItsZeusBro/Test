@@ -1,2 +1,2 @@
-# RandGen
-Functions that help Generate Random Test Data
+# Test
+Functions that help Test
