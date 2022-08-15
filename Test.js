@@ -40,42 +40,37 @@ export class Test{
 			}; 
 			return arr;
 		}
-		
 	}
 
-	//if the object value is strata then this is recursive
-	// [
-	// 		{
-	// 			'key': (recursive strata or base value)
-	// 		},
-	// 		{
-	// 			'key': (recursive strata, or base value)
-	// 		}
-	// ]
-	//randStrata will represent a base case strata can be adapted to be recursive strata
-	//where n is the number of objects in the strata array
-	randStrata(strata=[], pk=['payload']){
-		//we have n number of strata objects per strata array
-		//we have n number of layers to strata
-		//we have 1 possible base case per strata object, whose associated value is undefined
-		//the strataObj[key]=_baseStrata() which can be reasigned with strataObj[key]=_baseStrata (recursively)
-		//every strataObj has one key that is not payload that can be obtained with strataKey()
+	randStrata(nMin, nMax, mMin, mMax, pk=['payload']){
+		var n = this.randRange(nMin, nMax)
+		var m = this.randRange(mMin, mMax)
+
 	}
-
-
-
 
 	//strata is always an array of objects, each with a single key associated with undefined or another strata
-	_recursiveStrata(n, m, pk, strata=[]){
+	recursiveStrata(n, m, pk, strata=[]){
 		//n is passed to _baseStrata(n, pk)
 		for(var i = 0; i<n; i++){
 			//we are trying to generate m number of recursive strata levels
 			if(m==0){
-				strata.push({[this.uniqueId()]:undefined})
+				if(this.randMod10()){
+					strata.push({[this.uniqueId()]:undefined, [this.randSelection(pk)]:this.randObj(2, false)})
+				}else{
+					strata.push({[this.uniqueId()]:undefined})
+
+				}
 			}else if(m>0){
-				var _strata = {[this.uniqueId()]:[]}
-				this._recursiveStrata(n, m-1, pk, _strata[Object.keys(_strata)[0]])
-				strata.push(_strata)
+				if(this.randMod10()){
+					var _strata = {[this.uniqueId()]:[], [this.randSelection(pk)]:this.randObj(2, false)}
+					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
+					strata.push(_strata)
+				}else{
+					var _strata = {[this.uniqueId()]:[]}
+					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
+					strata.push(_strata)
+				}
+				
 			}
 		}
 		return strata
@@ -145,20 +140,20 @@ export class Test{
 	//VALIDATION-----------------------------------------------------
 	//gt is greater than n nested levels, lt is less than n nested levels, eq is equal to n nested levels
 	//gn is greater than n objects per strata, ln is less than n objects per strata, en is equal to n objects per strata
-	isStrata(gn, ln, en, gt, lt, eq){
+	isStrata(en, gn, ln, em, gm, lm){
 		
 	}
-	isInt(gt, lt, eq){
+	isInt(en, gn, ln){
 
 	}
-	isArray(gt, lt, eq){
+	isArray(en, gn, ln){
 
 	}
-	isObj(gt, lt, eq){
+	isObj(en, gn, ln){
 
 	}
 
-	isStr(gt, lt, eq){
+	isStr(en, gn, ln){
 
 	}
 
@@ -320,4 +315,4 @@ export class Test{
 }
 
 var test=new Test()
-test.log(test._recursiveStrata(5, 5, ['payload'], []))
+test.log(test.recursiveStrata(5, 5, ['payload'], []))
