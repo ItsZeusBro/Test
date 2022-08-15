@@ -40,6 +40,44 @@ export class Test{
 		}
 		
 	}
+
+	//if the object value is strata then this is recursive
+	// [
+	// 		{
+	// 			'key': (recursive strata or base value)
+	// 		},
+	// 		{
+	// 			'key': (recursive strata, or base value)
+	// 		}
+	// ]
+	//randStrata will represent a base case strata can be adapted to be recursive strata
+	//where n is the number of objects in the strata array
+	randStrata(strata=[], pk=[]){
+		//we have n number of strata objects per strata array
+		//we have n number of layers to strata
+		//we have 1 possible base case per strata object, whose associated value is undefined
+		//the strataObj[key]=_baseStrata() which can be reasigned with strataObj[key]=_baseStrata (recursively)
+		//every strataObj has one key that is not payload that can be obtained with strataKey()
+	}
+
+	_baseStrata(){
+
+	}
+
+	//strata is always an array of objects, each with a single key associated with undefined or another strata
+	_recursiveStrata(strata){
+
+	}
+
+	strataKey(strataObj, pk){
+		for(var i = 0; i<Object.keys(strataObj).length; i++){
+			//if there is more than one strataKey, throw error (to catch bugs)
+			
+		}
+	}
+
+
+
     rand(n){return eval(this.sample(['this.randStr', 'this.randInt', 'this.randObj'])+'(n, this.randMod10())')}
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
@@ -84,6 +122,28 @@ export class Test{
 		return arr[this.randRange(0, arr.length-1)]
 	}
 
+	//VALIDATION-----------------------------------------------------
+	//gt is greater than n nested levels, lt is less than n nested levels, eq is equal to n nested levels
+	//gn is greater than n objects per strata, ln is less than n objects per strata, en is equal to n objects per strata
+	isStrata(gn, ln, en, gt, lt, eq){
+		
+	}
+	isInt(gt, lt, eq){
+
+	}
+	isArray(gt, lt, eq){
+
+	}
+	isObj(gt, lt, eq){
+
+	}
+
+	isStr(gt, lt, eq){
+
+	}
+
+	
+
 
 	//COMPARATORS----------------------------------------------------
 
@@ -112,8 +172,6 @@ export class Test{
 			}
 		}
     }
-
-
 
     isEqualStr(str1, str2, equal=[true]){
         if(
@@ -193,6 +251,10 @@ export class Test{
         }
     }
 
+	isEqualStrata(strata1, strata2, equal=[true]){
+
+	}
+
     isEqual(thing1, thing2, equal=[true]){
         if(!equal[0]){
 			return equal[0]
@@ -208,6 +270,8 @@ export class Test{
                 return this.isEqualStr(thing1, thing2, equal)
             }else if(typeof thing1 === 'object'){
                 return this.isEqualObj(thing1, thing2, equal)
+            }else if(this.isStrata(thing1)){
+                return this.isEqualStrata(thing1, thing2, equal)
             }else if(!thing1 && !thing2){
 				return equal[0]
 			}
