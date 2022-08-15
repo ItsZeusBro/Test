@@ -1,6 +1,6 @@
 import { Test } from "../Test.js";
 import * as assert from "node:assert";
-class RandGenTest{
+export class Random{
 	constructor(n){
 		this.randStr(n)
 		this.randInt(n)
@@ -9,12 +9,12 @@ class RandGenTest{
 	}
 
 	randStr(n){
-		var str = new Test().randStr(n)
+		var str = new Test().Random.randStr(n)
 		console.log("randStr", str)
 		assert.equal(typeof str === 'string', true)
 		assert.equal(str.length<=n, true)
 
-		var strArr = new Test().randStr(n, true)
+		var strArr = new Test().Random.randStr(n, true)
 		console.log("randStr array", strArr)
 		assert.equal(Array.isArray(strArr), true)
 		for(var i=0; i<strArr.length; i++){
@@ -24,12 +24,12 @@ class RandGenTest{
 	}
 
 	randInt(n){
-		var int = new Test().randInt(n)
+		var int = new Test().Random.randInt(n)
 		console.log("randInt", int)
 		assert.equal(typeof int === 'number', true)
 		assert.equal(int<=n, true)
 
-		var intArr = new Test().randInt(n, true)
+		var intArr = new Test().Random.randInt(n, true)
 		console.log("randInt array", intArr)
 		assert.equal(Array.isArray(intArr), true)
 		for(var i=0; i<intArr.length; i++){
@@ -39,12 +39,12 @@ class RandGenTest{
 	}
 
 	randArr(n){
-		var arr = new Test().randArr(n)
+		var arr = new Test().Random.randArr(n)
 		console.log("randArr", arr)
 		assert.equal(Array.isArray(arr), true)
 		assert.equal(arr.length<=n, true)
 
-		var arrOfArr = new Test().randArr(n, true)
+		var arrOfArr = new Test().Random.randArr(n, true)
 		console.log("randArr array", arrOfArr)
 		assert.equal(Array.isArray(arrOfArr), true)
 		for(var i=0; i<arrOfArr.length; i++){
@@ -54,12 +54,12 @@ class RandGenTest{
 	}
 
 	randObj(n){
-		var obj = new Test().randObj(n)
+		var obj = new Test().Random.randObj(n)
 		console.log('randObj', obj)
 		assert.equal(typeof obj === 'object', true)
 		this._randObj(n, obj)
 
-		var objArr = new Test().randObj(n, true)
+		var objArr = new Test().Random.randObj(n, true)
 		console.log("randObj array", objArr)
 		assert.equal(Array.isArray(objArr), true)
 		for(var i=0; i<objArr.length; i++){
@@ -77,6 +77,3 @@ class RandGenTest{
 		}
 	}
 }
-
-
-new RandGenTest(5)

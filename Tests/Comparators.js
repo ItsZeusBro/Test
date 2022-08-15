@@ -2,7 +2,7 @@ import { Test } from "../Test.js"
 import * as assert from "node:assert"
 import * as util from "node:util"
 
-export class ComparatorTests{
+export class Comparators{
 	constructor(n){
 		this.testArrays(n)
 		this.testObjects(n)
@@ -13,36 +13,34 @@ export class ComparatorTests{
 
 	testArrays(n){
 		for(var i = 0; i<1000; i++){
-			this.testArray(n)
+			this.testArray(n);
 		}
-
 	}
 
 
 	testObjects(n){
 		for(var i = 0; i<1000; i++){
-			this.testObject(n)
+			this.testObject(n);
 		}
 	}
 
 	testArray(n){
 		console.log("TEST ARRAY")
 		var test = new Test()
-		var array1 = test.randArr(n)
-		var array2 = test.randArr(n)
-		assert.equal(test.isEqualArr(array1.slice(), array1.slice()), true)
-		assert.equal(test.isEqualArr(array1.slice(), array2.slice()), false)
+		var array1 = test.Random.randArr(n)
+		var array2 = test.Random.randArr(n)
+		assert.equal(test.Comparators.isEqualArr(array1.slice(), array1.slice()), true)
+		assert.equal(test.Comparators.isEqualArr(array1.slice(), array2.slice()), false)
 		console.log("TEST ARRAY PASSED")
-
 	}
 
 	testObject(n){
 		console.log("TEST OBJ")
 		var test = new Test()
-		var obj1 = test.randObj(n)
-		var obj2 = test.randObj(n)
-		assert.equal(test.isEqualObj(obj1, obj1), true)
-		assert.equal(test.isEqualObj(obj1, obj2), false)
+		var obj1 = test.Random.randObj(n)
+		var obj2 = test.Random.randObj(n)
+		assert.equal(test.Comparators.isEqualObj(obj1, obj1), true)
+		assert.equal(test.Comparators.isEqualObj(obj1, obj2), false)
 		console.log("TEST OBJ PASSED")
 	}
 
@@ -51,8 +49,8 @@ export class ComparatorTests{
 		var test = new Test()
 		var num1 = 1234
 		var num2 = 2345
-		assert.equal(test.isEqualNumber(num1, num1), true)
-		assert.equal(test.isEqualNumber(num1, num2), false)		
+		assert.equal(test.Comparators.isEqualNumber(num1, num1), true)
+		assert.equal(test.Comparators.isEqualNumber(num1, num2), false)		
 		console.log("TEST NUMBER PASSED")
 	}
 	testString(n){
@@ -60,33 +58,33 @@ export class ComparatorTests{
 		var test = new Test()
 		var str1 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
 		var str2 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaergkldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
-		assert.equal(test.isEqualStr(str1, str1), true)
-		assert.equal(test.isEqualStr(str1, str2), false)		
+		assert.equal(test.Comparators.isEqualStr(str1, str1), true)
+		assert.equal(test.Comparators.isEqualStr(str1, str2), false)		
 		console.log("TEST STRING PASSED")
 	}
 	testEquals(n){
 		console.log("TEST EQUAL")
 		var test = new Test()
-		var array1 = test.randArr(n)
-		var array2 = test.randArr(n)
-		assert.equal(test.isEqual(array1.slice(), array1.slice()), true)
-		assert.equal(test.isEqual(array1.slice(), array2.slice()), false)
+		var array1 = test.Random.randArr(n)
+		var array2 = test.Random.randArr(n)
+		assert.equal(test.Comparators.isEqual(array1.slice(), array1.slice()), true)
+		assert.equal(test.Comparators.isEqual(array1.slice(), array2.slice()), false)
 
-		var obj1 = test.randObj(n)
-		var obj2 = test.randObj(n)
-		assert.equal(test.isEqual(obj1, obj1), true)
-		assert.equal(test.isEqual(obj1, obj2), false)
+		var obj1 = test.Random.randObj(n)
+		var obj2 = test.Random.randObj(n)
+		assert.equal(test.Comparators.isEqual(obj1, obj1), true)
+		assert.equal(test.Comparators.isEqual(obj1, obj2), false)
 
 		var num1 = 1234
 		var num2 = 2345
-		assert.equal(test.isEqual(num1, num1), true)
-		assert.equal(test.isEqual(num1, num2), false)	
+		assert.equal(test.Comparators.isEqual(num1, num1), true)
+		assert.equal(test.Comparators.isEqual(num1, num2), false)	
 
 
 		var str1 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
 		var str2 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaergkldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
-		assert.equal(test.isEqual(str1, str1), true)
-		assert.equal(test.isEqual(str1, str2), false)		
+		assert.equal(test.Comparators.isEqual(str1, str1), true)
+		assert.equal(test.Comparators.isEqual(str1, str2), false)		
 		console.log("TEST EQUAL PASSED")
 	}
 	log(obj){
@@ -96,4 +94,3 @@ export class ComparatorTests{
     }
 
 }
-new ComparatorTests(5)
