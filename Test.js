@@ -1,3 +1,5 @@
+import * as util from "node:util"
+
 export class Test{
 	//RANDOM GENERATORS----------------------------------------------------
 	randStr(n, array=false){
@@ -52,7 +54,7 @@ export class Test{
 	// ]
 	//randStrata will represent a base case strata can be adapted to be recursive strata
 	//where n is the number of objects in the strata array
-	randStrata(strata=[], pk=[]){
+	randStrata(strata=[], pk=['payload']){
 		//we have n number of strata objects per strata array
 		//we have n number of layers to strata
 		//we have 1 possible base case per strata object, whose associated value is undefined
@@ -60,22 +62,40 @@ export class Test{
 		//every strataObj has one key that is not payload that can be obtained with strataKey()
 	}
 
-	_baseStrata(){
 
-	}
+
 
 	//strata is always an array of objects, each with a single key associated with undefined or another strata
-	_recursiveStrata(strata){
-
+	_recursiveStrata(n, m, pk, strata=[]){
+		//n is passed to _baseStrata(n, pk)
+		for(var i = 0; i<n; i++){
+			//we are trying to generate m number of recursive strata levels
+			if(m==0){
+				strata.push({[this.uniqueId()]:undefined})
+			}else if(m>0){
+				var _strata = {[this.uniqueId()]:[]}
+				this._recursiveStrata(n, m-1, pk, _strata[Object.keys(_strata)[0]])
+				strata.push(_strata)
+			}
+		}
+		return strata
 	}
 
 	strataKey(strataObj, pk){
-		for(var i = 0; i<Object.keys(strataObj).length; i++){
+		var count=0;
+		var strataKey;
+		for(var i=0; i<Object.keys(strataObj).length; i++){
+			if(!pk.includes(Object.keys(strataObj)[i])){
+				strataKey=Object.keys(strataObj)[i]
+			}
+		}
+		if(count>1){
 			//if there is more than one strataKey, throw error (to catch bugs)
-			
+			throw Error("more than one strataKey found in", strataObj)
+		}else{
+			return strataKey
 		}
 	}
-
 
 
     rand(n){return eval(this.sample(['this.randStr', 'this.randInt', 'this.randObj'])+'(n, this.randMod10())')}
@@ -142,7 +162,9 @@ export class Test{
 
 	}
 
-	
+	uniqueId(){
+		return Date.now().toString(36) + Math.random().toString(36).substr(2);
+	}
 
 
 	//COMPARATORS----------------------------------------------------
@@ -289,4 +311,13 @@ export class Test{
     //but if you dont use a reference variable, its safer to assume false and prove true, but your recursion has to be perfect all the time
     //we choose to assume true, because its easy to short circuit a recursive function upon its falsehood as the first
     //statement of all equality recursive functions
+
+	log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }
+
+var test=new Test()
+test.log(test._recursiveStrata(5, 5, ['payload'], []))
