@@ -81,7 +81,16 @@ export class Validation{
 		assert.equal(new Test().Validation.isObject(obj2), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1), true)
-		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 1), true)
-		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 1, 1), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1, 2, 2), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 2, 2), true)
+
+
+		var obj3 = {'somekey':{'somekey':'somevalue'}}
+		assert.equal(new Test().Validation.isObject(obj3), true)
+		assert.equal(new Test().Validation.isObject(obj3, 1), true)
+		assert.equal(new Test().Validation.isObject(obj3, 1, 1), true)
+		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 3), true)
+		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 3, 3), true)
+
 	}
 }
