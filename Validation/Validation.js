@@ -100,7 +100,6 @@ export class Validation{
 					try{
 						assert.equal((Object.keys(obj).length)>=w_min, true)
 					}catch(err){
-						console.log(err)
 						truth[0]=false
 						return truth[0]
 					}
@@ -109,7 +108,6 @@ export class Validation{
 					try{
 						assert.equal((Object.keys(obj).length)<=w_max, true)
 					}catch(err){
-						console.log(err)
 						truth[0]=false
 						return truth[0]
 					}
@@ -124,10 +122,8 @@ export class Validation{
 		if(n==0){
 			if(d_max){
 				try{
-					console.log(maxdepth[0], d_max)
 					assert.equal(maxdepth[0]<=d_max, true)
 				}catch(err){
-					console.log(err)
 					truth[0]=false;
 					return truth[0];
 				}
@@ -136,7 +132,6 @@ export class Validation{
 				try{
 					assert.equal(maxdepth[0]>=d_min, true)
 				}catch(err){
-					console.log(err)
 					truth[0]=false
 				}
 			}
@@ -179,7 +174,65 @@ export class Validation{
 		return true
 	}
 
-	isStrata(){
-		
+	isStrata(strata, w_min, w_max, d_min, d_max, n=0, maxdepth=[0], truth=[true]){
+		if(!truth[0]){return false}
+		if(Array.isArray(strata)||typeof strata === 'object'){
+			if((d_max||d_min)&&(n>=maxdepth[0])){maxdepth[0]=n}
+
+			if(w_min||w_max||d_max||d_min){
+
+				if(Array.isArray(strata)&&(d_max||d_min)){
+					for(var i = 0; i<strata.length; i++){
+						this.isObject(strata[i], w_min, w_max, d_min, d_max, n+1, maxdepth, truth)
+					}
+				}else{
+					if((d_max||d_min)){
+						for(var i = 0; i<Object.keys(strata).length; i++){
+							var key = Object.keys(strata)[i];
+							this.isObject(strata[key], w_min, w_max, d_min, d_max, n+1, maxdepth, truth)
+						}
+					}
+
+				}
+				if(w_min){
+					try{
+						assert.equal((Object.keys(obj).length)>=w_min, true)
+					}catch(err){
+						truth[0]=false
+						return truth[0]
+					}
+				}
+				if(w_max){
+					try{
+						assert.equal((Object.keys(obj).length)<=w_max, true)
+					}catch(err){
+						truth[0]=false
+						return truth[0]
+					}
+				}
+			}else{
+				return truth[0]
+			}
+		}else{
+			return truth[0]
+		}
+		if(n==0){
+			if(d_max){
+				try{
+					assert.equal(maxdepth[0]<=d_max, true)
+				}catch(err){
+					truth[0]=false;
+					return truth[0];
+				}
+			}
+			if(d_min){
+				try{
+					assert.equal(maxdepth[0]>=d_min, true)
+				}catch(err){
+					truth[0]=false
+				}
+			}
+		}
+		return truth[0]
 	}
 }
