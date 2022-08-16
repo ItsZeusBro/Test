@@ -43,8 +43,8 @@ export class Validation{
 	}
 
 	isArray(arr, n_min, n_max){
-		//ng means assert that array arr.length is greater than ng
-		//nl means assert that array arr.length is less than nl
+		//n_min means assert that array arr.length is greater than n_min
+		//n_max means assert that array arr.length is less than n_max
 		if(arr && n_min && n_max){
 			try{
 				assert.equal(Array.isArray(arr), true)

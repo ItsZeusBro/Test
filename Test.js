@@ -18,6 +18,6 @@ export class Test{
     }
 }
 
-var test=new Test()
-console.log(test.Comparators.isEqualObj({}, {}))
+//var test=new Test()
+//console.log(test.Comparators.isEqualObj({}, {}))
 //test.log(test.recursiveStrata(5, 5, ['payload'], []))

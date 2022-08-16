@@ -1,16 +1,16 @@
 export class Random{
 	//RANDOM GENERATORS----------------------------------------------------
-	randStr(n, array=false){
+	randString(n, array=false){
 		if(array){
 			var arr=[]; 
-			for(var i=0;i<n;i++){arr.push(this.genStr(this.randRange(0, n)))}; 
+			for(var i=0;i<n;i++){arr.push(this.genString(n))}; 
 			return arr;
 		}else{
-			return this.genStr(this.randRange(0, n));
+			return this.genString(n);
 		}
 	}
 
-    randInt(n, array=false){
+    randInteger(n, array=false){
 		if(array){
 			var arr=[]; 
 			for(var i=0; i<n; i++){arr.push(this.randRange(0, n))};
@@ -20,7 +20,7 @@ export class Random{
 		}
 	}
 
-    randArr(n, array=false){
+    randArray(n, array=false){
 		if(array){
 			var arrOfArr=[]
 			for(var i = 0; i<n; i++){
@@ -52,15 +52,15 @@ export class Random{
 		for(var i = 0; i<n; i++){
 			//we are trying to generate m number of recursive strata levels
 			if(m==0){
-				if(this.randMod10()){
-					strata.push({[this.uniqueId()]:undefined, [this.randSelection(pk)]:this.randObj(2, false)})
+				if(this.randModulo10()){
+					strata.push({[this.uniqueId()]:undefined, [this.randSelection(pk)]:this.randObject(2, false)})
 				}else{
 					strata.push({[this.uniqueId()]:undefined})
 
 				}
 			}else if(m>0){
-				if(this.randMod10()){
-					var _strata = {[this.uniqueId()]:[], [this.randSelection(pk)]:this.randObj(2, false)}
+				if(this.randModulo10()){
+					var _strata = {[this.uniqueId()]:[], [this.randSelection(pk)]:this.randObject(2, false)}
 					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
 					strata.push(_strata)
 				}else{
@@ -91,26 +91,26 @@ export class Random{
 	}
 
 
-    rand(n){return eval(this.sample(['this.randStr', 'this.randInt', 'this.randObj'])+'(n, this.randMod10())')}
+    rand(n){return eval(this.sample(['this.randString', 'this.randInteger', 'this.randObject'])+'(n, this.randModulo10())')}
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
-    randObj(n, array=false){
+    randObject(n, array=false){
 		//O(nlognlogn) growth complexity
 		if(array){
 			var objArr=[]
 			for(var i=0; i<n; i++){
-				objArr.push(this._randObj(n))
+				objArr.push(this._randObject(n))
 			}
 			return objArr
 		}else{
-			return this._randObj(n)
+			return this._randObject(n)
 		}
 	};
-	_randObj(n){
+	_randObject(n){
 		var obj={}
 			if(n){
 				for(var i=0; i<n; i++){
-					obj[this.randStr(20)]=this._randObj(n-1)
+					obj[this.randString(20)]=this._randObject(n-1)
 				}
 			}
 			return obj
@@ -122,13 +122,13 @@ export class Random{
     randRange(min, max){
         return Math.floor(Math.random()*(max-min+1)+min)
     }
-    genStr(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
+    genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
         //programiz.com
         var str='';
         for (var i = 0; i<len; i++){str+=chars.charAt(Math.floor(Math.random()*chars.length))}
         return str;
     }
-    randMod10(){
+    randModulo10(){
         return Math.floor(Math.random()*(100-0+1)+0)%2
     }
 	sample(arr){
