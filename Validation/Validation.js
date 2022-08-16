@@ -86,14 +86,13 @@ export class Validation{
 	//d_max = assert that depth is less than d_max
 	isObject(obj, w_min, w_max, d_min, d_max, n=0, maxdepth=[0], truth=[true]){
 		if(!truth[0]){return false}
-		if((d_max||d_min)&&(n>=maxdepth[0])){maxdepth[0]=n+1}
+		if((typeof obj === 'object') &&(d_max||d_min)&&(n>=maxdepth[0])){maxdepth[0]=n}
 
-		if(typeof obj === 'object' && Object.keys(obj).length){
+		if((typeof obj === 'object') && Object.keys(obj).length){
 			if(w_min||w_max||d_max||d_min){
 				var i;
 				if(d_max||d_min){
 					for(i = 0; i<Object.keys(obj).length; i++){
-						
 						this.isObject(obj[Object.keys(obj)[i]], w_min, w_max, d_min, d_max, n+1, maxdepth, truth)
 					}
 				}
