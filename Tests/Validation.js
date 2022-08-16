@@ -8,6 +8,7 @@ export class Validation{
 		this.testIsArray()
 		this.testIsString()
 		this.testIsObject()
+		//this.()
 	}
 
 	testIsInteger(){
@@ -58,8 +59,6 @@ export class Validation{
 		n_max = 4
 		assert.equal(new Test().Validation.isString(str, n_min, n_max), false)
 		console.log("Tests.Validation.testIsString() PASSES")
-
-
 	}
 
 	testIsStrata(){
@@ -67,8 +66,22 @@ export class Validation{
 	}
 
 	testIsObject(){
-		new Test().Validation.isObject()
+		//w_min = assert that width is greater than w_min
+		//w_max = assert that width is less than w_max
+		//d_min = assert that depth is greater than d_min
+		//d_max = assert that depth is less than d_max
+		var obj1 = {}
+		assert.equal(new Test().Validation.isObject(obj1), true)
+		assert.equal(new Test().Validation.isObject(obj1, 0), true)
+		assert.equal(new Test().Validation.isObject(obj1, 0, 0), true)
+		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0), true)
+		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0, 0), true)
+
+		var obj2 = {'somekey':'somevalue'}
+		assert.equal(new Test().Validation.isObject(obj2), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1, 1), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 1), true)
+		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 1, 1), true)
 	}
-
-
 }
