@@ -174,13 +174,17 @@ export class Validation{
 		return true
 	}
 
-	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true]){
+	isBaseStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true]){
 		//base case should not be an array of objects and does not count towards depth or width of any type
 		//recursive case should be an array of objects and should count towards depth and width of any type
 
 		//for each recursive case, array width min or max should be assessed within the array loop only for existing objects
 		//for each recursive case, object key width min or max should be assessed withint the object loop only for non payload keys
 		//each recursive case counts towards depth, 0 is assumed from the top which does not guarantee a valid schema
+
+	}
+
+	isPureStrata(){
 		
 	}
 }
