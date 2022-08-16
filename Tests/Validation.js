@@ -98,5 +98,17 @@ export class Validation{
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 1, 1), true)
 		console.log("Tests.Validation.testIsString() PASSES")
 
+		var obj4 = {
+			'somekey1':{'somekey1':'somevalue', 'somekey2':'somevalue'}, 
+			'somekey2':{'somekey1':'somevalue', 'somekey2':'somevalue'}
+		}
+		console.log("Tests.Validation.testIsString() on", obj4)
+		assert.equal(new Test().Validation.isObject(obj4), true)
+		assert.equal(new Test().Validation.isObject(obj4, 2), true)
+		assert.equal(new Test().Validation.isObject(obj4, 2, 2), true)
+		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1), true)
+		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1, 1), true)
+		console.log("Tests.Validation.testIsString() PASSES")
+
 	}
 }
