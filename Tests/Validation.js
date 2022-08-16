@@ -8,7 +8,7 @@ export class Validation{
 		this.testIsArray()
 		this.testIsString()
 		this.testIsObject()
-		//this.()
+		this.testIsStrata()
 	}
 
 	testIsInteger(){
@@ -62,53 +62,90 @@ export class Validation{
 	}
 
 	testIsStrata(){
-		new Test().Validation.isStrata()
-	}
+		var obj1 = [{}, {}, {}]
+		console.log("Tests.Validation.isStrata() on", obj1)
+		assert.equal(new Test().Validation.isStrata(obj1), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 0, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 0, 0, 0, 0), true)
+		console.log("Tests.Validation.isStrata() PASSES")
 
+		// var obj2 = [{'somekey':[{}]}]
+		// console.log("Tests.Validation.isStrata() on", obj2)
+		// assert.equal(new Test().Validation.isStrata(obj2), true)
+		// assert.equal(new Test().Validation.isStrata(obj2, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1, 1, 1), true)
+		// console.log("Tests.Validation.isStrata() PASSES")
+
+
+		// var obj3 = {'somekey':{'somekey':'somevalue'}}
+		// console.log("Tests.Validation.isStrata() on", obj3)
+		// assert.equal(new Test().Validation.isStrata(obj3), true)
+		// assert.equal(new Test().Validation.isStrata(obj3, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1, 1, 1), true)
+		// console.log("Tests.Validation.isStrata() PASSES")
+
+		// var obj4 = {
+		// 	'somekey1':{'somekey1':'somevalue', 'somekey2':'somevalue'}, 
+		// 	'somekey2':{'somekey1':'somevalue', 'somekey2':'somevalue'}
+		// }
+		// console.log("Tests.Validation.isStrata() on", obj4)
+		// assert.equal(new Test().Validation.isStrata(obj4), true)
+		// assert.equal(new Test().Validation.isStrata(obj4, 2), true)
+		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2), true)
+		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2, 1), true)
+		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2, 1, 1), true)
+		// console.log("Tests.Validation.isStrata() PASSES")
+	}
 	testIsObject(){
 		//w_min = assert that width is greater than w_min
 		//w_max = assert that width is less than w_max
 		//d_min = assert that depth is greater than d_min
 		//d_max = assert that depth is less than d_max
 		var obj1 = {}
-		console.log("Tests.Validation.testIsString() on", obj1)
+		console.log("Tests.Validation.isObject() on", obj1)
 		assert.equal(new Test().Validation.isObject(obj1), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0, 0), true)
-		console.log("Tests.Validation.testIsString() PASSES")
+		console.log("Tests.Validation.isObject() PASSES")
 
 		var obj2 = {'somekey':'somevalue'}
-		console.log("Tests.Validation.testIsString() on", obj2)
+		console.log("Tests.Validation.isObject() on", obj2)
 		assert.equal(new Test().Validation.isObject(obj2), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 0), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 0, 0), true)
-		console.log("Tests.Validation.testIsString() PASSES")
+		console.log("Tests.Validation.isObject() PASSES")
 
 
 		var obj3 = {'somekey':{'somekey':'somevalue'}}
-		console.log("Tests.Validation.testIsString() on", obj3)
+		console.log("Tests.Validation.isObject() on", obj3)
 		assert.equal(new Test().Validation.isObject(obj3), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 1, 1), true)
-		console.log("Tests.Validation.testIsString() PASSES")
+		console.log("Tests.Validation.isObject() PASSES")
 
 		var obj4 = {
 			'somekey1':{'somekey1':'somevalue', 'somekey2':'somevalue'}, 
 			'somekey2':{'somekey1':'somevalue', 'somekey2':'somevalue'}
 		}
-		console.log("Tests.Validation.testIsString() on", obj4)
+		console.log("Tests.Validation.isObject() on", obj4)
 		assert.equal(new Test().Validation.isObject(obj4), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2, 2), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1, 1), true)
-		console.log("Tests.Validation.testIsString() PASSES")
+		console.log("Tests.Validation.isObject() PASSES")
 
 	}
 }
