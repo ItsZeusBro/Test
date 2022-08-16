@@ -71,26 +71,32 @@ export class Validation{
 		//d_min = assert that depth is greater than d_min
 		//d_max = assert that depth is less than d_max
 		var obj1 = {}
+		console.log("Tests.Validation.testIsString() on", obj1)
 		assert.equal(new Test().Validation.isObject(obj1), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0), true)
 		assert.equal(new Test().Validation.isObject(obj1, 0, 0, 0, 0), true)
+		console.log("Tests.Validation.testIsString() PASSES")
 
 		var obj2 = {'somekey':'somevalue'}
+		console.log("Tests.Validation.testIsString() on", obj2)
 		assert.equal(new Test().Validation.isObject(obj2), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 0), true)
 		assert.equal(new Test().Validation.isObject(obj2, 1, 1, 0, 0), true)
+		console.log("Tests.Validation.testIsString() PASSES")
 
 
 		var obj3 = {'somekey':{'somekey':'somevalue'}}
+		console.log("Tests.Validation.testIsString() on", obj3)
 		assert.equal(new Test().Validation.isObject(obj3), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 1), true)
 		assert.equal(new Test().Validation.isObject(obj3, 1, 1, 1, 1), true)
+		console.log("Tests.Validation.testIsString() PASSES")
 
 	}
 }
