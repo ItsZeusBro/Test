@@ -173,8 +173,104 @@ export class Validation{
 		}
 		return true
 	}
+	
 
-	isBaseStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true]){
+		//[
+		//	{}, {'somekey':'someValue', 'somekey2':'someValue'}, {'somekey':[]}, {'somekey':123}, {'somekey':{}}etc..
+		//]
+		//
+	
+	assertArrayWidth(array, aw_min, aw_max){
+		try{
+			assert.equal(array.length>=aw_min, true)
+			assert.equal(array.length<=aw_max, true)
+			return true
+		}catch{
+			return false
+		}
+	}
+
+	assertObjectWidth(obj, ow_min, ow_max){
+		try{
+			assert.equal(Object.keys(obj).length>=aw_min, true)
+			assert.equal(Object.keys(obj).length<=aw_max, true)
+			return true
+		}catch{
+			return false
+		}
+	}
+
+	assertStringLength(str, str_min, str_max){
+		try{
+			assert.equal(str.length>=str_min, true)
+			assert.equal(str.length<=str_max, true)
+			return true
+		}catch{
+			return false
+		}
+	}
+
+	assertIntRange(int, int_min, int_max){
+		try{
+			assert.equal(int>=int_min, true)
+			assert.equal(int<=int_min, true)
+			return true
+		}catch{
+			return false
+		}
+	}
+
+
+
+	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload']){
+		//n is controlled by the recursion
+		//maxdepth is only incremented if less than or equal to n
+		if(!truth[0]){return truth[0]}
+		if(n<=maxdepth[0]){maxdepth[0]=n}
+
+		if(Array.isArray(strata)){
+			//assert array width max and array width min boundaries
+			if(!this.assertArrayWidth(strata, aw_min, aw_max)){
+				truth[0]=false
+				return truth[0]
+			}else{
+				for(var i = 0; i<strata.length; i++){
+					//recurse on array value only if value is object
+					//increment n
+					if(this.isObject(strata[i])){
+						this.isStrata(strata[i], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n+1, maxdepth, truth, pk)
+					}
+				}
+			}
+
+		}else if(typeof strata === 'object'){
+			//assert object width max and object width min boundaries
+			if(!this.assertObjectWidth(strata, ow_min, ow_max)){
+				truth[0]=false
+				return truth[0]
+			}else{
+				for(var i = 0; i<Object.keys(strata).length; i++){
+					var key = Object.keys(strata)[i]
+					//recurse on keys (but not if included in pk) do not increment n
+					if(!pk.includes(key)){
+						this.isStrata(strata[key], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n, maxdepth, truth, pk)
+					}
+				}
+			}
+
+		}else{
+			//one possible base case, doesn't count towards depth values
+			return strata
+		}
+
+		if(n==0){
+			//assert depth
+			if(!this.assertIntRange(maxdepth[0], d_min, d_max)){
+				truth[0]=false
+				return truth[0]
+			}
+		}
+
 		//base case should not be an array of objects and does not count towards depth or width of any type
 		//recursive case should be an array of objects and should count towards depth and width of any type
 
@@ -182,9 +278,5 @@ export class Validation{
 		//for each recursive case, object key width min or max should be assessed withint the object loop only for non payload keys
 		//each recursive case counts towards depth, 0 is assumed from the top which does not guarantee a valid schema
 
-	}
-
-	isPureStrata(){
-		
 	}
 }
