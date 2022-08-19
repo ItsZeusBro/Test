@@ -1,5 +1,5 @@
 # Test
-Functions that help Test and complementary AI Quality Assurance tools
+Functions that help general testing needs. For the future this has larger ambitions with AI
 
 Future AI Quality Assurance Strategy:
 1. Write test cases using Test tools
