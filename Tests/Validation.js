@@ -61,46 +61,21 @@ export class Validation{
 		console.log("Tests.Validation.testIsString() PASSES")
 	}
 
+	//isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
+
 	testIsStrata(){
 		var obj1 = [{}, {}, {}]
 		console.log("Tests.Validation.isStrata() on", obj1)
 		assert.equal(new Test().Validation.isStrata(obj1), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 0, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 0, 0, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3, 3), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0, 0, 0), true)
 		console.log("Tests.Validation.isStrata() PASSES")
 
-		// var obj2 = [{'somekey':[{}]}]
-		// console.log("Tests.Validation.isStrata() on", obj2)
-		// assert.equal(new Test().Validation.isStrata(obj2), true)
-		// assert.equal(new Test().Validation.isStrata(obj2, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj2, 1, 1, 1, 1), true)
-		// console.log("Tests.Validation.isStrata() PASSES")
-
-
-		// var obj3 = {'somekey':{'somekey':'somevalue'}}
-		// console.log("Tests.Validation.isStrata() on", obj3)
-		// assert.equal(new Test().Validation.isStrata(obj3), true)
-		// assert.equal(new Test().Validation.isStrata(obj3, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj3, 1, 1, 1, 1), true)
-		// console.log("Tests.Validation.isStrata() PASSES")
-
-		// var obj4 = {
-		// 	'somekey1':{'somekey1':'somevalue', 'somekey2':'somevalue'}, 
-		// 	'somekey2':{'somekey1':'somevalue', 'somekey2':'somevalue'}
-		// }
-		// console.log("Tests.Validation.isStrata() on", obj4)
-		// assert.equal(new Test().Validation.isStrata(obj4), true)
-		// assert.equal(new Test().Validation.isStrata(obj4, 2), true)
-		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2), true)
-		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2, 1), true)
-		// assert.equal(new Test().Validation.isStrata(obj4, 2, 2, 1, 1), true)
-		// console.log("Tests.Validation.isStrata() PASSES")
+	
 	}
 	testIsObject(){
 		//w_min = assert that width is greater than w_min

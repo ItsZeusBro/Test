@@ -181,102 +181,158 @@ export class Validation{
 		//
 	
 	assertArrayWidth(array, aw_min, aw_max){
-		try{
-			assert.equal(array.length>=aw_min, true)
-			assert.equal(array.length<=aw_max, true)
-			return true
-		}catch{
+		if(aw_min&& aw_max){
+			try{
+				assert.equal(array.length>=aw_min, true)
+				assert.equal(array.length<=aw_max, true)
+			}catch{
+				return false
+			}
+		}else if(aw_min){
+			try{
+				assert.equal(array.length>=aw_min, true)
+			}catch{
+				return false
+			}
+		}else if(aw_max){
+			try{
+				assert.equal(array.length<=aw_max, true)
+			}catch{
+				return false
+			}
+		}else{
 			return false
 		}
+		return true
 	}
 
 	assertObjectWidth(obj, ow_min, ow_max){
-		try{
-			assert.equal(Object.keys(obj).length>=aw_min, true)
-			assert.equal(Object.keys(obj).length<=aw_max, true)
-			return true
-		}catch{
+		if(ow_min&&ow_max){
+			try{
+				assert.equal(Object.keys(obj).length>=ow_min, true)
+				assert.equal(Object.keys(obj).length<=ow_max, true)
+			}catch{
+				return false
+			}
+		}else if(ow_min){
+			try{
+				assert.equal(Object.keys(obj).length>=ow_min, true)
+			}catch{
+				return false
+			}
+		}else if(ow_max){
+			try{
+				assert.equal(Object.keys(obj).length<=ow_max, true)
+			}catch{
+				return false
+			}
+		}else{
 			return false
 		}
 	}
 
 	assertStringLength(str, str_min, str_max){
-		try{
-			assert.equal(str.length>=str_min, true)
-			assert.equal(str.length<=str_max, true)
-			return true
-		}catch{
+		if(str_min&& str_max){
+			try{
+				assert.equal(str.length>=str_min, true)
+				assert.equal(str.length<=str_max, true)
+			}catch{
+				return false
+			}
+		}else if(str_min){
+			try{
+				assert.equal(str.length>=str_min, true)
+			}catch{
+				return false
+			}
+		}else if(str_max){
+			try{
+				assert.equal(str.length<=str_max, true)
+			}catch{
+				return false
+			}
+		}else{
 			return false
 		}
+		return true
 	}
 
 	assertIntRange(int, int_min, int_max){
-		try{
-			assert.equal(int>=int_min, true)
-			assert.equal(int<=int_min, true)
-			return true
-		}catch{
+		if(int_min&&int_max){
+			try{
+				assert.equal(int>=int_min, true)
+				assert.equal(int<=int_max, true)
+			}catch{
+				return false
+			}
+		}else if(int_min){
+			try{
+				assert.equal(int>=int_min, true)
+			}catch{
+				return false
+			}
+		}else if(int_max){
+			try{
+				assert.equal(int<=int_max, true)
+			}catch{
+				return false
+			}
+		}else{
 			return false
 		}
+		return true
 	}
 
 
 
-	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload']){
+	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
 		//n is controlled by the recursion
 		//maxdepth is only incremented if less than or equal to n
 		if(!truth[0]){return truth[0]}
-		if(n<=maxdepth[0]){maxdepth[0]=n}
+		if(n>=maxdepth[0]){maxdepth[0]=n}
+		if(Array.isArray(strata)&&(aw_min||aw_max)&&(!this.assertArrayWidth(strata, aw_min, aw_max))){
+			truth[0]=false
+			return truth[0]
+		}
+		if((typeof strata === 'object')&&(ow_min||ow_max)&&(!this.assertObjectWidth(strata, ow_min, ow_max))){
+			truth[0]=false
+			return truth[0]
+		}
 
 		if(Array.isArray(strata)){
 			//assert array width max and array width min boundaries
-			if(!this.assertArrayWidth(strata, aw_min, aw_max)){
-				truth[0]=false
-				return truth[0]
-			}else{
-				for(var i = 0; i<strata.length; i++){
-					//recurse on array value only if value is object
-					//increment n
-					if(this.isObject(strata[i])){
-						this.isStrata(strata[i], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n+1, maxdepth, truth, pk)
-					}
+			for(var i = 0; i<strata.length; i++){
+				//recurse on array value only if value is object
+				
+				if(this.isObject(strata[i])){
+					this.isStrata(strata[i], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n, maxdepth, truth, pk, pure)
 				}
 			}
-
 		}else if(typeof strata === 'object'){
 			//assert object width max and object width min boundaries
-			if(!this.assertObjectWidth(strata, ow_min, ow_max)){
-				truth[0]=false
-				return truth[0]
-			}else{
+			if(Object.keys(strata).length){
 				for(var i = 0; i<Object.keys(strata).length; i++){
 					var key = Object.keys(strata)[i]
-					//recurse on keys (but not if included in pk) do not increment n
+					//recurse on keys (but not if included in pk) increment n
 					if(!pk.includes(key)){
-						this.isStrata(strata[key], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n, maxdepth, truth, pk)
+						this.isStrata(strata[key], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n+1, maxdepth, truth, pk)
 					}
 				}
+			}else{
+				return truth[0]
 			}
-
+			
 		}else{
 			//one possible base case, doesn't count towards depth values
-			return strata
+			return truth[0]
 		}
-
-		if(n==0){
+		if(n==0&&(d_min||d_max)){
 			//assert depth
 			if(!this.assertIntRange(maxdepth[0], d_min, d_max)){
 				truth[0]=false
 				return truth[0]
 			}
 		}
-
-		//base case should not be an array of objects and does not count towards depth or width of any type
-		//recursive case should be an array of objects and should count towards depth and width of any type
-
-		//for each recursive case, array width min or max should be assessed within the array loop only for existing objects
-		//for each recursive case, object key width min or max should be assessed withint the object loop only for non payload keys
-		//each recursive case counts towards depth, 0 is assumed from the top which does not guarantee a valid schema
-
+		return truth[0]
 	}
 }
