@@ -8,7 +8,7 @@ export class Validation{
 		this.testIsArray()
 		this.testIsString()
 		this.testIsObject()
-		this.testIsStrata()
+		this.testIsStratum()
 	}
 
 	testIsInteger(){
@@ -62,18 +62,24 @@ export class Validation{
 	}
 
 	//isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
+	testIsStratum(){
+		var obj1 = [{}]
+		console.log("Tests.Validation.isStratum() on", obj1)
+		assert.equal(new Test().Validation.isStratum(obj1), true)
+		console.log("Tests.Validation.isStratum() PASSES")
 
+		var obj2 = [{}, {}, {}]
+		console.log("Tests.Validation.isStratum() on", obj2)
+		assert.equal(new Test().Validation.isStratum(obj2), true)
+		console.log("Tests.Validation.isStratum() PASSES")
+
+		var obj3 = [{}]
+		console.log("Tests.Validation.isStratum() on", obj3)
+		assert.equal(new Test().Validation.isStratum(obj3), true)
+		console.log("Tests.Validation.isStratum() PASSES")
+	}
 	testIsStrata(){
-		var obj1 = [{}, {}, {}]
-		console.log("Tests.Validation.isStrata() on", obj1)
-		assert.equal(new Test().Validation.isStrata(obj1), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3, 3), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0, 0, 0), true)
-		console.log("Tests.Validation.isStrata() PASSES")
+		
 
 		var obj2 = [{'1':[]}, {'1':[]}, {'1':[]}]
 		console.log("Tests.Validation.isStrata() on", obj2)
