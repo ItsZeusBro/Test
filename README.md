@@ -1,7 +1,7 @@
 # Test
 Functions that help Test and complementary AI Quality Assurance tools
 
-General Strategy:
+Future AI Quality Assurance Strategy:
 1. Write test cases using Test tools
 2. Use AI on test cases to generate new test cases
 3. Run generated test cases
