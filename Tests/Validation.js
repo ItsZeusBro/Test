@@ -75,6 +75,16 @@ export class Validation{
 		assert.equal(new Test().Validation.isStrata(obj1, 3, 3, 0, 0, 0, 0), true)
 		console.log("Tests.Validation.isStrata() PASSES")
 
+		var obj2 = [{'1':[]}, {'1':[]}, {'1':[]}]
+		console.log("Tests.Validation.isStrata() on", obj2)
+		assert.equal(new Test().Validation.isStrata(obj2), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3, 3), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0, 0), true)
+		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0, 0, 0), true)
+		console.log("Tests.Validation.isStrata() PASSES")
 	
 	}
 	testIsObject(){
