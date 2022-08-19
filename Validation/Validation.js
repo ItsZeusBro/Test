@@ -284,55 +284,49 @@ export class Validation{
 	}
 
 
+	//valid strata examples:
+	//Strata can be explained as stratified schema, where layers are formed as either an object containing an array or an array
+	//containing an object
+	//{
+	//	'1':[]	
+	//}
+	//[
+	//	{}, 
+	//  {
+	//		'1':[]
+	//	}, 
+	//	{
+	//		'1':[
+	//				{
+	//				
+	//				}, 
+	//				{
+	//					'2':[]
+	//				}
+	//			]
+	//	}
+	//]
 
-	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
-		//n is controlled by the recursion
-		//maxdepth is only incremented if less than or equal to n
-		if(!truth[0]){return truth[0]}
-		if(n>=maxdepth[0]){maxdepth[0]=n}
-		if(Array.isArray(strata)&&(aw_min||aw_max)&&(!this.assertArrayWidth(strata, aw_min, aw_max))){
-			truth[0]=false
-			return truth[0]
-		}
-		if((typeof strata === 'object')&&(ow_min||ow_max)&&(!this.assertObjectWidth(strata, ow_min, ow_max))){
-			truth[0]=false
-			return truth[0]
-		}
-
-		if(Array.isArray(strata)){
-			//assert array width max and array width min boundaries
-			for(var i = 0; i<strata.length; i++){
-				//recurse on array value only if value is object
-				
-				if(this.isObject(strata[i])){
-					this.isStrata(strata[i], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n, maxdepth, truth, pk, pure)
-				}
-			}
-		}else if(typeof strata === 'object'){
-			//assert object width max and object width min boundaries
-			if(Object.keys(strata).length){
-				for(var i = 0; i<Object.keys(strata).length; i++){
-					var key = Object.keys(strata)[i]
-					//recurse on keys (but not if included in pk) increment n
-					if(!pk.includes(key)){
-						this.isStrata(strata[key], aw_min, aw_max, ow_min, ow_max, d_min, d_max, n+1, maxdepth, truth, pk)
-					}
-				}
-			}else{
-				return truth[0]
-			}
-			
-		}else{
-			//one possible base case, doesn't count towards depth values
-			return truth[0]
-		}
-		if(n==0&&(d_min||d_max)){
-			//assert depth
-			if(!this.assertIntRange(maxdepth[0], d_min, d_max)){
-				truth[0]=false
-				return truth[0]
-			}
-		}
-		return truth[0]
+	
+	//layer evaluation
+	isStructuredStrata(strata, aw_min, aw_max, ow_min, ow_max, pk=['payload']){
+		//structured strata is based on payload distinctions for arrays and objects
 	}
+	isUnstructuredStrata(strata, aw_min, aw_max, ow_min, ow_max){
+		//width is evaluated only on objects if strata layer is an array
+		//or it is evaluated only on arrays if strata is an object
+	}
+	isMixedStrata(strata, aw_min, aw_max, ow_min, ow_max){
+		//mixed is checked against both structured and unstructured strata types for each layer
+		//so it is more computationally expensive (but doesnt have to be[its just easier for now])
+	}
+	//everything else is considered base strata so long as strata exists at the first layer (n=0)
+	//strata starts as nonexistent where n=-1, if depth checking is used, 0 would represent a top level array or object
+	//if strata is undefined, it still returns true, so long as depth checking is not involved at something greater than
+	//or equal to 0
+	//strata evaluation
+	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=-1, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
+		//at each level it must be an array of objects or object of arrays
+	}
+
 }
