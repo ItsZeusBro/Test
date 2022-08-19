@@ -309,24 +309,22 @@ export class Validation{
 
 	
 	//layer evaluation
-	isStructuredStrata(strata, aw_min, aw_max, ow_min, ow_max, pk=['payload']){
-		//structured strata is based on payload distinctions for arrays and objects
+	isPureStratum(strata, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[]}){
+		//this means that the stratum is totally based on payload keys and patterns, other than
+		//the stratum connections to the next layer of stratum.
+		//for arrays payload is evaluated as a patterned base case is considered impure and returns false
+		//for objects key/value pairs other than recursive keys are evaluated under payload keys or are impure base cases
+		//and therefore returns false
 	}
-	isUnstructuredStrata(strata, aw_min, aw_max, ow_min, ow_max){
-		//width is evaluated only on objects if strata layer is an array
-		//or it is evaluated only on arrays if strata is an object
+	isImpureStratum(strata, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[]}){
+		
 	}
-	isMixedStrata(strata, aw_min, aw_max, ow_min, ow_max){
-		//mixed is checked against both structured and unstructured strata types for each layer
-		//so it is more computationally expensive (but doesnt have to be[its just easier for now])
+	isPureStrata(strata, aw_min, aw_max, ow_min, ow_max, regular=true){
+		//this means that the stratum at each layer should be purely based on the payload keys and patterns provided
+		//if regular is true, then each layer's top level payload image must be identical to the rest
 	}
-	//everything else is considered base strata so long as strata exists at the first layer (n=0)
-	//strata starts as nonexistent where n=-1, if depth checking is used, 0 would represent a top level array or object
-	//if strata is undefined, it still returns true, so long as depth checking is not involved at something greater than
-	//or equal to 0
-	//strata evaluation
-	isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=-1, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
-		//at each level it must be an array of objects or object of arrays
+	isImpureStrata(strata, aw_min, aw_max, ow_min, ow_max, regular=true){
+		//this means that the stratum at each layer does not need to be purely based on the payload keys and patterns provided
+		//if regular is true, then each layer's top level payload image must be identical to the rest
 	}
-
 }
