@@ -6,13 +6,40 @@
 //
 //this can be used for base case patterns
 //
+export class Pattern{
+    //this describes a pattern as an abstract object
+        //{
+        //  type:
+        //  schema:
+        //  levels:
+        //  recurrance: //data type or object key recurrance pattern as a sequence
+        //  bases:      //some sort of list of base case descriptors
+        //}
+    constructor(schema){
+        //this initiates a pattern from a higher level
+        this.type = typeof schema
+        this.schema = schema
+        this.pattern = this.describe(schema)
+    } 
+    describe(){
+        
+    }
+    equals(pattern){
+
+    }
+
+    is(pattern){
+        //checks if pattern is PatternedType
+    }
+}
 export class PatternEquality{
     constructor(){
         //this is an equality descriptor class that aims at describing the types of equality desired
         //for pattern analysis
     }
-    typeEquality(){
-        
+    typeEquality(pattern1, pattern2, n){
+        //asserts at most n levels of type equality if n levels exist for both patterns
+        //if one pattern runs out of levels at m before n, type equality only can exist up to m, and is evaluated for m
     }
     deepEquality(){
 
@@ -26,6 +53,10 @@ export class PatternEquality{
     metaphoricalEquality(){
         //where some pattern is almost equal to another (within some range of equality)
     }
+    setEquality(){
+        //if two patterns share some logical set of behavior it returns returns that crossection of behavior
+    }
+
     booleanEquality(){
         //this is a compound equality of more primitive equalities
     }
@@ -41,19 +72,7 @@ export class PatternEquality{
 
 }
 
-export class PatternedType{
-    constructor(type, pattern){
 
-    } 
-
-    equals(pattern){
-
-    }
-
-    is(pattern){
-        //checks if pattern is PatternedType
-    }
-}
 
 export class IntPattern{
     constructor(){
