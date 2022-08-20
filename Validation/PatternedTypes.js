@@ -5,11 +5,22 @@
 //searching functions (this contains that, etc...)
 //
 //this can be used for base case patterns
+//
 export class PatternEquality{
     constructor(){
         //this is an equality descriptor class that aims at describing the types of equality desired
         //for pattern analysis
     }
+
+    //what is pattern equality from an abstract description standpoint?
+    //type checking at various levels
+    //deep equality (equalt at every level except n number of levels from the bottom or except for the base cases)
+    //shallow type equality for n number of levels from the top
+    //arbitrary equality (equal at n number of levels starting from some level (aka, partial equality))
+    //boolean equality can be used on any of these equality types for more general equality checks
+    //
+
+
 
 }
 export class PatternedType{
