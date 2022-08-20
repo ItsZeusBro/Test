@@ -11,6 +11,24 @@ export class PatternEquality{
         //this is an equality descriptor class that aims at describing the types of equality desired
         //for pattern analysis
     }
+    typeEquality(){
+        
+    }
+    deepEquality(){
+
+    }
+    shallowEquality(){
+
+    }
+    arbitraryEquality(){
+
+    }
+    metaphoricalEquality(){
+        //where some pattern is almost equal to another (within some range of equality)
+    }
+    booleanEquality(){
+        //this is a compound equality of more primitive equalities
+    }
 
     //what is pattern equality from an abstract description standpoint?
     //type checking at various levels
@@ -18,11 +36,11 @@ export class PatternEquality{
     //shallow type equality for n number of levels from the top
     //arbitrary equality (equal at n number of levels starting from some level (aka, partial equality))
     //boolean equality can be used on any of these equality types for more general equality checks
-    //
 
 
 
 }
+
 export class PatternedType{
     constructor(type, pattern){
 
