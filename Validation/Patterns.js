@@ -14,6 +14,7 @@ export class Pattern{
         //  levels:
         //  recurrance: //data type or object key recurrance pattern as a sequence
         //  bases:      //some sort of list of base case descriptors
+        //  statistics: //(all of our statistical functions are going to use the spiral abstraction)
         //}
     constructor(schema){
         //this initiates a pattern from a higher level
