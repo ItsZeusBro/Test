@@ -20,3 +20,5 @@
 //aababcabcdabcdeabcdefabcdefg
 
 //the mean spiral would be the average of the total set of all possible spirals if we were to plot these spirals on a graph
+
+//On a set of examples with mean spirals of their own, one can take the mean spiral of the set of mean spirals
