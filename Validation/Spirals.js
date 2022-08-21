@@ -10,3 +10,13 @@
 
 //when fitting a spiral we are trying to fit the largest possible spiral for the data
 //or in the alternative the mean spiral between the largest and the smallest
+
+//the largest spiral for the off-by-one patterned oredered set a-z would be
+//v v  v   v    v     v      v
+//aababcabcdabcdeabcdefabcdefg... etc
+
+//the smallest spiral for the off-by-one patterend ordered set a-z would be
+//                    v     v   
+//aababcabcdabcdeabcdefabcdefg
+
+//the mean spiral would be the average of the total set of all possible spirals if we were to plot these spirals on a graph
