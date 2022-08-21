@@ -30,3 +30,9 @@
 //of spirals can be calculated. 
 //There can be other methods for when examples are recurring (like heads or tails) but have no meaning
 //outside of the frequency of their occurence relative to other examples 
+
+class Spirals{
+    constructor(){
+        //
+    }
+}
