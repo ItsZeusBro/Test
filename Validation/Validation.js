@@ -5,7 +5,8 @@ export class Validation{
 	//containing an object
 
 	isStratum(stratum, aw_min, aw_max, ow_min, ow_max){
-		//just checks if there exists a single and minimal stratum case in the layer of schema
+		//Stratum is an array with an object or an object with an array 
+		//(with or without other data types which are called 'payload').
 		var count = 0;
 		if(Array.isArray(stratum)){
 			if((aw_min||aw_max)&&!this.assertArrayWidth(stratum, aw_min, aw_max)){return false}
@@ -32,19 +33,13 @@ export class Validation{
 			return true
 		}
 	}
-	//layer evaluation
 	isPureStratum(stratum, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[/[0-9]*/g]}){
-		//this means that the stratum base cases are totally based on payload keys and patterns, other than
-		//the stratum connections to the next layer of stratum.
-		//if base cases are not pure payload, return false
+		//is defined as a stratum not including any payload that is undefined for the given layer
 		if(Array.isArray(stratum)){
 			if((aw_min||aw_max)&&!this.assertArrayWidth(stratum, aw_min, aw_max)){return false}
 			for(var i = 0; i<stratum.length; i++){
-				if((typeof stratum[i] !== 'object')){
-					if(!(this.inPatterns(payload['patterns'], stratum[i]))){
-						return false
-					}
-				}
+				var val = stratum[i];
+				
 			}
 			return true
 		}else if(typeof stratum === 'object'){
@@ -52,11 +47,7 @@ export class Validation{
 			for(var i = 0; i<Object.keys(stratum).length; i++){
 				var key = Object.keys(stratum)[i];
 				var val = stratum[key];
-				if((!Array.isArray(val))){
-					if(!(payload['keys'].includes(key))){
-						return false
-					}
-				}
+
 			}
 			return true
 		}else if (this.inPatterns(payload['patterns'], stratum)){
