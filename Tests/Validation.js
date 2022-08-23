@@ -74,7 +74,13 @@ export class Validation{
 		//ow_min: object width min (the minimum allowable number of items in the object if it is an object stratum)
 		//ow_max: object width max (the maxumum allowable number of items in the object if it is an object stratum)
 		//----------------Basic isStratum() expected true----------------
-		var obj1 = [{'1':[]}]
+		//Testing Strategy:
+		//test objects containing arrays at various widths
+		//test arrays containing objects at various widths
+		//because payload keys can refer to anything make sure width does not count towards those values if they are valid
+		//payload keys
+		//because javascript objects are not in payload patterns, they are always counted towards array stratum width
+		var obj1 = [{'1':[]}, '1234']
 		var obj2 = [{}, 2, 3, 4]
 		var obj3 = [{}, {}, '1234']
 		var obj4 = {'1':[], '2':[], 'payload':{}}
@@ -95,6 +101,10 @@ export class Validation{
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1[0], undefined, undefined, 1, 1))
 		console.log()
 
+		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 1", "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj1, undefined, undefined, 1, 1, {'keys':['payload'], 'patterns':[/[0-9]*/g]}), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, undefined, undefined, 1, 1))
+		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj2, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj2), true)
@@ -105,7 +115,6 @@ export class Validation{
 		assert.equal(new Test().Validation.isStratum(obj2, 1, 1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2, 1, 1))
 		console.log()
-
 
 		console.log("Tests.Validation.isStratum() on", obj3, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj3), true)
