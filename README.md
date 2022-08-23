@@ -1,5 +1,8 @@
 # Fluff
-Functions that help general needs. For the future this has larger ambitions with AI
+Functions that help general testing and quality assurance needs, or anything else.
+
+Current Generative Testing Strategy:
+1. We are looking for a formal language or schema that describes what a function should do before writing it which would create the test cases for us and the test data needed for the test cases.
 
 Future AI Quality Assurance Strategy:
 1. Write test cases using Fluff tools
