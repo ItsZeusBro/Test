@@ -134,10 +134,26 @@ export class Assertions{
 		return true
 	}
 
+    objectDepth(obj, d_min, d_max, n=0, d=[0]){
+        if(typeof obj === 'object'){
+            for(var i = 0; i<Object.keys(obj).length; i++){
+                var key = Object.keys(obj)[i]
+                var val = obj[key]
+                this.objectDepth(val, d_min, d_max, n+1, d)
+            } 
+        }
+        if(n>=d[0]){d[0]=n}
 
-
-    objectDepth(){
-
+        if(n==0){
+            try{
+                console.log('here', d[0])
+				assert.equal(d[0]>=d_min, true)
+				assert.equal(d[0]<=d_max, true)
+                return true
+			}catch{
+				return false
+			}
+        }
     }
 
     objectWidth(){
@@ -162,7 +178,7 @@ export class Assertions{
         //apply a function on a list, object, integer, function should return assertion value
     }
 
-
-
-
 }
+
+// var assertions = new Assertions()   
+// console.log({'0':{'1':{'2':{}}}}, assertions.objectDepth({'0':{'1':{'2':{}}}}, 3, 3))
