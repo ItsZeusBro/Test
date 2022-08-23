@@ -4,12 +4,12 @@ export class Validation{
 	//Strata can be explained as stratified schema, where layers are formed as either an object containing an array or an array
 	//containing an object
 
-	isStratum(stratum, aw_min, aw_max, ow_min, ow_max){
+	isStratum(stratum, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[]}){
 		//Stratum is an array with an object or an object with an array 
 		//(with or without other data types which are called 'payload').
 		var count = 0;
 		if(Array.isArray(stratum)){
-			if((aw_min||aw_max)&&!this.assertArrayWidth(stratum, aw_min, aw_max)){return false}
+			if((aw_min||aw_max)&&!this.assertStratumArrayWidth(stratum, aw_min, aw_max, payload)){return false}
 			for(var i = 0; i<stratum.length; i++){
 				var val =stratum[i]
 				if(typeof val === 'object'){
@@ -17,47 +17,57 @@ export class Validation{
 				}
 			}
 		}else if(typeof stratum === 'object'){
-			if((ow_min||ow_max)&&!this.assertObjectWidth(stratum, ow_min, ow_max)){return false}
+			if((ow_min||ow_max)&&!this.assertStratumObjectWidth(stratum, ow_min, ow_max, payload)){return false}
 			for(var i = 0; i<Object.keys(stratum).length; i++){
 				var key = Object.keys(stratum)[i]
 				var val = stratum[key]
-				if(Array.isArray(val)){
+				if( Array.isArray(val) && !(payload['keys'].includes(key))){
 					count+=1
 				}
 			}
 		}else{
 			return false
 		}
-
-		if(count){
-			return true
-		}
+		if(count){ return true }else{ return false }
 	}
-	isPureStratum(stratum, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[/[0-9]*/g]}){
+
+	isPureStratum(stratum, aw_min, aw_max, ow_min, ow_max, payload={'keys':['payload'], 'patterns':[]}){
 		//is defined as a stratum not including any payload that is undefined for the given layer
+		//all payload (non stratum) must be purely derived from payload structure
+		var count=0;
 		if(Array.isArray(stratum)){
-			if((aw_min||aw_max)&&!this.assertArrayWidth(stratum, aw_min, aw_max)){return false}
+			if((aw_min||aw_max)&&!this.assertStratumArrayWidth(stratum, aw_min, aw_max, payload)){return false}
 			for(var i = 0; i<stratum.length; i++){
 				var val = stratum[i];
-				
+				if(typeof val === 'object'){
+					count+=1
+				}
 			}
 			return true
 		}else if(typeof stratum === 'object'){
-			if((ow_min||ow_max)&&!this.assertObjectWidth(stratum, ow_min, ow_max)){return false}
+			if((ow_min||ow_max)&&!this.assertStratumObjectWidth(stratum, ow_min, ow_max, payload)){return false}
 			for(var i = 0; i<Object.keys(stratum).length; i++){
 				var key = Object.keys(stratum)[i];
 				var val = stratum[key];
-
+				if( Array.isArray(val) && !(payload['keys'].includes(key))){
+					count+=1
+				}
 			}
 			return true
-		}else if (this.inPatterns(payload['patterns'], stratum)){
-			return true
-		}else{
-			return false
 		}
+		if(count){ return true }else{ return false }
 	}
 
-	inPatterns(patterns, value){
+	inPayload(value, payload){
+		for(var i = 0; i<payload.length; i++){
+			if(payload.includes(value)){
+				return true
+			}
+		}
+		return false
+	}
+
+	inPatterns(value, patterns){
 		for(var i = 0; i<patterns.length; i++){
 			if(typeof value === 'string' && value.match(patterns[i])[0]){
 				return true
@@ -240,24 +250,47 @@ export class Validation{
 		}
 		return true
 	}
-	
-	assertArrayWidth(array, aw_min, aw_max){
+	getStratumWidth(objOrArray, payload){
+		var count = 0;
+		if(Array.isArray(objOrArray)){
+			for(var i = 0; i<objOrArray.length; i++){
+				var val = objOrArray[i]
+				if(typeof val === 'object'){
+					//make we only count objects towards the width
+					count+=1
+				}
+			}
+			return count
+		}else if(typeof objOrArray==='object'){
+			for(var i = 0; i<Object.keys(objOrArray).length; i++){
+				var key = Object.keys(objOrArray)[i]
+				var val = objOrArray[key]
+				if(Array.isArray(val)){
+					//make we only count arrays towards the width
+					count+=1
+				}
+			}
+		}else{
+			return 0
+		}
+	}
+	assertStratumArrayWidth(array, aw_min, aw_max, payload){
 		if(aw_min&& aw_max){
 			try{
-				assert.equal(array.length>=aw_min, true)
-				assert.equal(array.length<=aw_max, true)
+				assert.equal(this.getStratumWidth(array, payload)>=aw_min, true)
+				assert.equal(this.getStratumWidth(array, payload)<=aw_max, true)
 			}catch{
 				return false
 			}
 		}else if(aw_min){
 			try{
-				assert.equal(array.length>=aw_min, true)
+				assert.equal(this.getStratumWidth(array, payload)>=aw_min, true)
 			}catch{
 				return false
 			}
 		}else if(aw_max){
 			try{
-				assert.equal(array.length<=aw_max, true)
+				assert.equal(this.getStratumWidth(array, payload)<=aw_max, true)
 			}catch{
 				return false
 			}
@@ -267,23 +300,23 @@ export class Validation{
 		return true
 	}
 
-	assertObjectWidth(obj, ow_min, ow_max){
+	assertStratumObjectWidth(obj, ow_min, ow_max, payload){
 		if(ow_min&&ow_max){
 			try{
-				assert.equal(Object.keys(obj).length>=ow_min, true)
-				assert.equal(Object.keys(obj).length<=ow_max, true)
+				assert.equal(this.getStratumWidth(obj, payload)>=ow_min, true)
+				assert.equal(this.getStratumWidth(obj, payload)<=ow_max, true)
 			}catch{
 				return false
 			}
 		}else if(ow_min){
 			try{
-				assert.equal(Object.keys(obj).length>=ow_min, true)
+				assert.equal(this.getStratumWidth(obj, payload)>=ow_min, true)
 			}catch{
 				return false
 			}
 		}else if(ow_max){
 			try{
-				assert.equal(Object.keys(obj).length<=ow_max, true)
+				assert.equal(this.getStratumWidth(obj, payload)<=ow_max, true)
 			}catch{
 				return false
 			}
@@ -345,12 +378,3 @@ export class Validation{
 	}
 }
 
-var validation = new Validation()
-assert.equal(validation.isPureStratum({'1':[], '2':[], 'payload':{}}), true)
-assert.equal(validation.isPureStratum([{}, {}, {}, {}]), true)
-assert.equal(validation.isPureStratum([{}, {}, '1234']), true)
-
-
-assert.equal(validation.isStratum({'1':[], '2':[], 'payload':{}}), true)
-assert.equal(validation.isStratum([{}, {}, {}, {}]), true)
-assert.equal(validation.isStratum([{}, {}, '1234']), true)
