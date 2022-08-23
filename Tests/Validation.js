@@ -81,73 +81,75 @@ export class Validation{
 		//payload keys
 		//because javascript objects are not in payload patterns, they are always counted towards array stratum width
 		var obj1 = [{'1':[]}, '1234']
-		var obj2 = [{}, 2, 3, 4]
-		var obj3 = [{}, {}, '1234']
-		var obj4 = {'1':[], '2':[], 'payload':{}}
-		var obj5 = {'payload':{}}
+		var obj2 = [{}, {'1':[]}]	
+		var obj3 = {'1':[], '2':[], 'payload':{}}
+		var obj4 = {'payload':{}}
 
 		console.log("Tests.Validation.isStratum() on", obj1, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1))
-		console.log()
-
 		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 1", "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj1, 1, 1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, 1, 1))
+
+		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 2", "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj1, 2, 2), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, 2, 2))
+
+		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 0", "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj1, -1, -1), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, -1, -1))
+
+		console.log()
+		console.log()
 		console.log()
 
-		console.log("Tests.Validation.isStratum() on", obj1[0], "asserting min/max width 1", "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj1[0], undefined, undefined, 1, 1), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1[0], undefined, undefined, 1, 1))
-		console.log()
-
-		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 1", "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj1, undefined, undefined, 1, 1, {'keys':['payload'], 'patterns':[/[0-9]*/g]}), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, undefined, undefined, 1, 1))
-		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj2, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj2), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2))
+
+		console.log("Tests.Validation.isStratum() on", obj2, "asserting min/max width 2", "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj2, 2, 2), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2, 2, 2))
+
+		console.log()
+		console.log()
 		console.log()
 
-		console.log("Tests.Validation.isStratum() on", obj2, "asserting min/max width 1", "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj2, 1, 1), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2, 1, 1))
-		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj3, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj3), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3))
-		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj3, "asserting min/max width 2", "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj3, 2, 2), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3, 2, 2))
+		assert.equal(new Test().Validation.isStratum(obj3,  undefined, undefined, 2, 2), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3, undefined, undefined, 2, 2))
+		
+		console.log("Tests.Validation.isStratum() on", obj3, "asserting min/max width 1", "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj3,  undefined, undefined, 1, 1), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3, undefined, undefined, 1, 1))
+		
+		console.log("Tests.Validation.isStratum() on", obj3, "asserting min/max width 3", "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj3,  undefined, undefined, 3, 3), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3, undefined, undefined, 3, 3))
+		
+		console.log()
+		console.log()
 		console.log()
 
 
-		console.log("Tests.Validation.isStratum() on", obj4, "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj4), true)
+		console.log("Tests.Validation.isStratum() on", obj4, "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj4), false)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4))
+
+		console.log("Tests.Validation.isStratum() on", obj4, "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj4), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4, undefined, undefined, 0, 0))
+		
 		console.log()
-
-		console.log("Tests.Validation.isStratum() on", obj4, "asserting min/max width 2", "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj4, 2, 2), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4, 2, 2))
 		console.log()
-
-
-		console.log("Tests.Validation.isStratum() on", obj5, "EXPECTED FALSE")
-		assert.equal(new Test().Validation.isStratum(obj5), false)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj5))
 		console.log()
-
-		console.log("Tests.Validation.isStratum() on", obj5, "EXPECTED FALSE")
-		assert.equal(new Test().Validation.isStratum(obj5), false)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj5))
-		console.log()
-
 
 	}
 	// testIsStrata(){

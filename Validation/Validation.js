@@ -270,7 +270,6 @@ export class Validation{
 					count+=1
 				}
 			}
-			console.log("HERE", count)
 			return count
 		}else{
 			return 0
@@ -303,9 +302,7 @@ export class Validation{
 	}
 
 	assertStratumObjectWidth(obj, ow_min, ow_max, payload){
-		console.log(obj, ow_min, ow_max, payload)
 		if(ow_min&&ow_max){
-			console.log("WIDTH SHOULD BE 1", this.getStratumWidth(obj, payload), ow_min, ow_max)
 			try{
 				assert.equal(this.getStratumWidth(obj, payload)>=ow_min, true)
 				assert.equal(this.getStratumWidth(obj, payload)<=ow_max, true)
