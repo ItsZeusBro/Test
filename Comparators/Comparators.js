@@ -1,7 +1,7 @@
 export class Comparators{
 	//COMPARATORS----------------------------------------------------
 
-	isEqualObj(obj1, obj2, equal=[true]){
+	isEqualObject(obj1, obj2, equal=[true]){
 		if(
 				(!equal[0])
 			||
@@ -12,7 +12,7 @@ export class Comparators{
 			equal[0]=false
 			return equal[0]
 		}else{
-			if(this.isEqualArr(Object.keys(obj1), Object.keys(obj2), equal)){
+			if(this.isEqualArray(Object.keys(obj1), Object.keys(obj2), equal)){
 				for(var i=0; i<Object.keys(obj1).length; i++){
 					if(!this.isEqual(obj1[Object.keys(obj1)[i]], obj2[Object.keys(obj2)[i]], equal)){
 						equal[0]=false
@@ -27,7 +27,7 @@ export class Comparators{
 		}
 	}
 
-	isEqualStr(str1, str2, equal=[true]){
+	isEqualString(str1, str2, equal=[true]){
 		if(
 				(!equal[0])
 			||
@@ -56,7 +56,7 @@ export class Comparators{
 			return equal[0]
 		}
 		else if(str1[0]==str2[0]){
-			return this.isEqualStr(str1.slice(1), str2.slice(1), equal)
+			return this.isEqualString(str1.slice(1), str2.slice(1), equal)
 		}else{
 			equal[0]=false
 			return equal[0]
@@ -81,7 +81,7 @@ export class Comparators{
 		}
 	}
 
-	isEqualArr(arr1, arr2, equal=[true]){
+	isEqualArray(arr1, arr2, equal=[true]){
 		if(
 				(!equal[0])
 			||
@@ -117,13 +117,13 @@ export class Comparators{
 			return equal[0]
 		}else{
 			if(Array.isArray(thing1)){
-				return this.isEqualArr(thing1, thing2, equal)
+				return this.isEqualArray(thing1, thing2, equal)
 			}else if(typeof thing1 === 'number'){
 				return this.isEqualNumber(thing1, thing2, equal)
 			}else if(typeof thing1 === 'string'){
-				return this.isEqualStr(thing1, thing2, equal)
+				return this.isEqualString(thing1, thing2, equal)
 			}else if(typeof thing1 === 'object'){
-				return this.isEqualObj(thing1, thing2, equal)
+				return this.isEqualObject(thing1, thing2, equal)
 			}else if(this.isStrata(thing1)){
 				return this.isEqualStrata(thing1, thing2, equal)
 			}else if(!thing1 && !thing2){

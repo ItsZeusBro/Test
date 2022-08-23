@@ -27,20 +27,20 @@ export class Comparators{
 	testArray(n){
 		console.log("TEST ARRAY")
 		var test = new Test()
-		var array1 = test.Random.randArr(n)
-		var array2 = test.Random.randArr(n)
-		assert.equal(test.Comparators.isEqualArr(array1.slice(), array1.slice()), true)
-		assert.equal(test.Comparators.isEqualArr(array1.slice(), array2.slice()), false)
+		var array1 = test.Random.randArray(n)
+		var array2 = test.Random.randArray(n)
+		assert.equal(test.Comparators.isEqualArray(array1.slice(), array1.slice()), true)
+		assert.equal(test.Comparators.isEqualArray(array1.slice(), array2.slice()), false)
 		console.log("TEST ARRAY PASSED")
 	}
 
 	testObject(n){
 		console.log("TEST OBJ")
 		var test = new Test()
-		var obj1 = test.Random.randObj(n)
-		var obj2 = test.Random.randObj(n)
-		assert.equal(test.Comparators.isEqualObj(obj1, obj1), true)
-		assert.equal(test.Comparators.isEqualObj(obj1, obj2), false)
+		var obj1 = test.Random.randObject(n)
+		var obj2 = test.Random.randObject(n)
+		assert.equal(test.Comparators.isEqualObject(obj1, obj1), true)
+		assert.equal(test.Comparators.isEqualObject(obj1, obj2), false)
 		console.log("TEST OBJ PASSED")
 	}
 
@@ -58,20 +58,20 @@ export class Comparators{
 		var test = new Test()
 		var str1 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
 		var str2 = "kldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaergkldsjfhasklgjhsdglaksdjgalukierhtfglkaszjgnaslgkuhaerg"
-		assert.equal(test.Comparators.isEqualStr(str1, str1), true)
-		assert.equal(test.Comparators.isEqualStr(str1, str2), false)		
+		assert.equal(test.Comparators.isEqualString(str1, str1), true)
+		assert.equal(test.Comparators.isEqualString(str1, str2), false)		
 		console.log("TEST STRING PASSED")
 	}
 	testEquals(n){
 		console.log("TEST EQUAL")
 		var test = new Test()
-		var array1 = test.Random.randArr(n)
-		var array2 = test.Random.randArr(n)
+		var array1 = test.Random.randArray(n)
+		var array2 = test.Random.randArray(n)
 		assert.equal(test.Comparators.isEqual(array1.slice(), array1.slice()), true)
 		assert.equal(test.Comparators.isEqual(array1.slice(), array2.slice()), false)
 
-		var obj1 = test.Random.randObj(n)
-		var obj2 = test.Random.randObj(n)
+		var obj1 = test.Random.randObject(n)
+		var obj2 = test.Random.randObject(n)
 		assert.equal(test.Comparators.isEqual(obj1, obj1), true)
 		assert.equal(test.Comparators.isEqual(obj1, obj2), false)
 
