@@ -265,11 +265,13 @@ export class Validation{
 			for(var i = 0; i<Object.keys(objOrArray).length; i++){
 				var key = Object.keys(objOrArray)[i]
 				var val = objOrArray[key]
-				if(Array.isArray(val)){
+				if(Array.isArray(val)&&(!payload['keys'].includes(key))){
 					//make we only count arrays towards the width
 					count+=1
 				}
 			}
+			console.log("HERE", count)
+			return count
 		}else{
 			return 0
 		}
@@ -301,7 +303,9 @@ export class Validation{
 	}
 
 	assertStratumObjectWidth(obj, ow_min, ow_max, payload){
+		console.log(obj, ow_min, ow_max, payload)
 		if(ow_min&&ow_max){
+			console.log("WIDTH SHOULD BE 1", this.getStratumWidth(obj, payload), ow_min, ow_max)
 			try{
 				assert.equal(this.getStratumWidth(obj, payload)>=ow_min, true)
 				assert.equal(this.getStratumWidth(obj, payload)<=ow_max, true)
@@ -323,6 +327,7 @@ export class Validation{
 		}else{
 			return false
 		}
+		return true
 	}
 
 	assertStringLength(str, str_min, str_max){

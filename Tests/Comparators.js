@@ -23,14 +23,17 @@ export class Comparators{
 			this.testObject(n);
 		}
 	}
-
+	//BEWARE OF TEST COLLISIONS WHEN GENERATING RANDOM OBJECTS (statistical analysis would be better)
 	testArray(n){
 		console.log("TEST ARRAY")
 		var test = new Test()
 		var array1 = test.Random.randArray(n)
 		var array2 = test.Random.randArray(n)
+
 		assert.equal(test.Comparators.isEqualArray(array1.slice(), array1.slice()), true)
 		assert.equal(test.Comparators.isEqualArray(array1.slice(), array2.slice()), false)
+
+
 		console.log("TEST ARRAY PASSED")
 	}
 

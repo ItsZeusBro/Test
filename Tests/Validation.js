@@ -74,7 +74,7 @@ export class Validation{
 		//ow_min: object width min (the minimum allowable number of items in the object if it is an object stratum)
 		//ow_max: object width max (the maxumum allowable number of items in the object if it is an object stratum)
 		//----------------Basic isStratum() expected true----------------
-		var obj1 = [{}]
+		var obj1 = [{'1':[]}]
 		var obj2 = [{}, 2, 3, 4]
 		var obj3 = [{}, {}, '1234']
 		var obj4 = {'1':[], '2':[], 'payload':{}}
@@ -85,24 +85,20 @@ export class Validation{
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1))
 		console.log()
 
-		console.log("Tests.Validation.isStratum() on", obj2, "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj2), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2))
-		console.log()
-
-		console.log("Tests.Validation.isStratum() on", obj3, "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj3), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3))
-		console.log()
-
-		console.log("Tests.Validation.isStratum() on", obj4, "EXPECTED TRUE")
-		assert.equal(new Test().Validation.isStratum(obj4), true)
-		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4))
-		console.log()
-
 		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 1", "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj1, 1, 1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, 1, 1))
+		console.log()
+
+		console.log("Tests.Validation.isStratum() on", obj1[0], "asserting min/max width 1", "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj1[0], undefined, undefined, 1, 1), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1[0], undefined, undefined, 1, 1))
+		console.log()
+
+
+		console.log("Tests.Validation.isStratum() on", obj2, "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj2), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2))
 		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj2, "asserting min/max width 1", "EXPECTED TRUE")
@@ -110,9 +106,21 @@ export class Validation{
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj2, 1, 1))
 		console.log()
 
+
+		console.log("Tests.Validation.isStratum() on", obj3, "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj3), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3))
+		console.log()
+
 		console.log("Tests.Validation.isStratum() on", obj3, "asserting min/max width 2", "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj3, 2, 2), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj3, 2, 2))
+		console.log()
+
+
+		console.log("Tests.Validation.isStratum() on", obj4, "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStratum(obj4), true)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4))
 		console.log()
 
 		console.log("Tests.Validation.isStratum() on", obj4, "asserting min/max width 2", "EXPECTED TRUE")
@@ -120,11 +128,18 @@ export class Validation{
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj4, 2, 2))
 		console.log()
 
+
 		console.log("Tests.Validation.isStratum() on", obj5, "EXPECTED FALSE")
 		assert.equal(new Test().Validation.isStratum(obj5), false)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj5))
 		console.log()
-		///[0-9]*/g
+
+		console.log("Tests.Validation.isStratum() on", obj5, "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStratum(obj5), false)
+		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj5))
+		console.log()
+
+
 	}
 	// testIsStrata(){
 		
