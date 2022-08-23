@@ -1,34 +1,19 @@
 import * as assert  from "node:assert";
-
+import { Getters } from "./Getters.js";
 export class Assertions{
     constructor(){
 
     }
-    _getStratumWidth(objOrArray, payload){
-		var count = 0;
-		if(Array.isArray(objOrArray)){
-			for(var i = 0; i<objOrArray.length; i++){
-				var val = objOrArray[i]
-				if(typeof val === 'object'){
-					//make we only count objects towards the width
-					count+=1
-				}
-			}
-			return count
-		}else if(typeof objOrArray==='object'){
-			for(var i = 0; i<Object.keys(objOrArray).length; i++){
-				var key = Object.keys(objOrArray)[i]
-				var val = objOrArray[key]
-				if(Array.isArray(val)&&(!payload['keys'].includes(key))){
-					//make we only count arrays towards the width
-					count+=1
-				}
-			}
-			return count
-		}else{
-			return 0
-		}
-	}
+    
+    stratumWidth(stratum, min, max, payload){
+        if(Array.isArray(stratum)){
+            return this.stratumArrayWidth(stratum, min, max, payload)
+        }else if(typeof stratum === 'object'){
+            return this.stratumObjectWidth(stratum, min, max, payload)
+        }else{
+            return false
+        }
+    }
 
     stratumArrayWidth(array, aw_min, aw_max, payload){
 		if(aw_min&& aw_max){
@@ -134,30 +119,21 @@ export class Assertions{
 		return true
 	}
 
-    objectDepth(obj, d_min, d_max, n=0, d=[0]){
-        if(typeof obj === 'object'){
-            for(var i = 0; i<Object.keys(obj).length; i++){
-                var key = Object.keys(obj)[i]
-                var val = obj[key]
-                this.objectDepth(val, d_min, d_max, n+1, d)
-            } 
+    treeDepth(obj, d_min, d_max){
+        var get = new Getters()
+        try{
+            var d = get.treeDepth(obj)
+            assert.equal(d>=d_min, true)
+            assert.equal(d<=d_max, true)
+            return true
+        }catch{
+            return false
         }
-        if(n>=d[0]){d[0]=n}
-
-        if(n==0){
-            try{
-                console.log('here', d[0])
-				assert.equal(d[0]>=d_min, true)
-				assert.equal(d[0]<=d_max, true)
-                return true
-			}catch{
-				return false
-			}
-        }
+        
     }
 
-    objectWidth(){
-
+    objectWidth(atDepth){
+        
     }
 
     objectTypePattern(){
