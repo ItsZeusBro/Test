@@ -133,5 +133,29 @@ export class Getters{
     matrixSectionAtWidth(n){
         
     }
+
+    lnklstLength(lnklst, l=[0]){
+        if(lnklst['next']){
+            l[0]+=1
+            this.lnklstLength(lnklst['next'], l)
+        }
+        return l
+    }
+    lnklstAt(lnklst, n, payload=[]){
+        if(n==0){
+            payload.push(lnklst['payload'])
+            return payload
+        }else{
+            if(lnklst['next']){
+                this.lnklstLength(lnklst['next'], n-1)
+            }else{
+                return payload
+            }
+        }
+        
+        return payload
+    }
+
+
 }
 
