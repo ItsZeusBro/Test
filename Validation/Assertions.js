@@ -2,7 +2,7 @@ import * as assert  from "node:assert";
 import { Getters } from "./Getters.js";
 export class Assertions{
     constructor(){
-
+		this.getters = new Getters()
     }
     
     stratumWidth(stratum, min, max, payload){
@@ -18,20 +18,20 @@ export class Assertions{
     stratumArrayWidth(array, aw_min, aw_max, payload){
 		if(aw_min&& aw_max){
 			try{
-				assert.equal(this._getStratumWidth(array, payload)>=aw_min, true)
-				assert.equal(this._getStratumWidth(array, payload)<=aw_max, true)
+				assert.equal(this.getters.stratumWidth(array, payload)>=aw_min, true)
+				assert.equal(this.getters.stratumWidth(array, payload)<=aw_max, true)
 			}catch{
 				return false
 			}
 		}else if(aw_min){
 			try{
-				assert.equal(this._getStratumWidth(array, payload)>=aw_min, true)
+				assert.equal(this.getters.stratumWidth(array, payload)>=aw_min, true)
 			}catch{
 				return false
 			}
 		}else if(aw_max){
 			try{
-				assert.equal(this._getStratumWidth(array, payload)<=aw_max, true)
+				assert.equal(this.getters.stratumWidth(array, payload)<=aw_max, true)
 			}catch{
 				return false
 			}
@@ -44,20 +44,20 @@ export class Assertions{
 	stratumObjectWidth(obj, ow_min, ow_max, payload){
 		if(ow_min&&ow_max){
 			try{
-				assert.equal(this._getStratumWidth(obj, payload)>=ow_min, true)
-				assert.equal(this._getStratumWidth(obj, payload)<=ow_max, true)
+				assert.equal(this.getters.stratumWidth(obj, payload)>=ow_min, true)
+				assert.equal(this.getters.stratumWidth(obj, payload)<=ow_max, true)
 			}catch{
 				return false
 			}
 		}else if(ow_min){
 			try{
-				assert.equal(this._getStratumWidth(obj, payload)>=ow_min, true)
+				assert.equal(this.getters.stratumWidth(obj, payload)>=ow_min, true)
 			}catch{
 				return false
 			}
 		}else if(ow_max){
 			try{
-				assert.equal(this._getStratumWidth(obj, payload)<=ow_max, true)
+				assert.equal(this.getters.stratumWidth(obj, payload)<=ow_max, true)
 			}catch{
 				return false
 			}

@@ -9,7 +9,7 @@ export class Validation{
 		this.testIsString()
 		this.testIsObject()
 		this.testIsStratum()
-		//this.testIsStrata()
+		this.testIsStrata()
 	}
 
 	testIsInteger(){
@@ -62,7 +62,6 @@ export class Validation{
 		console.log("Tests.Validation.testIsString() PASSES")
 	}
 
-	//isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
 	testIsStratum(){
 		//----------------definition-------------------
 		//Valid Stratum:
@@ -89,6 +88,7 @@ export class Validation{
 		console.log("Tests.Validation.isStratum() on", obj1, "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1))
+
 		console.log("Tests.Validation.isStratum() on", obj1, "asserting min/max width 1", "EXPECTED TRUE")
 		assert.equal(new Test().Validation.isStratum(obj1, 1, 1), true)
 		console.log("Tests.Validation.isStratum() RESULT", new Test().Validation.isStratum(obj1, 1, 1))
@@ -153,18 +153,25 @@ export class Validation{
 		console.log()
 
 	}
-	
+
+	//isStrata(strata, aw_min, aw_max, ow_min, ow_max, d_min, d_max, n=0, maxdepth=[0], truth=[true], pk=['payload'], pure=true){
+
 	testIsStrata(){
-		var obj2 = [{'1':[]}, {'1':[]}, {'1':[]}]
-		console.log("Tests.Validation.isStrata() on", obj2)
-		assert.equal(new Test().Validation.isStrata(obj2), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3, 3), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0, 0), true)
-		assert.equal(new Test().Validation.isStrata(obj2, 3, 3, 0, 0, 0, 0), true)
-		console.log("Tests.Validation.isStrata() PASSES")
+		//Valid strata has valid stratum at each recursive level. If there is any valid stratum, then it is valid strata
+		//of depth n, where n represents the number of valid stratum in the recursive strata
+		//Furthermore, strata can be pure or impure, where pure strata represents pure stratum at every recursive level
+		//up until a base case is present (which cannot be stratum or pure stratum for pure strata)
+
+		var obj1 = [{}, {}, {}]
+		console.log("Tests.Validation.isStrata() on", obj1, "EXPECTED TRUE")
+		assert.equal(new Test().Validation.isStrata(obj1), true)
+		console.log("Tests.Validation.isStrata() RESULT", new Test().Validation.isStrata(obj1))
+
+		console.log("Tests.Validation.isStrata() on", obj1[0], "EXPECTED FALSE")
+		assert.equal(new Test().Validation.isStrata(obj1[0]), false)
+		console.log("Tests.Validation.isStrata() RESULT", new Test().Validation.isStrata(obj1[0]))
+
+		
 	}
 
 	testIsObject(){
@@ -204,6 +211,7 @@ export class Validation{
 			'somekey1':{'somekey1':'somevalue', 'somekey2':'somevalue'}, 
 			'somekey2':{'somekey1':'somevalue', 'somekey2':'somevalue'}
 		}
+
 		console.log("Tests.Validation.isObject() on", obj4)
 		assert.equal(new Test().Validation.isObject(obj4), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2), true)
@@ -211,6 +219,10 @@ export class Validation{
 		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1), true)
 		assert.equal(new Test().Validation.isObject(obj4, 2, 2, 1, 1), true)
 		console.log("Tests.Validation.isObject() PASSES")
+
+	}
+
+	testGetters(){
 
 	}
 }

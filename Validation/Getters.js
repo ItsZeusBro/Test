@@ -127,10 +127,19 @@ export class Getters{
         return w[0]
     }
 
-    matrixSectionAtDepth(n){
-
+    matrixSectionAtDepth(mtx, d, section=[]){
+        if(d==0){
+            section.push(mtx)
+        }else if(Array.isArray(mtx)){
+            for(var i = 0; i<mtx.length; i++){
+                this.matrixSectionAtDepth(mtx[i], d-1, section)
+            }
+        }else{
+            return section
+        }
+        return section
     }
-    matrixSectionAtWidth(n){
+    matrixSectionAtWidth(mtx, w, section){
         
     }
 
