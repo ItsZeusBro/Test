@@ -2,7 +2,7 @@ import { assert } from "node:console";
 import * as util from "node:util"
 import { Comparators } from "./Comparators/Comparators.js";
 import { Random } from "./Random/Random.js";
-import { Validation } from "./Validation/Validation.js";
+import { Validation } from "./Types/Types.js";
 
 export class Test{
 	constructor(){
