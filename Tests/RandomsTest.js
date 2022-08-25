@@ -35,6 +35,7 @@ export class RandomsTest{
 		console.log("randomInteger array", intArr)
 		assert.equal(this.types.isArray(intArr), true)
 		for(var i=0; i<intArr.length; i++){
+			console.log("testing ", intArr[i])
 			assert.equal(this.types.isInteger(intArr[i]), true)
 			assert.equal(intArr[i]<=n, true)
 		}

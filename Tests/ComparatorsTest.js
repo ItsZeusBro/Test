@@ -1,7 +1,7 @@
 import * as assert from "node:assert"
 import * as util from "node:util"
 import {Comparators} from "../Comparators/Comparators.js"
-import { Random } from "../Randoms/Randoms.js"
+import { Randoms } from "../Randoms/Randoms.js"
 export class ComparatorsTest{
 	constructor(n){
 		this.testArrays(n)
@@ -27,8 +27,8 @@ export class ComparatorsTest{
 	testArray(n){
 		console.log("TEST ARRAY")
 
-		var array1 = new Random().randArray(n)
-		var array2 = new Random().randArray(n)
+		var array1 = new Randoms().randomArray(n)
+		var array2 = new Randoms().randomArray(n)
 
 		assert.equal(new Comparators().isEqualArray(array1.slice(), array1.slice()), true)
 		assert.equal(new Comparators().isEqualArray(array1.slice(), array2.slice()), false)
@@ -39,8 +39,8 @@ export class ComparatorsTest{
 
 	testObject(n){
 		console.log("TEST OBJ")
-		var obj1 = new Random().randObject(n)
-		var obj2 = new Random().randObject(n)
+		var obj1 = new Randoms().randomObject(n)
+		var obj2 = new Randoms().randomObject(n)
 		assert.equal(new Comparators().isEqualObject(obj1, obj1), true)
 		assert.equal(new Comparators().isEqualObject(obj1, obj2), false)
 		console.log("TEST OBJ PASSED")
@@ -64,13 +64,13 @@ export class ComparatorsTest{
 	}
 	testEquals(n){
 		console.log("TEST EQUAL")
-		var array1 = new Random().randArray(n)
-		var array2 = new Random().randArray(n)
+		var array1 = new Randoms().randomArray(n)
+		var array2 = new Randoms().randomArray(n)
 		assert.equal(new Comparators().isEqual(array1.slice(), array1.slice()), true)
 		assert.equal(new Comparators().isEqual(array1.slice(), array2.slice()), false)
 
-		var obj1 = new Random().randObject(n)
-		var obj2 = new Random().randObject(n)
+		var obj1 = new Randoms().randomObject(n)
+		var obj2 = new Randoms().randomObject(n)
 		assert.equal(new Comparators().isEqual(obj1, obj1), true)
 		assert.equal(new Comparators().isEqual(obj1, obj2), false)
 

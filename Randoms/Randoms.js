@@ -1,6 +1,6 @@
 export class Randoms{
 	//RANDOM GENERATORS----------------------------------------------------
-	randString(n, array=false){
+	randomString(n, array=false){
 		if(array){
 			var arr=[]; 
 			for(var i=0;i<n;i++){arr.push(this.genString(n))}; 
@@ -10,7 +10,7 @@ export class Randoms{
 		}
 	}
 
-    randInteger(n, array=false){
+    randomInteger(n, array=false){
 		if(array){
 			var arr=[]; 
 			for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
@@ -20,7 +20,7 @@ export class Randoms{
 		}
 	}
 
-    randArray(n, array=false){
+    randomArray(n, array=false){
 		if(array){
 			var arrOfArr=[]
 			for(var i = 0; i<n; i++){
@@ -40,7 +40,7 @@ export class Randoms{
 		}
 	}
 
-	randStrata(nMin, nMax, mMin, mMax, pk=['payload']){
+	randomStrata(nMin, nMax, mMin, mMax, pk=['payload']){
 		var n = this.randomRange(nMin, nMax)
 		var m = this.randomRange(mMin, mMax)
 
@@ -91,35 +91,35 @@ export class Randoms{
 	}
 
 
-    rand(n){return eval(this.sample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10())')}
+    random(n){return eval(this.sample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10())')}
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
-    randObject(n, array=false){
+    randomObject(n, array=false){
 		//O(nlognlogn) growth complexity
 		if(array){
 			var objArr=[]
 			for(var i=0; i<n; i++){
-				objArr.push(this._randObject(n))
+				objArr.push(this._randomObject(n))
 			}
 			return objArr
 		}else{
-			return this._randObject(n)
+			return this._randomObject(n)
 		}
 	};
-	_randObject(n){
+	_randomObject(n){
 		var obj={}
 			if(n){
 				for(var i=0; i<n; i++){
-					obj[this.randomString(20)]=this._randObject(n-1)
+					obj[this.randomString(20)]=this._randomObject(n-1)
 				}
 			}
 			return obj
 	}
 
-    randSelection(bag){
+    randomSelection(bag){
         return bag[Math.floor(Math.random() * bag.length)];
     }
-    randRange(min, max){
+    randomRange(min, max){
         return Math.floor(Math.random()*(max-min+1)+min)
     }
     genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
@@ -128,7 +128,7 @@ export class Randoms{
         for (var i = 0; i<len; i++){str+=chars.charAt(Math.floor(Math.random()*chars.length))}
         return str;
     }
-    randModulo10(){
+    randomModulo10(){
         return Math.floor(Math.random()*(100-0+1)+0)%2
     }
 	sample(arr){

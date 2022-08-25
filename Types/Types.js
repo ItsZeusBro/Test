@@ -151,6 +151,7 @@ export class Types{
 			}
 		}else if(n){
 			try{
+				console.log("HERE")
 				assert.equal(this._isInteger(n), true)
 			}catch(err){
 				return false
@@ -289,7 +290,7 @@ export class Types{
 	}
 
 	_isString(s) {
-		return typeof(s) === 'string' || s instanceof String;
+		return (s instanceof String || typeof(s) === 'string');
 	}
 
 	_isObject(obj){
@@ -301,7 +302,7 @@ export class Types{
 	}
 
 	_isInteger(int){
-		return typeof int === 'number' || int instanceof Number;
+		return (int instanceof Number || typeof int === 'number');
 	}
 	
 

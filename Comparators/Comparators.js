@@ -1,4 +1,9 @@
+import { Types } from "../Types/Types.js"
+
 export class Comparators{
+	constructor(){
+		this.types = new Types()
+	}
 	//COMPARATORS----------------------------------------------------
 
 	isEqualObject(obj1, obj2, equal=[true]){
@@ -89,7 +94,7 @@ export class Comparators{
 		{
 			equal[0]=false
 			return equal[0]
-		}else if((Array.isArray(arr1)&& Array.isArray(arr2))){
+		}else if((this.types.isArray(arr1)&& this.types.isArray(arr2))){
 			for(var i = 0; i< arr2.length; i++){
 				if(typeof arr1[i]!== typeof arr2[i]){
 					equal[0]=false
@@ -116,7 +121,7 @@ export class Comparators{
 			equal[0]=false
 			return equal[0]
 		}else{
-			if(Array.isArray(thing1)){
+			if(this.types.isArray(thing1)){
 				return this.isEqualArray(thing1, thing2, equal)
 			}else if(typeof thing1 === 'number'){
 				return this.isEqualNumber(thing1, thing2, equal)
