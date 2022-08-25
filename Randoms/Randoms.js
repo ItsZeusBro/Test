@@ -1,4 +1,4 @@
-export class Random{
+export class Randoms{
 	//RANDOM GENERATORS----------------------------------------------------
 	randString(n, array=false){
 		if(array){
@@ -13,10 +13,10 @@ export class Random{
     randInteger(n, array=false){
 		if(array){
 			var arr=[]; 
-			for(var i=0; i<n; i++){arr.push(this.randRange(0, n))};
+			for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
 			return arr;
 		}else{
-			return this.randRange(0,n);
+			return this.randomRange(0,n);
 		}
 	}
 
@@ -26,7 +26,7 @@ export class Random{
 			for(var i = 0; i<n; i++){
 				var arr = []
 				for(var j=0;j<n;j++){
-					arr.push(this.rand(n))
+					arr.push(this.random(n))
 				}; 
 				arrOfArr.push(arr)
 			}
@@ -34,15 +34,15 @@ export class Random{
 		}else{
 			var arr=[]; 
 			for(var i=0;i<n;i++){
-				arr.push(this.rand(n))
+				arr.push(this.random(n))
 			}; 
 			return arr;
 		}
 	}
 
 	randStrata(nMin, nMax, mMin, mMax, pk=['payload']){
-		var n = this.randRange(nMin, nMax)
-		var m = this.randRange(mMin, mMax)
+		var n = this.randomRange(nMin, nMax)
+		var m = this.randomRange(mMin, mMax)
 
 	}
 
@@ -52,15 +52,15 @@ export class Random{
 		for(var i = 0; i<n; i++){
 			//we are trying to generate m number of recursive strata levels
 			if(m==0){
-				if(this.randModulo10()){
-					strata.push({[this.uniqueId()]:undefined, [this.randSelection(pk)]:this.randObject(2, false)})
+				if(this.randomModulo10()){
+					strata.push({[this.uniqueId()]:undefined, [this.randomSelection(pk)]:this.randomObject(2, false)})
 				}else{
 					strata.push({[this.uniqueId()]:undefined})
 
 				}
 			}else if(m>0){
-				if(this.randModulo10()){
-					var _strata = {[this.uniqueId()]:[], [this.randSelection(pk)]:this.randObject(2, false)}
+				if(this.randomModulo10()){
+					var _strata = {[this.uniqueId()]:[], [this.randomSelection(pk)]:this.randomObject(2, false)}
 					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
 					strata.push(_strata)
 				}else{
@@ -91,7 +91,7 @@ export class Random{
 	}
 
 
-    rand(n){return eval(this.sample(['this.randString', 'this.randInteger', 'this.randObject'])+'(n, this.randModulo10())')}
+    rand(n){return eval(this.sample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10())')}
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
     randObject(n, array=false){
@@ -110,7 +110,7 @@ export class Random{
 		var obj={}
 			if(n){
 				for(var i=0; i<n; i++){
-					obj[this.randString(20)]=this._randObject(n-1)
+					obj[this.randomString(20)]=this._randObject(n-1)
 				}
 			}
 			return obj
@@ -132,7 +132,7 @@ export class Random{
         return Math.floor(Math.random()*(100-0+1)+0)%2
     }
 	sample(arr){
-		return arr[this.randRange(0, arr.length-1)]
+		return arr[this.randomRange(0, arr.length-1)]
 	}
 
 	uniqueId(){

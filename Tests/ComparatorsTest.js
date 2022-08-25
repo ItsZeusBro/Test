@@ -1,7 +1,7 @@
 import * as assert from "node:assert"
 import * as util from "node:util"
 import {Comparators} from "../Comparators/Comparators.js"
-import { Random } from "../Random/Random.js"
+import { Random } from "../Randoms/Randoms.js"
 export class ComparatorsTest{
 	constructor(n){
 		this.testArrays(n)

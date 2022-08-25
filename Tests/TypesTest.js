@@ -1,5 +1,5 @@
 import * as assert  from "node:assert";
-import { Random } from "../Random/Random.js"
+import { Randoms } from "../Randoms/Randoms.js"
 import {Types} from "../Types/Types.js"
 
 export class TypesTest{
@@ -30,7 +30,7 @@ export class TypesTest{
 	}
 
 	testIsArray(){
-		var arr = new Random().randArray(5)
+		var arr = new Randoms().randArray(5)
 		console.log("Types.testIsArray() on", arr)
 		var n_min = 5
 		var n_max = 5
@@ -47,7 +47,7 @@ export class TypesTest{
 	}
 
 	testIsString(){
-		var str = new Random().randString(5)
+		var str = new Randoms().randString(5)
 
 		console.log("Types.testIsString() on", str)
 		var n_min = 5
