@@ -15,10 +15,31 @@ export class Randoms{
 				[
 					'this.randomString', 
 					'this.randomInteger', 
-					'this.randomObject', 
-					'this.randomNull'
+					'this.randomArray',
+					'this.randomObject',
+ 					'this.randomNull',
 				]
-			)+'(n, except)')}
+			)+'(n, except)')
+	}
+
+	random(n=5, except){
+		return eval(
+			this.randomSample(
+				[
+					'this.randomString', 
+					'this.randomInteger', 
+					'this.randomArray',
+					'this.randomObject',
+ 					'this.randomNull',
+					'this.randomStringArray',
+					'this.randomIntegerArray',
+					'this.randomMatrix',
+					'this.randomObjectOfArrays',
+					'this.randomArrayOfObjects',
+					'this.randomTree'
+				]
+			)+'(n, except)')
+	}
 
 	randomNull(except){
 		var NullType = this.randomSample([null, undefined, NaN, 0, '0'])
@@ -108,7 +129,7 @@ export class Randoms{
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
 
-	randomArrayObject(n, except){
+	randomObjectOfArrays(n, except){
 		var arrObj={}
 		for(var i=0; i<n; i++){
 			arrObj[this.randomString(n)]=this.randomArray(n)
@@ -154,7 +175,8 @@ export class Randoms{
 			return obj
 		}
 	}
-	randomObjectArray(n, except){
+
+	randomArrayOfObjects(n, except){
 		var objArr=[]
 		for(var i=0; i<n; i++){
 			objArr.push(this._randomObject(n))
@@ -166,35 +188,23 @@ export class Randoms{
 			return objArr
 		}
 	}
-
 	
+
+	//TODO:
+	randomStratum(n){
+
+	}
+
+	randomPureStratum(n){
+
+	}
+
 	randomStrata(n, payload={'keys':['payload'], 'patterns':[]}, except=undefined){
-		return this._randomStrata(n, payload, this.randomSample([{}, []]))
+
 	}
 
 	_randomStrata(n, payload, strata){
-		if(n==1){
-			if(this.types.isArray(strata)){
-				strata.push(this.randomPrimitive(n))
-			}else if(this.types.isObject(strata)){
-				strata[this.randomString(n)]=this.randomPrimitive(n)
-				strata[this.randomSample(payload['keys'])]=this.randomObject(n)
-			}
-			return strata
-		}else if(n){
-			if(this.types.isArray(strata)){
-				for(var i = 0; i<n; i++){
-					strata[i].push(this._randomStrata(n-1, payload, strata[i]))
-				}
-			}else if(this.types.isObject(strata)){
-				for(var i = 0; i<n; i++){
-					var key = this.randomString(n)
-					strata[key]=this._randomStrata(n-1, payload, strata[key])
-				}
-				strata[this.randomSample(payload['keys'])]=this.randomObject(n)
-			}
-		}
-		return strata
+		
 	}
 
 
@@ -207,6 +217,7 @@ export class Randoms{
 			return selection
 		}
     }
+
     randomRange(min, max, except){
 		var range = Math.floor(Math.random()*(max-min+1)+min)
 
@@ -216,7 +227,6 @@ export class Randoms{
 			return range
 		}
     }
-
 
     randomModulo10(){
         return Math.floor(Math.random()*(100-0+1)+0)%2
@@ -233,83 +243,3 @@ export class Randoms{
     }
 }
 
-var randoms = new Randoms()
-randoms.log(randoms.randomStrata(4))
-var comparators = new Comparators()
-// var prim;
-// for(var i = 0; i<5; i++){
-// 	prim = randoms.randomPrimitive(5, prim)
-// 	console.log(prim)
-// }
-
-// var string;
-// for(var i = 0; i<5; i++){
-// 	string = randoms.randomString(5, string)
-// 	console.log(string)
-// }
-
-
-// var integer;
-// for(var i = 0; i<5; i++){
-// 	integer = randoms.randomInteger(1, integer)
-// 	console.log(integer)
-// }
-
-// var NullType;
-// for(var i = 0; i<5; i++){
-// 	NullType = randoms.randomNull(NullType)
-// 	console.log(NullType)
-// }
-
-// var integerArray;
-// for(var i = 0; i<5; i++){
-// 	integerArray = randoms.randomIntegerArray(5, integerArray)
-// 	console.log(integerArray)
-// }
-
-// var stringArray;
-// var prev;
-// for(var i = 0; i<10; i++){
-// 	prev=stringArray
-// 	stringArray = randoms.randomStringArray(1, stringArray)
-// 	console.log(prev, stringArray)
-// 	assert.equal(comparators.isEqual(prev, stringArray), false)
-// }
-
-// var array;
-// prev = undefined;
-// for(var i = 0; i<10; i++){
-// 	prev=array
-// 	array = randoms.randomArray(1, array)
-// 	console.log(prev, array)
-// 	assert.equal(comparators.isEqual(prev, array), false)
-// }
-
-
-
-// var object;
-// prev = undefined;
-// for(var i = 0; i<100; i++){
-// 	prev=object
-// 	object = randoms.randomObject(4, object)
-// 	console.log(prev, object)
-// 	assert.equal(comparators.isEqual(prev, object), false)
-// }
-
-// var objectArray;
-// prev = undefined;
-// for(var i = 0; i<100; i++){
-// 	prev=objectArray
-// 	objectArray = randoms.randomObjectArray(1, objectArray)
-// 	console.log(prev, objectArray)
-// 	assert.equal(comparators.isEqual(prev, objectArray), false)
-// }
-
-// var arrayObject;
-// prev = undefined;
-// for(var i = 0; i<100; i++){
-// 	prev=arrayObject
-// 	arrayObject = randoms.randomArrayObject(3, arrayObject)
-// 	console.log(prev, arrayObject)
-// 	assert.equal(comparators.isEqual(prev, arrayObject), false)
-// }

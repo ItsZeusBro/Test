@@ -320,6 +320,31 @@ export class Types{
 	}
 	
 
+	isOfTypes(thing, types){
+		for(var i = 0; i<types.length; i++){
+			if(types[i]=='string'){
+				if(this.isString(thing)){return true}
+			}else if(types[i]=='integer'){
+				if(this.isInteger(thing)){return true}
+			}else if(types[i]=='array'){
+				if(this.isArray(thing)){return true}
+			}else if(types[i]=='object'){
+				if(this.isObject(thing)){return true}
+			}else if(types[i]=='null'){
+				if(this.isNullType(thing)){return true}
+			}else if(types[i]=='strata'){
+				if(this.isStrata(thing)){return true}
+			}else if(types[i]=='pure-strata'){
+				if(this.isPureStrata(thing)){return true}
+			}else if(types[i]=='stratum'){
+				if(this.isStratum(thing)){return true}
+			}else if(types[i]=='pure-stratum'){
+				if(this.isPureStratum(thing)){return true}
+			}
+		}
+		return false
+	}
+
 	//============================================================================================
 	//ASSERTIONS (cant import these without circular dependencies), MUST STAY HERE
 
