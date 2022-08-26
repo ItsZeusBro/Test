@@ -64,28 +64,27 @@ export class Randoms{
 		return sample
 	}
 
-	randomString(n, except){
-		var str = this._genString(n)
+	randomString(min, max, except, charSet=this.defaultCharSet()){
+		var str = this._genString(this.randomRange(min, max), charSet)
 		if(this.comparators.isEqual(str, except)){
-			return this.randomString(n, except)
+			return this.randomString(this.randomRange(min, max), except)
 		}else{
 			return str
 		}
 	}
 
-	randomStringArray(n, except){
+	randomStringArray(min, max, except, charSet=this.defaultCharSet()){
 		var arr=[]; 
-		for(var i=0;i<n;i++){arr.push(this._genString(n))}; 
+		for(var i=0;i<this.randomRange(min, max);i++){arr.push(this._genString(this.randomRange(min, max), charSet))}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomStringArray(n, except)
+			return this.randomStringArray(min, max, except)
 		}else{
 			return arr
 		}
 	}
-	_genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
-        //programiz.com
+	_genString(len, charSet=this.defaultCharSet()){
         var str='';
-        for (var i = 0; i<len; i++){str+=chars.charAt(Math.floor(Math.random()*chars.length))}
+        for (var i = 0; i<len; i++){str+=charSet.charAt(Math.floor(Math.random()*charSet.length))}
         return str;
     }
 
@@ -250,5 +249,9 @@ export class Randoms{
             console.log(util.inspect(obj, false, null, true))
         }
     }
+
+	defaultCharSet(){
+		return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	}
 }
 

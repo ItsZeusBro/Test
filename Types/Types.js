@@ -356,6 +356,41 @@ export class Types{
 	//============================================================================================
 	//ASSERTIONS (cant import these without circular dependencies), MUST STAY HERE
 
+	assertRandomness(set, similarity=0.75, _throw=false, verbose=false){
+		//use comparator isEqual and statistical distribution calculation to assert randomness
+		//things must be disimilar at the similarity threshold
+		var similar=0;
+		var disimilar=0;
+		var _set=[]
+		for(var i = 0; i<set.length; i++){
+			if(_set){
+				if(_set.includes(set[i])){
+					similar+=1
+				}else{
+					disimilar+=1
+				}
+				_set.push(set.shift())
+			}else{
+				_set.push(set.shift())
+			}
+		}
+		try{
+			assert.equal(similar/disimilar<=similarity, true)
+			console.log(similar/disimilar)
+			return true
+		}catch(err){
+			if(_throw&&verbose){
+				console.log(err)
+				throw Error('assertRandomness failure', set, similarity, similar/disimilar)
+			}else if(_throw){
+				throw Error('assertRandomness failure', set, similarity, similar/disimilar)
+			}else{
+				return false
+			}
+		}
+			
+	}
+
 	assertStratumWidth(stratum, min, max, payload){
         if(this._isArray(stratum)){
             return this.assertStratumArrayWidth(stratum, min, max, payload)

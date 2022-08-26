@@ -3,25 +3,24 @@ import { Randoms } from "../Randoms/Randoms.js";
 import { Types } from "../Types/Types.js";
 import { Comparators } from "../Comparators/Comparators.js";
 export class RandomsTest{
-	constructor(n, i){
+	constructor(min, max, i){
 		this.types = new Types()
 		this.randoms= new Randoms()
 		this.comparators = new Comparators()
 		//this.randomPrimitive(n, i)
-		this.randomNull(n, i)
-		this.randomSample(n, i)
-		this._genString(n, i)
-		this.randomString(n, i)
-		this.randomStringArray(n, i)
-		this.randomInteger(n, i)
-		this.randomIntegerArray(n, i)
-		this.randomArray(n, i)
-		this.randomMatrix(n, i)
-		this.randomArrayObject(n, i)
-		this.randomObject(n, i)
-		this.randomTree(n, i)
-		this.randomArrayOfObjects(n, i)
-		this.randomObjectOfArrays(n, i)
+		this.randomNull(max, i)
+		this.randomSample(max, i)
+		this.randomString(min, max, i)
+		this.randomStringArray(min, max, i)
+		this.randomInteger(min, max, i)
+		this.randomIntegerArray(min, max, i)
+		this.randomArray(min, max, i)
+		this.randomMatrix(min, max, i)
+		this.randomArrayObject(min, max, i)
+		this.randomObject(min, max, i)
+		this.randomTree(min, max, i)
+		this.randomArrayOfObjects(min, max, i)
+		this.randomObjectOfArrays(min, max, i)
 	}
 
 	randomPrimitive(n, iterations){
@@ -48,19 +47,46 @@ export class RandomsTest{
 
 	}
 
-	randomSample(n){
-
+	randomSample(n, iterations){
+		for(var j = 0; j<iterations; j++){
+			var arr = []
+			for(var i =0; i<10; i++){
+				arr.push(this.randoms._genString(10))
+			}
+			var sample = this.randoms.randomSample(arr)
+			console.log('asserting randomSample returns sample', sample, 'from', arr)
+			assert.equal(arr.includes(sample), true)
+		}
 	}
-	_genString(n){
 
+	randomString(min, max, iterations){
+		var strings = []
+		for(var i =0; i<iterations; i++){
+			var string = this.randoms.randomString(min, max)
+			strings.push(string)
+			console.log('asserting randomString returns valid string', string)
+			assert.equal(this.types.isString(string), true)
+		}
+		console.log(this.types.assertRandomness(strings, 0.05))
+		assert.equal(this.types.assertRandomness(strings, 0.05), true)
 	}
 
-	randomString(n){
-		
-	}
-
-	randomStringArray(n){
-
+	randomStringArray(min, max, iterations){
+		var stringsArray = []
+		for(var i =0; i<iterations; i++){
+			var stringArray = this.randoms.randomStringArray(min, max)
+			console.log('asserting randomStringArray returns valid stringArray', stringArray)
+			assert.equal(this.types.isArray(stringArray), true)
+			console.log('randomStringArray returned', stringArray, "and its valid")
+			for(var j = 0; j<stringArray.length; j++){
+				console.log('asserting each string in stringArray is a valid string', stringArray[i])
+				assert.equal(this.types.isString(stringArray[j]), true)
+				console.log('isString() on', stringArray[j], "is valid")
+			}
+			stringsArray.push(stringArray)
+		}
+		console.log(this.types.assertRandomness(stringsArray, 0.05))
+		assert.equal(this.types.assertRandomness(stringsArray, 0.05), true)
 	}
 	
 	randomInteger(n){
@@ -107,4 +133,4 @@ export class RandomsTest{
 	
 }
 
-var randoms = new RandomsTest(5, 100)
+var randoms = new RandomsTest(2, 5, 1000)
