@@ -6,140 +6,120 @@ export class Comparators{
 	}
 	//COMPARATORS----------------------------------------------------
 
-	isEqualObject(obj1, obj2, equal=[true]){
-		if(
-				(!equal[0])
-			||
-				(typeof obj1 !=='object')
-			||
-				(typeof obj2 !=='object')
-		){
-			equal[0]=false
-			return equal[0]
-		}else{
-			if(this.isEqualArray(Object.keys(obj1), Object.keys(obj2), equal)){
-				for(var i=0; i<Object.keys(obj1).length; i++){
-					if(!this.isEqual(obj1[Object.keys(obj1)[i]], obj2[Object.keys(obj2)[i]], equal)){
-						equal[0]=false
-						return equal[0]
-					}
-				}
-				return equal[0]
-			}else{
-				equal[0]=false
-				return equal[0]
-			}
-		}
-	}
-
-	isEqualString(str1, str2, equal=[true]){
-		if(
-				(!equal[0])
-			||
-				(typeof str1 !=='string')
-			||
-				(typeof str2 !=='string')
-		){
-			equal[0]=false
-			return equal[0]
-		}
-		else if(
-				(
-						str1.length==1
-					&&
-						str2.length==1
-					&&
-						str1[0]==str2[0]
-				)
-			||
-				(
-						str1.length==0
-					&&
-						str2.length==0
-				)
-		){
-			return equal[0]
-		}
-		else if(str1[0]==str2[0]){
-			return this.isEqualString(str1.slice(1), str2.slice(1), equal)
-		}else{
-			equal[0]=false
-			return equal[0]
-		}
-	}
-
-	isEqualNumber(num1, num2, equal=[true]){
-		if(
-				(!equal[0])
-			||
-				(typeof num1 !=='number')
-			||
-				(typeof num2 !=='number')
-		){
-			equal[0]=false
-			return equal[0]
-		}else if(num1==num2){
-			return equal[0]
-		}else{
-			equal[0]=false
-			return equal[0]
-		}
-	}
-
-	isEqualArray(arr1, arr2, equal=[true]){
-		if(
-				(!equal[0])
-			||
-				(arr1.length!=arr2.length))
-		{
-			equal[0]=false
-			return equal[0]
-		}else if((this.types.isArray(arr1)&& this.types.isArray(arr2))){
-			for(var i = 0; i< arr2.length; i++){
-				if(typeof arr1[i]!== typeof arr2[i]){
-					equal[0]=false
-					return equal[0]
-				}else{
-					this.isEqual(arr1[i], arr2[i], equal)
-				}
-			}
-			return equal[0]
-		}else{
-			equal[0]=false
-			return equal[0]
-		}
-	}
-
-	isEqualStrata(strata1, strata2, equal=[true]){
-
-	}
-
 	isEqual(thing1, thing2, equal=[true]){
 		if(!equal[0]){
-			return equal[0]
-		}else if(typeof thing1 !== typeof thing2){
-			equal[0]=false
-			return equal[0]
+			return false
 		}else{
-			if(this.types.isArray(thing1)){
-				return this.isEqualArray(thing1, thing2, equal)
-			}else if(typeof thing1 === 'number'){
-				return this.isEqualNumber(thing1, thing2, equal)
-			}else if(typeof thing1 === 'string'){
-				return this.isEqualString(thing1, thing2, equal)
-			}else if(typeof thing1 === 'object'){
-				return this.isEqualObject(thing1, thing2, equal)
-			}else if(this.isStrata(thing1)){
-				return this.isEqualStrata(thing1, thing2, equal)
+			if(this.types.isArray(thing1) && this.types.isArray(thing2)){
+				return this._isEqualArray(thing1, thing2, equal)
+
+			}else if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
+				return this._isEqualNumber(thing1, thing2, equal)
+
+			}else if(this.types.isString(thing1)&&this.types.isString(thing2)){
+				return this._isEqualString(thing1, thing2, equal)
+
+			}else if(this.types.isObject(thing1)&&this.types.isObject(thing2)){
+				return this._isEqualObject(thing1, thing2, equal)
+
+			}else if(this.types.isStrata(thing1)&&this.types.isStrata(thing2)){
+				return this._isEqualStrata(thing1, thing2, equal)
+
 			}else if(!thing1 && !thing2){
-				return equal[0]
-			}
-			else{
-				//other types for the future
+				return false
+			}else{
+				equal[0]=false
+				return false
 			}
 		}
-		console.log("should never run")
 	}
+
+	_isEqualObject(obj1, obj2, equal=[true]){
+		//assuming they are both objects, the keys should be equal arrays
+		if(
+			obj1
+			&&
+			obj2
+			&&
+			this.types.isObject(obj1)
+			&&
+			this.types.isObject(obj2)
+			&&
+			(Object.keys(obj1).length == Object.keys(obj2).length)
+		){
+			if(this._isEqualArray(Object.keys(obj1), Object.keys(obj2))){
+				for(var i =0; i<Object.keys(obj1).length; i++){
+					var key = Object.keys(obj1)[i]
+					if(this.isEqual(obj1[key], obj2[key])){
+						return equal[0]
+					}else{
+						equal[0]=false
+						return false
+					}
+				}
+			}else{
+				equal[0]=false
+				return false
+			}
+		}else{
+			equal[0]=false
+			return false
+		}
+	}
+
+	_isEqualString(str1, str2, equal=[true]){
+		if(
+			this.types.isString(str1)
+			&&
+			this.types.isString(str2)
+			&&
+			str1.length==str2.length
+		){
+			if(str1==str2){
+				return true
+			}else{
+				equal[0]=false
+				return false
+			}
+		}else{
+			equal[0]=false
+			return false
+		}
+	}
+
+	_isEqualNumber(num1, num2, equal=[true]){
+		if(this.types.isInteger(num1)&&this.types.isInteger(num2)){
+			if(num1==num2){
+				return true
+			}else{
+				equal[0]=false
+				return false
+			}
+		}else{
+			equal[0]=false
+			return false
+		}
+	}
+
+	_isEqualArray(arr1, arr2, equal=[true]){
+		if(this.types.isArray(arr1) && this.types.isArray(arr2)&& (arr1.length == arr2.length)){
+			for(var i=0; i<arr1.length; i++){
+				if(!this.isEqual(arr1[i], arr2[i])){
+					equal[0]
+					return false
+				}
+			}
+		}else{
+			equal[0]=false
+			return false
+		}
+	}
+
+	_isEqualStrata(strata1, strata2, equal=[true]){
+
+	}
+
+
 	//The problem with equality recursive functions:
 	//if everything is assumed true and proven false, you may have edge cases that turn out to be true when they are not
 	//if everything is assumed false and proven true, and you use the same reference variable for reporting true, 

@@ -113,7 +113,6 @@ export class Types{
 			if(d[0]>0){
 				return truth[0]
 			}else{
-				console.log('HERE')
 				return false
 			}
 		}
@@ -151,7 +150,6 @@ export class Types{
 			}
 		}else if(n){
 			try{
-				console.log("HERE")
 				assert.equal(this._isInteger(n), true)
 			}catch(err){
 				return false
@@ -294,7 +292,11 @@ export class Types{
 	}
 
 	_isObject(obj){
-		return obj instanceof Object
+		if(obj instanceof Object && obj!==null){
+			return true
+		}else{
+			return false
+		}
 	}
 
 	_isArray(arr){
@@ -302,7 +304,7 @@ export class Types{
 	}
 
 	_isInteger(int){
-		return (int instanceof Number || typeof int === 'number');
+		return (!isNan(int) || typeof int === 'number');
 	}
 	
 
@@ -311,9 +313,9 @@ export class Types{
 
 	assertStratumWidth(stratum, min, max, payload){
         if(this._isArray(stratum)){
-            return this.stratumArrayWidth(stratum, min, max, payload)
+            return this.assertStratumArrayWidth(stratum, min, max, payload)
         }else if(this._isObject(stratum)){
-            return this.stratumObjectWidth(stratum, min, max, payload)
+            return this.assertStratumObjectWidth(stratum, min, max, payload)
         }else{
             return false
         }

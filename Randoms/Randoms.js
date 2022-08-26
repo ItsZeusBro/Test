@@ -1,26 +1,69 @@
+import { Comparators } from "../Comparators/Comparators.js";
+
 export class Randoms{
+	constructor(){
+		this.comparators = new Comparators()
+	}
 	//RANDOM GENERATORS----------------------------------------------------
-	randomString(n, array=false){
-		if(array){
-			var arr=[]; 
-			for(var i=0;i<n;i++){arr.push(this.genString(n))}; 
-			return arr;
+	random(n, except=null){return eval(this.randomSample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10(), except)')}
+
+	randomSample(arr, except=null){
+		var sample = arr[this.randomRange(0, arr.length-1)]
+		if(this.comparators.isEqual(sample, except)){
+			return this.randomSample(arr, except)
 		}else{
-			return this.genString(n);
+			return sample
 		}
 	}
 
-    randomInteger(n, array=false){
+	randomString(n, array=false, except=null){
+		if(array){
+			var arr=[]; 
+			for(var i=0;i<n;i++){arr.push(this._genString(n))}; 
+			if(this.comparators.isEqual(arr, except)){
+				return this.randomString(n, array, except)
+			}else{
+				return arr
+			}
+		}else{
+			var str = this._genString(n)
+			if(this.comparators.isEqual(str, except)){
+				return this.randomString(n, array, except)
+			}else{
+				return str
+			}
+		}
+	}
+	_genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
+        //programiz.com
+        var str='';
+        for (var i = 0; i<len; i++){str+=chars.charAt(Math.floor(Math.random()*chars.length))}
+        return str;
+    }
+
+    randomInteger(n, array=false, except=null){
 		if(array){
 			var arr=[]; 
 			for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
-			return arr;
+
+			if(this.comparators.isEqual(arr, except)){
+				return this.randomInteger(n, array, except)
+			}else{
+				return arr
+			}
+
 		}else{
-			return this.randomRange(0,n);
+			var int = this.randomRange(0,n);
+			
+			if(this.comparators.isEqual(int, except)){
+				return this.randomInteger(n, array, except)
+			}else{
+				return int
+			}
 		}
 	}
 
-    randomArray(n, array=false){
+    randomArray(n, array=false, except=null){
 		if(array){
 			var arrOfArr=[]
 			for(var i = 0; i<n; i++){
@@ -30,82 +73,58 @@ export class Randoms{
 				}; 
 				arrOfArr.push(arr)
 			}
-			return arrOfArr
+			if(this.comparators.isEqual(arrOfArr, except)){
+				return this.randomArray(n, array, except)
+			}else{
+				return arrOfArr
+			}
 		}else{
 			var arr=[]; 
 			for(var i=0;i<n;i++){
 				arr.push(this.random(n))
 			}; 
-			return arr;
-		}
-	}
-
-	randomStrata(nMin, nMax, mMin, mMax, pk=['payload']){
-		var n = this.randomRange(nMin, nMax)
-		var m = this.randomRange(mMin, mMax)
-
-	}
-
-	//strata is always an array of objects, each with a single key associated with undefined or another strata
-	recursiveStrata(n, m, pk, strata=[]){
-		//n is passed to _baseStrata(n, pk)
-		for(var i = 0; i<n; i++){
-			//we are trying to generate m number of recursive strata levels
-			if(m==0){
-				if(this.randomModulo10()){
-					strata.push({[this.uniqueId()]:undefined, [this.randomSelection(pk)]:this.randomObject(2, false)})
-				}else{
-					strata.push({[this.uniqueId()]:undefined})
-
-				}
-			}else if(m>0){
-				if(this.randomModulo10()){
-					var _strata = {[this.uniqueId()]:[], [this.randomSelection(pk)]:this.randomObject(2, false)}
-					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
-					strata.push(_strata)
-				}else{
-					var _strata = {[this.uniqueId()]:[]}
-					this.recursiveStrata(n, m-1, pk, _strata[this.strataKey(_strata, pk)])
-					strata.push(_strata)
-				}
-				
+			if(this.comparators.isEqual(arr, except)){
+				return this.randomArray(n, array, except)
+			}else{
+				return arr;
 			}
 		}
-		return strata
-	}
-
-	strataKey(strataObj, pk){
-		var count=0;
-		var strataKey;
-		for(var i=0; i<Object.keys(strataObj).length; i++){
-			if(!pk.includes(Object.keys(strataObj)[i])){
-				strataKey=Object.keys(strataObj)[i]
-			}
-		}
-		if(count>1){
-			//if there is more than one strataKey, throw error (to catch bugs)
-			throw Error("more than one strataKey found in", strataObj)
-		}else{
-			return strataKey
-		}
 	}
 
 
-    random(n){return eval(this.sample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10())')}
+
+	randomStrata(n, m, pk, except=null, strata=null){
+		
+	}
+
+
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
-    randomObject(n, array=false){
+
+    randomObject(n, array=false, except=null){
 		//O(nlognlogn) growth complexity
 		if(array){
 			var objArr=[]
 			for(var i=0; i<n; i++){
 				objArr.push(this._randomObject(n))
 			}
-			return objArr
+
+			if(this.comparators.isEqual(objArr, except)){
+				return this.randomObject(n, array, except)
+			}else{
+				return objArr
+			}
 		}else{
-			return this._randomObject(n)
+			var obj = this._randomObject(n)
+
+			if(this.comparators.isEqual(obj, except)){
+				return this.randomObject(n, array, except)
+			}else{
+				return obj
+			}
 		}
-	};
+	}
+
 	_randomObject(n){
 		var obj={}
 			if(n){
@@ -116,25 +135,31 @@ export class Randoms{
 			return obj
 	}
 
-    randomSelection(bag){
-        return bag[Math.floor(Math.random() * bag.length)];
+
+    randomSelection(bag, except=null){
+		var selection = bag[Math.floor(Math.random() * bag.length)];
+
+		if(this.comparators.isEqual(selection, except)){
+			return this.randomSelection(bag, except)
+		}else{
+			return selection
+		}
     }
-    randomRange(min, max){
-        return Math.floor(Math.random()*(max-min+1)+min)
+    randomRange(min, max, except=null){
+		var range = Math.floor(Math.random()*(max-min+1)+min)
+
+        if(this.comparators.isEqual(range, except)){
+			return this.randomRange(min, max, except)
+		}else{
+			return range
+		}
     }
-    genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
-        //programiz.com
-        var str='';
-        for (var i = 0; i<len; i++){str+=chars.charAt(Math.floor(Math.random()*chars.length))}
-        return str;
-    }
+
+
     randomModulo10(){
         return Math.floor(Math.random()*(100-0+1)+0)%2
     }
-	sample(arr){
-		return arr[this.randomRange(0, arr.length-1)]
-	}
-
+	
 	uniqueId(){
 		return Date.now().toString(36) + Math.random().toString(36).substr(2);
 	}
