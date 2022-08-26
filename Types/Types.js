@@ -359,6 +359,7 @@ export class Types{
 	assertRandomness(set, similarity=0.75, _throw=false, verbose=false){
 		//use comparator isEqual and statistical distribution calculation to assert randomness
 		//things must be disimilar at the similarity threshold
+		set = set.slice()
 		var similar=0;
 		var disimilar=0;
 		var _set=[]

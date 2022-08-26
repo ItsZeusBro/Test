@@ -73,11 +73,11 @@ export class Randoms{
 		}
 	}
 
-	randomStringArray(min, max, except, charSet=this.defaultCharSet()){
+	randomStringArray(size, min, max, except, charSet=this.defaultCharSet()){
 		var arr=[]; 
-		for(var i=0;i<this.randomRange(min, max);i++){arr.push(this._genString(this.randomRange(min, max), charSet))}; 
+		for(var i=0;i<size;i++){arr.push(this._genString(this.randomRange(min, max), charSet))}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomStringArray(min, max, except)
+			return this.randomStringArray(size, min, max, except)
 		}else{
 			return arr
 		}
@@ -88,25 +88,24 @@ export class Randoms{
         return str;
     }
 
-    randomInteger(n, except){
-		var int = this.randomRange(0,n);
+    randomInteger(min, max, except){
+		var int = this.randomRange(min,max);
 		if(this.comparators.isEqual(int, except)){
-			return this.randomInteger(n, except)
+			return this.randomInteger(min, max, except)
 		}else{
 			return int
 		}
 		
 	}
 
-	randomIntegerArray(n, except){
+	randomIntegerArray(n, min=0, max=1000, except){
 		var arr=[]; 
-		for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
+		for(var i=0; i<n; i++){arr.push(this.randomRange(min, max))};
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomIntegerArray(n, except)
+			return this.randomIntegerArray(min, max, except)
 		}else{
 			return arr
 		}
-
 	}
 
     randomArray(n, except){
