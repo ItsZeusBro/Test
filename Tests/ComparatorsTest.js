@@ -30,8 +30,8 @@ export class ComparatorsTest{
 		var array1 = new Randoms().randomArray(n)
 		var array2 = new Randoms().randomArray(n)
 
-		assert.equal(new Comparators().isEqualArray(array1.slice(), array1.slice()), true)
-		assert.equal(new Comparators().isEqualArray(array1.slice(), array2.slice()), false)
+		assert.equal(new Comparators().isEqual(array1.slice(), array1.slice()), true)
+		assert.equal(new Comparators().isEqual(array1.slice(), array2.slice()), false)
 
 
 		console.log("TEST ARRAY PASSED")
