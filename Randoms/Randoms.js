@@ -1,6 +1,8 @@
 import { Comparators } from "../Comparators/Comparators.js";
 import {Types} from "../Types/Types.js"
 import * as assert from "node:assert"
+import * as util from "node:util"
+
 export class Randoms{
 	constructor(){
 		this.comparators = new Comparators()
@@ -89,8 +91,17 @@ export class Randoms{
 		}
 	}
 
-	randomMatrix(n, except){
 
+	randomMatrix(n, except){
+		var mtx=[]
+		if(n==1){
+			return this.randomArray(3)
+		}else if(n){
+			for(var i=0; i<n; i++){
+				mtx.push(this.randomMatrix(n-1))
+			}
+		}
+		return mtx
 	}
 
     // randEnc(n){return "utf8"}
@@ -134,12 +145,12 @@ export class Randoms{
 
 	_randomObject(n){
 		var obj={}
-			if(n){
-				for(var i=0; i<n; i++){
-					obj[this.randomString(n)]=this._randomObject(n-1)
-				}
+		if(n){
+			for(var i=0; i<n; i++){
+				obj[this.randomString(n)]=this._randomObject(n-1)
 			}
-			return obj
+		}
+		return obj
 	}
 
 	randomTree(n, except){
@@ -179,84 +190,91 @@ export class Randoms{
 	uniqueId(){
 		return Date.now().toString(36) + Math.random().toString(36).substr(2);
 	}
+
+    log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }
 
 var randoms = new Randoms()
+randoms.log(randoms.randomMatrix(4))
 var comparators = new Comparators()
-var prim;
-for(var i = 0; i<5; i++){
-	prim = randoms.randomPrimitive(5, prim)
-	console.log(prim)
-}
+// var prim;
+// for(var i = 0; i<5; i++){
+// 	prim = randoms.randomPrimitive(5, prim)
+// 	console.log(prim)
+// }
 
-var string;
-for(var i = 0; i<5; i++){
-	string = randoms.randomString(5, string)
-	console.log(string)
-}
-
-
-var integer;
-for(var i = 0; i<5; i++){
-	integer = randoms.randomInteger(1, integer)
-	console.log(integer)
-}
-
-var NullType;
-for(var i = 0; i<5; i++){
-	NullType = randoms.randomNull(NullType)
-	console.log(NullType)
-}
-
-var integerArray;
-for(var i = 0; i<5; i++){
-	integerArray = randoms.randomIntegerArray(5, integerArray)
-	console.log(integerArray)
-}
-
-var stringArray;
-var prev;
-for(var i = 0; i<10; i++){
-	prev=stringArray
-	stringArray = randoms.randomStringArray(1, stringArray)
-	console.log(prev, stringArray)
-	assert.equal(comparators.isEqual(prev, stringArray), false)
-}
-
-var array;
-prev = undefined;
-for(var i = 0; i<10; i++){
-	prev=array
-	array = randoms.randomArray(1, array)
-	console.log(prev, array)
-	assert.equal(comparators.isEqual(prev, array), false)
-}
+// var string;
+// for(var i = 0; i<5; i++){
+// 	string = randoms.randomString(5, string)
+// 	console.log(string)
+// }
 
 
+// var integer;
+// for(var i = 0; i<5; i++){
+// 	integer = randoms.randomInteger(1, integer)
+// 	console.log(integer)
+// }
 
-var object;
-prev = undefined;
-for(var i = 0; i<100; i++){
-	prev=object
-	object = randoms.randomObject(4, object)
-	console.log(prev, object)
-	assert.equal(comparators.isEqual(prev, object), false)
-}
+// var NullType;
+// for(var i = 0; i<5; i++){
+// 	NullType = randoms.randomNull(NullType)
+// 	console.log(NullType)
+// }
 
-var objectArray;
-prev = undefined;
-for(var i = 0; i<100; i++){
-	prev=objectArray
-	objectArray = randoms.randomObjectArray(1, objectArray)
-	console.log(prev, objectArray)
-	assert.equal(comparators.isEqual(prev, objectArray), false)
-}
+// var integerArray;
+// for(var i = 0; i<5; i++){
+// 	integerArray = randoms.randomIntegerArray(5, integerArray)
+// 	console.log(integerArray)
+// }
 
-var arrayObject;
-prev = undefined;
-for(var i = 0; i<100; i++){
-	prev=arrayObject
-	arrayObject = randoms.randomArrayObject(3, arrayObject)
-	console.log(prev, arrayObject)
-	assert.equal(comparators.isEqual(prev, arrayObject), false)
-}
+// var stringArray;
+// var prev;
+// for(var i = 0; i<10; i++){
+// 	prev=stringArray
+// 	stringArray = randoms.randomStringArray(1, stringArray)
+// 	console.log(prev, stringArray)
+// 	assert.equal(comparators.isEqual(prev, stringArray), false)
+// }
+
+// var array;
+// prev = undefined;
+// for(var i = 0; i<10; i++){
+// 	prev=array
+// 	array = randoms.randomArray(1, array)
+// 	console.log(prev, array)
+// 	assert.equal(comparators.isEqual(prev, array), false)
+// }
+
+
+
+// var object;
+// prev = undefined;
+// for(var i = 0; i<100; i++){
+// 	prev=object
+// 	object = randoms.randomObject(4, object)
+// 	console.log(prev, object)
+// 	assert.equal(comparators.isEqual(prev, object), false)
+// }
+
+// var objectArray;
+// prev = undefined;
+// for(var i = 0; i<100; i++){
+// 	prev=objectArray
+// 	objectArray = randoms.randomObjectArray(1, objectArray)
+// 	console.log(prev, objectArray)
+// 	assert.equal(comparators.isEqual(prev, objectArray), false)
+// }
+
+// var arrayObject;
+// prev = undefined;
+// for(var i = 0; i<100; i++){
+// 	prev=arrayObject
+// 	arrayObject = randoms.randomArrayObject(3, arrayObject)
+// 	console.log(prev, arrayObject)
+// 	assert.equal(comparators.isEqual(prev, arrayObject), false)
+// }
