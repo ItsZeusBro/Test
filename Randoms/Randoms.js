@@ -10,35 +10,44 @@ export class Randoms{
 	}
 	//RANDOM GENERATORS----------------------------------------------------
 	randomPrimitive(n, except){
-		return eval(
-			this.randomSample(
-				[
-					'this.randomString', 
-					'this.randomInteger', 
-					'this.randomArray',
-					'this.randomObject',
- 					'this.randomNull',
-				]
-			)+'(n, except)')
+		var sample = this.randomSample(
+			[
+				'this.randomString', 
+				'this.randomInteger', 
+				'this.randomArray',
+				'this.randomObject',
+				'this.randomNull',
+			]
+		)
+		if(sample=='this.randomNull'){
+			return eval(sample+'(except)')
+		}else{
+			return eval(sample+'(n, except)')
+		}
 	}
 
-	random(n=5, except){
-		return eval(
-			this.randomSample(
-				[
-					'this.randomString', 
-					'this.randomInteger', 
-					'this.randomArray',
-					'this.randomObject',
- 					'this.randomNull',
-					'this.randomStringArray',
-					'this.randomIntegerArray',
-					'this.randomMatrix',
-					'this.randomObjectOfArrays',
-					'this.randomArrayOfObjects',
-					'this.randomTree'
-				]
-			)+'(n, except)')
+	random(n, except){
+		var sample = this.randomSample(
+			[
+				'this.randomString', 
+				'this.randomInteger', 
+				'this.randomArray',
+				'this.randomObject',
+				 'this.randomNull',
+				'this.randomStringArray',
+				'this.randomIntegerArray',
+				'this.randomMatrix',
+				'this.randomObjectOfArrays',
+				'this.randomArrayOfObjects',
+				'this.randomTree'
+			]
+		)
+		if(sample=='this.randomNull'){
+			return eval(sample+'(except)')
+		}else{
+			return eval(sample+'(n, except)')
+		}
+		
 	}
 
 	randomNull(except){

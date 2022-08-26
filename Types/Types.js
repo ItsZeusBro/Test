@@ -163,7 +163,7 @@ export class Types{
 		//ng means assert that integer n is greater than ng
 		//nl means assert that integer n is less than nl
 		try{
-			assert.equal([null, undefined, NaN].includes(n), true)
+			assert.equal([null, undefined, NaN, 0, '0'].includes(n), true)
 		}catch(err){
 			return false
 		}
@@ -324,20 +324,28 @@ export class Types{
 		for(var i = 0; i<types.length; i++){
 			if(types[i]=='string'){
 				if(this.isString(thing)){return true}
+				continue
 			}else if(types[i]=='integer'){
 				if(this.isInteger(thing)){return true}
+				continue
 			}else if(types[i]=='array'){
 				if(this.isArray(thing)){return true}
+				continue
 			}else if(types[i]=='object'){
 				if(this.isObject(thing)){return true}
+				continue
 			}else if(types[i]=='null'){
 				if(this.isNullType(thing)){return true}
+				continue
 			}else if(types[i]=='strata'){
 				if(this.isStrata(thing)){return true}
+				continue
 			}else if(types[i]=='pure-strata'){
 				if(this.isPureStrata(thing)){return true}
+				continue
 			}else if(types[i]=='stratum'){
 				if(this.isStratum(thing)){return true}
+				continue
 			}else if(types[i]=='pure-stratum'){
 				if(this.isPureStratum(thing)){return true}
 			}
