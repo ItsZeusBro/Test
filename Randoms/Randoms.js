@@ -1,5 +1,5 @@
 import { Comparators } from "../Comparators/Comparators.js";
-
+import {Types} from "../Types/Types.js"
 export class Randoms{
 	constructor(){
 		this.comparators = new Comparators()
@@ -22,6 +22,7 @@ export class Randoms{
 
 	randomSample(arr, except){
 		var sample = arr[this.randomRange(0, arr.length-1)]
+
 		if(this.comparators.isEqual(sample, except)){
 			return this.randomSample(arr, except)
 		}else{
@@ -56,20 +57,19 @@ export class Randoms{
 
     randomInteger(n, except){
 		var int = this.randomRange(0,n);
-		
 		if(this.comparators.isEqual(int, except)){
-			return this.randomInteger(n, array, except)
+			return this.randomInteger(n, except)
 		}else{
 			return int
 		}
 		
 	}
+
 	randomIntegerArray(n, except){
 		var arr=[]; 
 		for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
-
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomInteger(n, array, except)
+			return this.randomInteger(n, except)
 		}else{
 			return arr
 		}
@@ -82,7 +82,7 @@ export class Randoms{
 			arr.push(this.randomPrimitive(n))
 		}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomArray(n, array, except)
+			return this.randomArray(n, except)
 		}else{
 			return arr;
 		}
@@ -92,9 +92,6 @@ export class Randoms{
 
 	}
 
-
-
-
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
 
@@ -102,11 +99,12 @@ export class Randoms{
 		var obj = this._randomObject(n)
 
 		if(this.comparators.isEqual(obj, except)){
-			return this.randomObject(n, array, except)
+			return this.randomObject(n, except)
 		}else{
 			return obj
 		}
 	}
+
 	randomObjectArray(n, except){
 		var objArr=[]
 		for(var i=0; i<n; i++){
@@ -114,7 +112,7 @@ export class Randoms{
 		}
 
 		if(this.comparators.isEqual(objArr, except)){
-			return this.randomObject(n, array, except)
+			return this.randomObject(n, except)
 		}else{
 			return objArr
 		}
@@ -175,3 +173,19 @@ for(var i = 0; i<5; i++){
 	prim = randoms.randomPrimitive(5, prim)
 	console.log(prim)
 }
+
+var string;
+for(var i = 0; i<5; i++){
+	string = randoms.randomString(5, string)
+	console.log(string)
+}
+
+
+
+var integer;
+for(var i = 0; i<5; i++){
+	integer = randoms.randomInteger(1, integer)
+	console.log(integer)
+}
+
+// console.log(Number.isInteger(0))

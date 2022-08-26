@@ -10,10 +10,7 @@ export class Comparators{
 		if(!equal[0]){
 			return false
 		}else{
-			if(this.types.isArray(thing1) && this.types.isArray(thing2)){
-				return this._isEqualArray(thing1, thing2, equal)
-
-			}else if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
+			if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
 				return this._isEqualNumber(thing1, thing2, equal)
 
 			}else if(this.types.isString(thing1)&&this.types.isString(thing2)){
@@ -21,6 +18,9 @@ export class Comparators{
 
 			}else if(this.types.isObject(thing1)&&this.types.isObject(thing2)){
 				return this._isEqualObject(thing1, thing2, equal)
+
+			}else if(this.types.isArray(thing1) && this.types.isArray(thing2)){
+				return this._isEqualArray(thing1, thing2, equal)
 
 			}else if(this.types.isStrata(thing1)&&this.types.isStrata(thing2)){
 				return this._isEqualStrata(thing1, thing2, equal)

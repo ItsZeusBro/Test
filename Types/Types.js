@@ -21,7 +21,6 @@ export class Types{
 					count+=1
 				}
 			}
-			console.log(count)
 		}else if(this.isObject(stratum)){
 			if((ow_min||ow_max)&&(!this.assertStratumWidth(stratum, ow_min, ow_max, payload))){return false}
 			for(var i = 0; i<Object.keys(stratum).length; i++){
@@ -148,7 +147,7 @@ export class Types{
 			}catch(err){
 				return false
 			}
-		}else if(n){
+		}else if(n||n==0){
 			try{
 				assert.equal(this._isInteger(n), true)
 			}catch(err){
@@ -304,7 +303,8 @@ export class Types{
 	}
 
 	_isInteger(int){
-		return (!isNan(int) || typeof int === 'number');
+		//console.log('_isInteger(',int,')', Number.isInteger(int))
+		return (Number.isInteger(int));
 	}
 	
 
