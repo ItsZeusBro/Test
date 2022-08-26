@@ -5,9 +5,22 @@ export class Randoms{
 		this.comparators = new Comparators()
 	}
 	//RANDOM GENERATORS----------------------------------------------------
-	random(n, except=null){return eval(this.randomSample(['this.randomString', 'this.randomInteger', 'this.randomObject'])+'(n, this.randomModulo10(), except)')}
+	randomPrimitive(n, except){
+		return eval(
+			this.randomSample(
+				[
+					'this.randomString', 
+					'this.randomInteger', 
+					'this.randomObject', 
+					'this.randomNull'
+				]
+			)+'(n, except)')}
 
-	randomSample(arr, except=null){
+	randomNull(except){
+		return this.randomSample([null, undefined, NaN, {}, 0, [], -0, '0', '-0'], except)
+	}
+
+	randomSample(arr, except){
 		var sample = arr[this.randomRange(0, arr.length-1)]
 		if(this.comparators.isEqual(sample, except)){
 			return this.randomSample(arr, except)
@@ -16,22 +29,22 @@ export class Randoms{
 		}
 	}
 
-	randomString(n, array=false, except=null){
-		if(array){
-			var arr=[]; 
-			for(var i=0;i<n;i++){arr.push(this._genString(n))}; 
-			if(this.comparators.isEqual(arr, except)){
-				return this.randomString(n, array, except)
-			}else{
-				return arr
-			}
+	randomString(n, except){
+		var str = this._genString(n)
+		if(this.comparators.isEqual(str, except)){
+			return this.randomString(n, except)
 		}else{
-			var str = this._genString(n)
-			if(this.comparators.isEqual(str, except)){
-				return this.randomString(n, array, except)
-			}else{
-				return str
-			}
+			return str
+		}
+		
+	}
+	randomStringArray(n, except){
+		var arr=[]; 
+		for(var i=0;i<n;i++){arr.push(this._genString(n))}; 
+		if(this.comparators.isEqual(arr, except)){
+			return this.randomString(n, except)
+		}else{
+			return arr
 		}
 	}
 	_genString(len, chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'){
@@ -41,87 +54,69 @@ export class Randoms{
         return str;
     }
 
-    randomInteger(n, array=false, except=null){
-		if(array){
-			var arr=[]; 
-			for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
-
-			if(this.comparators.isEqual(arr, except)){
-				return this.randomInteger(n, array, except)
-			}else{
-				return arr
-			}
-
+    randomInteger(n, except){
+		var int = this.randomRange(0,n);
+		
+		if(this.comparators.isEqual(int, except)){
+			return this.randomInteger(n, array, except)
 		}else{
-			var int = this.randomRange(0,n);
-			
-			if(this.comparators.isEqual(int, except)){
-				return this.randomInteger(n, array, except)
-			}else{
-				return int
-			}
+			return int
 		}
-	}
-
-    randomArray(n, array=false, except=null){
-		if(array){
-			var arrOfArr=[]
-			for(var i = 0; i<n; i++){
-				var arr = []
-				for(var j=0;j<n;j++){
-					arr.push(this.random(n))
-				}; 
-				arrOfArr.push(arr)
-			}
-			if(this.comparators.isEqual(arrOfArr, except)){
-				return this.randomArray(n, array, except)
-			}else{
-				return arrOfArr
-			}
-		}else{
-			var arr=[]; 
-			for(var i=0;i<n;i++){
-				arr.push(this.random(n))
-			}; 
-			if(this.comparators.isEqual(arr, except)){
-				return this.randomArray(n, array, except)
-			}else{
-				return arr;
-			}
-		}
-	}
-
-
-
-	randomStrata(n, m, pk, except=null, strata=null){
 		
 	}
+	randomIntegerArray(n, except){
+		var arr=[]; 
+		for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
+
+		if(this.comparators.isEqual(arr, except)){
+			return this.randomInteger(n, array, except)
+		}else{
+			return arr
+		}
+
+	}
+
+    randomArray(n, except){
+		var arr=[]; 
+		for(var i=0;i<n;i++){
+			arr.push(this.randomPrimitive(n))
+		}; 
+		if(this.comparators.isEqual(arr, except)){
+			return this.randomArray(n, array, except)
+		}else{
+			return arr;
+		}
+	}
+
+	randomMatrix(n, except){
+
+	}
+
+
 
 
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
 
-    randomObject(n, array=false, except=null){
-		//O(nlognlogn) growth complexity
-		if(array){
-			var objArr=[]
-			for(var i=0; i<n; i++){
-				objArr.push(this._randomObject(n))
-			}
+    randomObject(n, except){
+		var obj = this._randomObject(n)
 
-			if(this.comparators.isEqual(objArr, except)){
-				return this.randomObject(n, array, except)
-			}else{
-				return objArr
-			}
+		if(this.comparators.isEqual(obj, except)){
+			return this.randomObject(n, array, except)
 		}else{
-			var obj = this._randomObject(n)
+			return obj
+		}
+	}
+	randomObjectArray(n, except){
+		var objArr=[]
+		for(var i=0; i<n; i++){
+			objArr.push(this._randomObject(n))
+		}
 
-			if(this.comparators.isEqual(obj, except)){
-				return this.randomObject(n, array, except)
-			}else{
-				return obj
-			}
+		if(this.comparators.isEqual(objArr, except)){
+			return this.randomObject(n, array, except)
+		}else{
+			return objArr
 		}
 	}
 
@@ -135,8 +130,17 @@ export class Randoms{
 			return obj
 	}
 
+	randomTree(n, except){
 
-    randomSelection(bag, except=null){
+	}
+
+
+	randomStrata(n, m, pk, except, strata=null){
+		
+	}
+
+
+    randomSelection(bag, except){
 		var selection = bag[Math.floor(Math.random() * bag.length)];
 
 		if(this.comparators.isEqual(selection, except)){
@@ -145,7 +149,7 @@ export class Randoms{
 			return selection
 		}
     }
-    randomRange(min, max, except=null){
+    randomRange(min, max, except){
 		var range = Math.floor(Math.random()*(max-min+1)+min)
 
         if(this.comparators.isEqual(range, except)){
@@ -163,4 +167,11 @@ export class Randoms{
 	uniqueId(){
 		return Date.now().toString(36) + Math.random().toString(36).substr(2);
 	}
+}
+
+var randoms = new Randoms()
+var prim;
+for(var i = 0; i<5; i++){
+	prim = randoms.randomPrimitive(5, prim)
+	console.log(prim)
 }
