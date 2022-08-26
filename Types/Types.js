@@ -159,6 +159,18 @@ export class Types{
 		return true
 	}
 
+	isNullType(n){
+		//ng means assert that integer n is greater than ng
+		//nl means assert that integer n is less than nl
+		try{
+			assert.equal([null, undefined, NaN].includes(n), true)
+		}catch(err){
+			return false
+		}
+
+		return true
+	}
+
 	isArray(arr, n_min, n_max){
 		//n_min means assert that array arr.length is greater than n_min
 		//n_max means assert that array arr.length is less than n_max

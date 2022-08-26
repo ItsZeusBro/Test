@@ -10,7 +10,10 @@ export class Comparators{
 		if(!equal[0]){
 			return false
 		}else{
-			if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
+			if(this.types.isNullType(thing1)&&this.types.isNullType(thing2)){
+				return this._isEqualNullType(thing1, thing2, equal)
+			}
+			else if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
 				return this._isEqualNumber(thing1, thing2, equal)
 
 			}else if(this.types.isString(thing1)&&this.types.isString(thing2)){
@@ -32,6 +35,21 @@ export class Comparators{
 				return false
 			}
 		}
+	}
+
+	_isEqualNullType(thing1, thing2, equal=[true]){
+		if(this.types.isNullType(thing1)&&this.types.isNullType(thing2)){
+			if(typeof thing1 === typeof thing2){
+				return equal[0]
+			}else{
+				equal[0]=false
+				return false
+			}
+		}else{
+			equal[0]=false
+			return false
+		}
+		return equal[0]
 	}
 
 	_isEqualObject(obj1, obj2, equal=[true]){
@@ -65,6 +83,7 @@ export class Comparators{
 			equal[0]=false
 			return false
 		}
+		return equal[0]
 	}
 
 	_isEqualString(str1, str2, equal=[true]){
@@ -85,6 +104,7 @@ export class Comparators{
 			equal[0]=false
 			return false
 		}
+		return equal[0]
 	}
 
 	_isEqualNumber(num1, num2, equal=[true]){
@@ -99,6 +119,7 @@ export class Comparators{
 			equal[0]=false
 			return false
 		}
+		return equal[0]
 	}
 
 	_isEqualArray(arr1, arr2, equal=[true]){
@@ -113,6 +134,7 @@ export class Comparators{
 			equal[0]=false
 			return false
 		}
+		return equal[0]
 	}
 
 	_isEqualStrata(strata1, strata2, equal=[true]){

@@ -17,17 +17,18 @@ export class Randoms{
 			)+'(n, except)')}
 
 	randomNull(except){
-		return this.randomSample([null, undefined, NaN, {}, 0, [], -0, '0', '-0'], except)
+		var NullType = this.randomSample([null, undefined, NaN, 0, '0'])
+		
+		if(this.comparators.isEqual(NullType, except)){
+			return this.randomNull(except)
+		}else{
+			return NullType
+		}
 	}
 
-	randomSample(arr, except){
+	randomSample(arr){
 		var sample = arr[this.randomRange(0, arr.length-1)]
-
-		if(this.comparators.isEqual(sample, except)){
-			return this.randomSample(arr, except)
-		}else{
-			return sample
-		}
+		return sample
 	}
 
 	randomString(n, except){
@@ -69,7 +70,7 @@ export class Randoms{
 		var arr=[]; 
 		for(var i=0; i<n; i++){arr.push(this.randomRange(0, n))};
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomInteger(n, except)
+			return this.randomIntegerArray(n, except)
 		}else{
 			return arr
 		}
@@ -181,11 +182,28 @@ for(var i = 0; i<5; i++){
 }
 
 
-
 var integer;
 for(var i = 0; i<5; i++){
 	integer = randoms.randomInteger(1, integer)
 	console.log(integer)
 }
 
+var NullType;
+for(var i = 0; i<5; i++){
+	NullType = randoms.randomNull(NullType)
+	console.log(NullType)
+}
+
+var integerArray;
+for(var i = 0; i<5; i++){
+	integerArray = randoms.randomIntegerArray(2, integerArray)
+	console.log(integerArray)
+}
+
+var integerArray;
+for(var i = 0; i<5; i++){
+	integerArray = randoms.randomIntegerArray(2, integerArray)
+	console.log(integerArray)
+}
 // console.log(Number.isInteger(0))
+
