@@ -40,8 +40,8 @@ export class Randoms{
 		}else{
 			return str
 		}
-		
 	}
+
 	randomStringArray(n, except){
 		var arr=[]; 
 		for(var i=0;i<n;i++){arr.push(this._genString(n))}; 
@@ -120,16 +120,39 @@ export class Randoms{
 		}
 	}
 
-    randomObject(n, except){
-		var obj = this._randomObject(n)
+    randomTree(n, except){
+		var obj = this._randomTree(n)
 
+		if(this.comparators.isEqual(obj, except)){
+			return this.randomTree(n, except)
+		}else{
+			return obj
+		}
+	}
+
+	_randomTree(n){
+		var obj={}
+		if(n==1){
+			obj[this.randomString(n)]=this.random(3)
+		}else if(n){
+			for(var i=0; i<n; i++){
+				obj[this.randomString(n)]=this._randomObject(n-1)
+			}
+		}
+		return obj
+	}
+
+	randomObject(n, except){
+		var obj = {}
+		for(var i = 0; i<n; i++){
+			obj[this.randomString(n)]=this.random(n)
+		}
 		if(this.comparators.isEqual(obj, except)){
 			return this.randomObject(n, except)
 		}else{
 			return obj
 		}
 	}
-
 	randomObjectArray(n, except){
 		var objArr=[]
 		for(var i=0; i<n; i++){
@@ -143,20 +166,7 @@ export class Randoms{
 		}
 	}
 
-	_randomObject(n){
-		var obj={}
-		if(n){
-			for(var i=0; i<n; i++){
-				obj[this.randomString(n)]=this._randomObject(n-1)
-			}
-		}
-		return obj
-	}
-
-	randomTree(n, except){
-
-	}
-
+	
 
 	randomStrata(n, m, pk, except, strata=null){
 		
