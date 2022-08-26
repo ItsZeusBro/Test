@@ -5,6 +5,7 @@ import * as util from "node:util"
 
 export class Randoms{
 	constructor(){
+		this.types = new Types()
 		this.comparators = new Comparators()
 	}
 	//RANDOM GENERATORS----------------------------------------------------
@@ -145,7 +146,7 @@ export class Randoms{
 	randomObject(n, except){
 		var obj = {}
 		for(var i = 0; i<n; i++){
-			obj[this.randomString(n)]=this.random(n)
+			obj[this.randomString(n)]=this.randomPrimitive(n)
 		}
 		if(this.comparators.isEqual(obj, except)){
 			return this.randomObject(n, except)
@@ -167,9 +168,33 @@ export class Randoms{
 	}
 
 	
+	randomStrata(n, payload={'keys':['payload'], 'patterns':[]}, except=undefined){
+		return this._randomStrata(n, payload, this.randomSample([{}, []]))
+	}
 
-	randomStrata(n, m, pk, except, strata=null){
-		
+	_randomStrata(n, payload, strata){
+		if(n==1){
+			if(this.types.isArray(strata)){
+				strata.push(this.randomPrimitive(n))
+			}else if(this.types.isObject(strata)){
+				strata[this.randomString(n)]=this.randomPrimitive(n)
+				strata[this.randomSample(payload['keys'])]=this.randomObject(n)
+			}
+			return strata
+		}else if(n){
+			if(this.types.isArray(strata)){
+				for(var i = 0; i<n; i++){
+					strata[i].push(this._randomStrata(n-1, payload, strata[i]))
+				}
+			}else if(this.types.isObject(strata)){
+				for(var i = 0; i<n; i++){
+					var key = this.randomString(n)
+					strata[key]=this._randomStrata(n-1, payload, strata[key])
+				}
+				strata[this.randomSample(payload['keys'])]=this.randomObject(n)
+			}
+		}
+		return strata
 	}
 
 
@@ -209,7 +234,7 @@ export class Randoms{
 }
 
 var randoms = new Randoms()
-randoms.log(randoms.randomMatrix(4))
+randoms.log(randoms.randomStrata(4))
 var comparators = new Comparators()
 // var prim;
 // for(var i = 0; i<5; i++){
