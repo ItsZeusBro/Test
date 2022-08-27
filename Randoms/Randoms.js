@@ -59,7 +59,7 @@ export class Randoms{
 	}
 
 	randomNull(except){
-		var NullType = this.randomSample([null, undefined, NaN, 0, '0'])
+		var NullType = this.randomSample([null, false, NaN, 0, '0'])
 		if(this.comparators.isEqual(NullType, except)){
 			return this.randomNull(except)
 		}else{
@@ -68,12 +68,20 @@ export class Randoms{
 	}
 
 	randomSample(arr){
-		var sample = arr[this.randomRange(0, arr.length-1)]
-		return sample
+		return arr[this.randomRange(0, arr.length-1)]
 	}
 
+
+	_genString(){
+        var str='';
+        for (var i=0; i<this.randomRange(this.minStr, this.maxStr); i++){
+			str+=this.charSet.charAt(Math.floor(Math.random()*this.charSet.length))
+		}
+        return str;
+    }
+
 	randomString(except){
-		var str = this._genString(this.randomRange(this.minStr, this.maxStr), this.charSet)
+		var str = this._genString()
 		if(this.comparators.isEqual(str, except)){
 			return this.randomString(except)
 		}else{
@@ -93,13 +101,7 @@ export class Randoms{
 		}
 	}
 
-	_genString(){
-        var str='';
-        for (var i=0; i<this.randomRange(this.minStr, this.maxStr); i++){
-			str+=this.charSet.charAt(Math.floor(Math.random()*this.charSet.length))
-		}
-        return str;
-    }
+
 
     randomInteger(except){
 		var int = this.randomRange(this.minInt, this.maxInt);

@@ -163,7 +163,7 @@ export class Types{
 		//ng means assert that integer n is greater than ng
 		//nl means assert that integer n is less than nl
 		try{
-			assert.equal([null, undefined, NaN, 0, '0'].includes(n), true)
+			assert.equal([null, false, NaN, 0, '0'].includes(n), true)
 		}catch(err){
 			return false
 		}

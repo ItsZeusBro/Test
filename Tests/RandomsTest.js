@@ -38,7 +38,6 @@ export class RandomsTest{
 			console.log('asserting randomNull', _null, "returns true on isNullType", this.types.isNullType(_null))
 			assert.equal(this.types.isNullType(_null), true)
 		}
-
 	}
 
 
@@ -46,7 +45,7 @@ export class RandomsTest{
 		for(var j = 0; j<iterations; j++){
 			var arr = []
 			for(var i =0; i<10; i++){
-				arr.push(this.randoms._genString(except))
+				arr.push(this.randoms.randomString(except))
 			}
 			var sample = this.randoms.randomSample(arr)
 			console.log('asserting randomSample returns sample', sample, 'from', arr)
@@ -55,7 +54,7 @@ export class RandomsTest{
 	}
 
 
-	randomString(iterations){
+	randomString(iterations, except){
 		var strings = []
 		for(var i =0; i<iterations; i++){
 			var string = this.randoms.randomString(except)
