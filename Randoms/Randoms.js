@@ -4,18 +4,26 @@ import * as assert from "node:assert"
 import * as util from "node:util"
 
 export class Randoms{
-	constructor(){
+	constructor(descriptor){
+		this.arrWidth=descriptor['arrWidth']
+		this.objWidth=descriptor['objWidth']
+		this.mtxDepth=descriptor['mtxDepth']
+		this.treeDepth=descriptor['treeDepth']
+		this.payload=descriptor['payload']
+		this.minInt=descriptor['minInt']
+		this.maxInt=descriptor['maxInt']
+		this.minStr=descriptor['minStr']
+		this.maxStr=descriptor['maxStr']
+		this.charSet=descriptor['charSet']
 		this.types = new Types()
 		this.comparators = new Comparators()
 	}
 	//RANDOM GENERATORS----------------------------------------------------
-	randomPrimitive(n, except){
+	randomPrimitive(except){
 		var sample = this.randomSample(
 			[
 				'this.randomString', 
 				'this.randomInteger', 
-				'this.randomArray',
-				'this.randomObject',
 				'this.randomNull',
 			]
 		)
@@ -26,7 +34,7 @@ export class Randoms{
 		}
 	}
 
-	random(n, except){
+	random(except){
 		var sample = this.randomSample(
 			[
 				'this.randomString', 
@@ -64,70 +72,76 @@ export class Randoms{
 		return sample
 	}
 
-	randomString(min, max, except, charSet=this.defaultCharSet()){
-		var str = this._genString(this.randomRange(min, max), charSet)
+	randomString(except){
+		var str = this._genString(this.randomRange(this.minStr, this.maxStr), this.charSet)
 		if(this.comparators.isEqual(str, except)){
-			return this.randomString(this.randomRange(min, max), except)
+			return this.randomString(except)
 		}else{
 			return str
 		}
 	}
 
-	randomStringArray(size, min, max, except, charSet=this.defaultCharSet()){
+	randomStringArray(except){
 		var arr=[]; 
-		for(var i=0;i<size;i++){arr.push(this._genString(this.randomRange(min, max), charSet))}; 
+		for(var i=0; i<this.arrWidth; i++){
+			arr.push(this._genString())
+		}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomStringArray(size, min, max, except)
+			return this.randomStringArray(except)
 		}else{
 			return arr
 		}
 	}
-	_genString(len, charSet=this.defaultCharSet()){
+
+	_genString(){
         var str='';
-        for (var i = 0; i<len; i++){str+=charSet.charAt(Math.floor(Math.random()*charSet.length))}
+        for (var i=0; i<this.randomRange(this.minStr, this.maxStr); i++){
+			str+=this.charSet.charAt(Math.floor(Math.random()*this.charSet.length))
+		}
         return str;
     }
 
-    randomInteger(min, max, except){
-		var int = this.randomRange(min,max);
+    randomInteger(except){
+		var int = this.randomRange(this.minInt, this.maxInt);
 		if(this.comparators.isEqual(int, except)){
-			return this.randomInteger(min, max, except)
+			return this.randomInteger(except)
 		}else{
 			return int
 		}
-		
 	}
 
-	randomIntegerArray(n, min=0, max=1000, except){
+	randomIntegerArray(except){
 		var arr=[]; 
-		for(var i=0; i<n; i++){arr.push(this.randomRange(min, max))};
+
+		for(var i=0; i<this.arrWidth; i++){arr.push(this.randomRange(this.minInt, this.maxInt))};
+
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomIntegerArray(min, max, except)
+			return this.randomIntegerArray(except)
 		}else{
 			return arr
 		}
 	}
 
-    randomArray(n, except){
+    randomArray(except){
 		var arr=[]; 
-		for(var i=0;i<n;i++){
-			arr.push(this.randomPrimitive(n))
+		for(var i=0; i<this.arrWidth; i++){
+			arr.push(this.randomPrimitive(except))
 		}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomArray(n, except)
+			return this.randomArray(except)
 		}else{
 			return arr;
 		}
 	}
 
 
-	randomMatrix(n, except){
+	randomMatrix(except, n=this.mtxDepth){
 		var mtx=[]
 		if(n==1){
-			return this.randomArray(3)
+			return this.randomArray(except)
 		}else if(n){
 			for(var i=0; i<n; i++){
-				mtx.push(this.randomMatrix(n-1))
+				mtx.push(this.randomMatrix(except, n-1))
 			}
 		}
 		return mtx
@@ -249,8 +263,6 @@ export class Randoms{
         }
     }
 
-	defaultCharSet(){
-		return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	}
+
 }
 
