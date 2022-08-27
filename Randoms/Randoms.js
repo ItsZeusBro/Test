@@ -27,8 +27,8 @@ export class Randoms{
 				'this.randomArray',
 				 'this.randomNull',
 				'this.randomStringArray',
-				'this.randomIntegerArray'
-				// 'this.randomObject',
+				'this.randomIntegerArray',
+				'this.randomObject'
 				// 'this.randomMatrix',
 				// 'this.randomObjectOfArrays',
 				// 'this.randomArrayOfObjects',
@@ -121,6 +121,18 @@ export class Randoms{
 		}
 	}
 
+	randomObject(except, n=this.objWidth){
+		var obj = {}
+		for(var i = 0; i<n; i++){
+			obj[this.randomString(n)]=this.random(undefined, n-1)
+		}
+		if(this.comparators.isEqual(obj, except)){
+			return this.randomObject(except, n)
+		}else{
+			return obj
+		}
+	}
+
 
 	randomMatrix(except, n=this.mtxDepth){
 		var mtx=[]
@@ -172,17 +184,7 @@ export class Randoms{
 		return obj
 	}
 
-	randomObject(n, except){
-		var obj = {}
-		for(var i = 0; i<n; i++){
-			obj[this.randomString(n)]=this.random(n-1)
-		}
-		if(this.comparators.isEqual(obj, except)){
-			return this.randomObject(n, except)
-		}else{
-			return obj
-		}
-	}
+	
 
 	randomArrayOfObjects(n, except){
 		var objArr=[]

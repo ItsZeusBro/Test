@@ -2,34 +2,43 @@ import * as assert from "node:assert";
 import { Randoms } from "../Randoms/Randoms.js";
 import { Types } from "../Types/Types.js";
 import { Comparators } from "../Comparators/Comparators.js";
+import * as util from "node:util"
+
 export class RandomsTest{
 
 	constructor(descriptor, iterations){
 		this.types = new Types()
 		this.randoms= new Randoms(descriptor)
 		this.comparators = new Comparators()
-		// this.randomNull(iterations)
-		// this.randomSample(iterations)
-		// this.randomString(iterations)
-		// this.randomStringArray(iterations)
-		// this.randomInteger(iterations)
-		// this.randomIntegerArray(iterations)
+		this.randomNull(iterations)
+		this.randomSample(iterations)
+		this.randomString(iterations)
+		this.randomStringArray(iterations)
+		this.randomInteger(iterations)
+		this.randomIntegerArray(iterations)
 		this.random(iterations)
+		this.randomObject(iterations)
 
 		// this.randomArray(min, max, i)
 		// this.randomMatrix(min, max, i)
 		// this.randomArrayObject(min, max, i)
-		// this.randomObject(min, max, i)
 		// this.randomTree(min, max, i)
 		// this.randomArrayOfObjects(min, max, i)
 		// this.randomObjectOfArrays(min, max, i)
 	}
 
-
-	random(except){
+    log(obj, iteration){
+        if(obj){
+            console.log(iteration,">>>", util.inspect(obj, false, null, true))
+        }
+    }
+	random(iterations){
 		//expects a primitive in the form of string, integer, array, object, or null type
-		var rand = this.randoms.random(except)
-		console.log(rand)
+		for(var i =0; i<iterations; i++){
+			var rand = this.randoms.random()
+			this.log(rand, i)
+		}
+
 
 	}
 
@@ -172,8 +181,8 @@ export class RandomsTest{
 var iterations = 1000;
 
 var descriptor={
-	'arrWidth': 10,
-	'objWidth':10,
+	'arrWidth': 5,
+	'objWidth':5,
 	'mtxDepth':5,
 	'treeDepth':5,
 	'payload':{'keys':['payload'], 'patterns':[]},
