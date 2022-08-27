@@ -16,10 +16,10 @@ export class RandomsTest{
 		this.randomStringArray(iterations)
 		this.randomInteger(iterations)
 		this.randomIntegerArray(iterations)
-		this.random(iterations)
+		this.random(iterations, descriptor['randomTypes'])
 		this.randomObject(iterations)
+		this.randomArray(iterations)
 
-		// this.randomArray(min, max, i)
 		// this.randomMatrix(min, max, i)
 		// this.randomArrayObject(min, max, i)
 		// this.randomTree(min, max, i)
@@ -32,16 +32,15 @@ export class RandomsTest{
             console.log(iteration,">>>", util.inspect(obj, false, null, true))
         }
     }
-	random(iterations){
+
+	random(iterations, types){
 		//expects a primitive in the form of string, integer, array, object, or null type
 		for(var i =0; i<iterations; i++){
 			var rand = this.randoms.random()
 			this.log(rand, i)
+			assert.equal(this.types.isOfTypes(rand, types), true)
 		}
-
-
 	}
-
 
 	randomNull(iterations, except){
 		for(var i=0; i<iterations; i++){
@@ -50,7 +49,6 @@ export class RandomsTest{
 			assert.equal(this.types.isNullType(_null), true)
 		}
 	}
-
 
 	randomSample(iterations, except){
 		for(var j = 0; j<iterations; j++){
@@ -98,12 +96,10 @@ export class RandomsTest{
 
 			stringsArray.push(stringArray)
 		}
-
 		console.log(this.types.assertRandomness(stringsArray, 0.05))
 		assert.equal(this.types.assertRandomness(stringsArray, 0.05), true)
 	}
 	
-
 	randomInteger(iterations, except){
 		var integers = []
 		for(var i =0; i<iterations; i++){
@@ -119,8 +115,8 @@ export class RandomsTest{
 		assert.equal(this.types.assertRandomness(integers, 0.15), true)
 	}
 
-	randomIntegerArray(iterations, except){
 
+	randomIntegerArray(iterations, except){
 		var integersArray = []
 
 		for(var i =0; i<iterations; i++){
@@ -135,11 +131,8 @@ export class RandomsTest{
 				assert.equal(this.types.isInteger(integerArray[j]), true)
 				console.log('isInteger() on', integerArray[j], "is valid")
 			}
-
 			integersArray.push(integerArray)
-
 		}
-
 		console.log(this.types.assertRandomness(integersArray, 0.05))
 		assert.equal(this.types.assertRandomness(integersArray, 0.05), true)
 	}
@@ -147,7 +140,11 @@ export class RandomsTest{
 	
 
 	randomArray(iterations, except){
-		this.randoms.randomArray(except)
+		for(var i =0; i<iterations; i++){
+			var rand = this.randoms.randomArray(except)
+			this.log(rand, i)
+			assert.equal(this.types.isOfTypes(rand, types), true)
+		}
 	}
 
 	randomObject(iterations, except){
@@ -190,6 +187,7 @@ var descriptor={
 	'maxInt':10000,
 	'minStr':1,
 	'maxStr':20,
+	'randomTypes':['string', 'integer', 'array', 'object', 'null-type'],//, 'strata', 'pure-strata', 'stratum', 'pure-stratum'],
 	'charSet':'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 }
 
