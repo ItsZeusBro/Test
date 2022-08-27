@@ -8,13 +8,14 @@ export class RandomsTest{
 		this.types = new Types()
 		this.randoms= new Randoms(descriptor)
 		this.comparators = new Comparators()
-		this.randomNull(iterations)
-		this.randomSample(iterations)
-		this.randomString(iterations)
-		this.randomStringArray(iterations)
-		this.randomInteger(iterations)
-		this.randomIntegerArray(iterations)
-		//this.randomPrimitive(n, i)
+		// this.randomNull(iterations)
+		// this.randomSample(iterations)
+		// this.randomString(iterations)
+		// this.randomStringArray(iterations)
+		// this.randomInteger(iterations)
+		// this.randomIntegerArray(iterations)
+		this.random(iterations)
+
 		// this.randomArray(min, max, i)
 		// this.randomMatrix(min, max, i)
 		// this.randomArrayObject(min, max, i)
@@ -25,9 +26,10 @@ export class RandomsTest{
 	}
 
 
-	randomPrimitive(iterations, except){
+	random(except){
 		//expects a primitive in the form of string, integer, array, object, or null type
-		var prim = this.randoms.randomPrimitive(except)
+		var rand = this.randoms.random(except)
+		console.log(rand)
 
 	}
 

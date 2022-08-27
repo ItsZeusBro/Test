@@ -19,41 +19,26 @@ export class Randoms{
 		this.comparators = new Comparators()
 	}
 	//RANDOM GENERATORS----------------------------------------------------
-	randomPrimitive(except){
-		var sample = this.randomSample(
-			[
-				'this.randomString', 
-				'this.randomInteger', 
-				'this.randomNull',
-			]
-		)
-		if(sample=='this.randomNull'){
-			return eval(sample+'(except)')
-		}else{
-			return eval(sample+'(n, except)')
-		}
-	}
-
-	random(except){
+	random(except,n){
 		var sample = this.randomSample(
 			[
 				'this.randomString', 
 				'this.randomInteger', 
 				'this.randomArray',
-				'this.randomObject',
 				 'this.randomNull',
 				'this.randomStringArray',
-				'this.randomIntegerArray',
-				'this.randomMatrix',
-				'this.randomObjectOfArrays',
-				'this.randomArrayOfObjects',
-				'this.randomTree'
+				'this.randomIntegerArray'
+				// 'this.randomObject',
+				// 'this.randomMatrix',
+				// 'this.randomObjectOfArrays',
+				// 'this.randomArrayOfObjects',
+				// 'this.randomTree'
 			]
 		)
 		if(sample=='this.randomNull'){
-			return eval(sample+'(except)')
+			return eval(sample+'(except, n)')
 		}else{
-			return eval(sample+'(n, except)')
+			return eval(sample+'(except, n)')
 		}
 		
 	}
@@ -89,13 +74,13 @@ export class Randoms{
 		}
 	}
 
-	randomStringArray(except){
+	randomStringArray(except, n=this.arrWidth){
 		var arr=[]; 
-		for(var i=0; i<this.arrWidth; i++){
+		for(var i=0; i<n; i++){
 			arr.push(this._genString())
 		}; 
 		if(this.comparators.isEqual(arr, except)){
-			return this.randomStringArray(except)
+			return this.randomStringArray(except, n)
 		}else{
 			return arr
 		}
@@ -112,10 +97,10 @@ export class Randoms{
 		}
 	}
 
-	randomIntegerArray(except){
+	randomIntegerArray(except, n=this.arrWidth){
 		var arr=[]; 
 
-		for(var i=0; i<this.arrWidth; i++){arr.push(this.randomRange(this.minInt, this.maxInt))};
+		for(var i=0; i<n; i++){arr.push(this.randomRange(this.minInt, this.maxInt))};
 
 		if(this.comparators.isEqual(arr, except)){
 			return this.randomIntegerArray(except)
@@ -124,10 +109,10 @@ export class Randoms{
 		}
 	}
 
-    randomArray(except){
+    randomArray(except, n=this.arrWidth){
 		var arr=[]; 
-		for(var i=0; i<this.arrWidth; i++){
-			arr.push(this.randomPrimitive(except))
+		for(var i=0; i<n; i++){
+			arr.push(this.random(except, n-1))
 		}; 
 		if(this.comparators.isEqual(arr, except)){
 			return this.randomArray(except)
@@ -152,7 +137,7 @@ export class Randoms{
     // randEnc(n){return "utf8"}
     // randEncArr(n){return ['utf8']}
 
-	randomObjectOfArrays(n, except){
+	randomObjectOfArrays(except, n){
 		var arrObj={}
 		for(var i=0; i<n; i++){
 			arrObj[this.randomString(n)]=this.randomArray(n)
@@ -165,7 +150,7 @@ export class Randoms{
 		}
 	}
 
-    randomTree(n, except){
+    randomTree(except, n){
 		var obj = this._randomTree(n)
 
 		if(this.comparators.isEqual(obj, except)){
@@ -190,7 +175,7 @@ export class Randoms{
 	randomObject(n, except){
 		var obj = {}
 		for(var i = 0; i<n; i++){
-			obj[this.randomString(n)]=this.randomPrimitive(n)
+			obj[this.randomString(n)]=this.random(n-1)
 		}
 		if(this.comparators.isEqual(obj, except)){
 			return this.randomObject(n, except)
