@@ -40,4 +40,10 @@ class Null{
 		}
 		return equal[0]
 	}
+    
+    log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }

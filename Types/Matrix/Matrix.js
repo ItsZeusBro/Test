@@ -41,7 +41,7 @@ class Matrix{
     getMatrixSectionAtWidth(mtx, w, section){
         
     }
-    
+
     randomMatrix(except, n=this.mtxDepth){
 		var mtx=[]
 		if(n==1){
@@ -53,4 +53,10 @@ class Matrix{
 		}
 		return mtx
 	}
+    
+    log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }

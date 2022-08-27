@@ -45,4 +45,10 @@ class LinkList{
         
         return payload
     }
+
+    log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }

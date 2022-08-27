@@ -245,7 +245,7 @@ class Strata{
 
 	}
 
-	_randomStrata(n, payload, strata){
+	randomStrata(n, payload, strata){
 		
 	}
 

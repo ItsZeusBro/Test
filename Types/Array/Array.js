@@ -53,13 +53,7 @@ class Array{
 
 	}
 
-    assertArrayTypePattern(){
-
-    }
-
-    assertArrayLength(){
-
-    }
+    
 
     randomArray(except, n=this.arrWidth){
 		var arr=[]; 
@@ -124,6 +118,11 @@ class Array{
 		}
 		return equal[0]
 	}
+    log(obj){
+        if(obj){
+            console.log(util.inspect(obj, false, null, true))
+        }
+    }
 }
 // var descriptor={
 // 	'maxArrLength': 10,
