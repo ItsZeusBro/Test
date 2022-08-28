@@ -236,9 +236,9 @@ var descriptor={
 	// 'tree': new Tree()
 }
 
-var types = new RefinedTypes(descriptor)
+// var types = new RefinedTypes(descriptor)
 
-console.log(types.typeOf(1234))
-console.log(types.typeOf('1234'))
-console.log(types.typeOf(NaN))
-console.log(types.typeOf([1, '2', 0, 1, '2', null]))
+// console.log(types.typeOf(1234))
+// console.log(types.typeOf('1234'))
+// console.log(types.typeOf(NaN))
+// console.log(types.typeOf([1, '2', 0, 1, '2', null]))

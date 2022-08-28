@@ -1,4 +1,5 @@
 import * as assert  from "node:assert";
+import { RefinedTypes } from "../RefinedTypes.js";
 
 export class Array{
     //min and max are kickers if map is a type array
@@ -6,11 +7,16 @@ export class Array{
         this.min = min
         this.max = max
         this.map = map
+        this.refinedTypes = new RefinedTypes()
         this.v_map = this.vMap(map)
         this.v_max = this.max
     }
     vMap(map){
         //create a Types map for type checking
+        var v_map=[]
+        for(var i=0; i<map.length; i++){
+            v_map.push(this.refinedTypes.typeOf(map[i]))
+        }
     }
     reset(){
         this.v_max=this.max
