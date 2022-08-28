@@ -6,7 +6,11 @@ export class Array{
         this.min = min
         this.max = max
         this.map = map
+        this.v_map = this.vMap(map)
         this.v_max = this.max
+    }
+    vMap(map){
+        //create a Types map for type checking
     }
     reset(){
         this.v_max=this.max
@@ -22,7 +26,10 @@ export class Array{
 		//n_max means assert that array arr.length is less than n_max
         if(array&&this.min&&this.max&&this.map){
             try{
+                //check to make sure that pattern in map matches the type pattern in the array
+                for(var i = 0; i<array.length; i++){
 
+                }
 			}catch(err){
 				return false
 			}
