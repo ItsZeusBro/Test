@@ -1,7 +1,7 @@
 import * as assert  from "node:assert";
 
 export class Null{
-    constructor(nullTypes=[]){
+    constructor(nullTypes=[null, NaN, 0, '0', false]){
         try{
             if(nullTypes.includes(undefined)){throw Error('nullTypes cannot contain undefined')}
         }catch{
@@ -19,7 +19,6 @@ export class Null{
 
     is(nullType){
         try{
-            console.log(nullType)
             assert.equal(this.nullTypes.includes(nullType), true)
         }catch(err){
             return

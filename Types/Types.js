@@ -79,8 +79,6 @@ export class RefinedTypes{
 		else if(ofThing=='random'){return this.random}
 		else if(ofThing=='linkList'){return this.linkList}
 		else if(ofThing=='strata'){return this.strata}
-
-		
 	}
 
 	compare(thing1, thing2, deep=false){
@@ -242,4 +240,4 @@ var types = new RefinedTypes(descriptor)
 
 console.log(types.typeOf(1234))
 console.log(types.typeOf('1234'))
-console.log(types.typeOf(0))
+console.log(types.typeOf(NaN))
