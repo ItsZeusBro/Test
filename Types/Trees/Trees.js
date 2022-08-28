@@ -27,6 +27,12 @@ export class Tree{
 
         }
     }
+
+    is(tree){
+        //return true if it is an tree
+    }
+
+    exists(){return true}
     
     log(obj){
         if(obj){

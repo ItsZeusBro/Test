@@ -17,7 +17,10 @@ export class Matrix{
             }
         }
     }
-
+    exists(){return true}
+    is(matrix){
+        //return true if it is an matrix
+    }
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

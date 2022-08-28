@@ -11,7 +11,7 @@ import { Random } from "./Random/Random.js";
 import { Strata } from "./Strata/Strata.js";
 import { Tree } from "./Trees/Trees.js";
 
-export class Types{
+export class RefinedTypes{
 	constructor(descriptor){
 		//This should expose all type functions from a general level
 		this.integer=descriptor['integer']
@@ -34,8 +34,6 @@ export class Types{
 		}
 
     }
-
-	
 
 	random(type){
 		//generates a random thing of specified type if properties present, otherwise default properties apply
@@ -61,22 +59,31 @@ export class Types{
 
 	has(type){
 		//if Types has the type instantiated return true
+		if(this.get(type)){
+			try{
+				return this.get(type).exists()
+			}catch{
+				return false
+			}
+		}
 	}
-	get(type){
-		if(type=='integer'){return this.integer}
-		else if(type=='string'){return this.string}
-		else if(type=='null'){return this.null}
-		else if(type=='array'){return this.array}
-		else if(type=='object'){return this.object}
-		else if(type=='tree'){return this.tree}
-		else if(type=='matrix'){return this.matrix}
-		else if(type=='random'){return this.random}
-		else if(type=='linkList'){return this.linkList}
-		else if(type=='strata'){return this.strata}
+
+	getType(ofThing){
+		if(ofThing=='integer'){return this.integer}
+		else if(ofThing=='string'){return this.string}
+		else if(ofThing=='null'){return this.null}
+		else if(ofThing=='array'){return this.array}
+		else if(ofThing=='object'){return this.object}
+		else if(ofThing=='tree'){return this.tree}
+		else if(ofThing=='matrix'){return this.matrix}
+		else if(ofThing=='random'){return this.random}
+		else if(ofThing=='linkList'){return this.linkList}
+		else if(ofThing=='strata'){return this.strata}
+
 		
 	}
 
-	is(thing1, thing2, deep=false){
+	compare(thing1, thing2, deep=false){
 		if(thing && thing2 && !deep){
 			//compare thing1 and thing2 for type equality
 		}else if (thing1 && thing2 && deep){
@@ -94,8 +101,120 @@ export class Types{
 		}
 	}
 
-	type(thing){
+	typeOf(thing, refined=true){
 		//returns type of a thing, if its supported by Types, even if its not instantiated
+			if(new Null().is(thing)){
+				if(refined){
+					try{
+						return this.null.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'null'
+				}
+			}
+			else if(new String().is(thing)){
+				if(refined){
+					try{
+						return this.string.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'string'
+				}
+			}
+			else if(new Integer().is(thing)){
+				if(refined){
+					try{
+						return this.integer.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'integer'
+				}
+			}
+			else if(new Array().is(thing)){
+				if(refined){
+					try{
+						return this.array.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'array'
+				}
+			}
+			else if(new LinkList().is(thing)){
+				if(refined){
+					try{
+						return this.linkList.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'linkList'
+				}
+			}
+			else if(new Matrix().is(thing)){
+				if(refined){
+					try{
+						return this.matrix.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'matrix'
+				}
+			}
+			else if(new Object().is(thing)){
+				if(refined){
+					try{
+						return this.object.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'object'
+				}
+			}
+			else if(new Random().is(thing)){
+				if(refined){
+					try{
+						return this.random.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'random'
+				}
+			}
+			else if(new Tree().is(thing)){
+				if(refined){
+					try{
+						return this.tree.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'tree'
+				}
+			}
+			else if(new Strata().is(thing)){
+				if(refined){
+					try{
+						return this.strata.is(thing)
+					}catch{
+						return undefined
+					}
+				}else{
+					return 'strata'
+				}
+			}
+		
+		
 	}
 
 	log(obj){
@@ -107,14 +226,20 @@ export class Types{
 }
 
 var descriptor={
-	'integer': new Integer(),
-	'string': new String(),
-	'null': new Null(),
-	'array': new Array(),
-	'object': new Object(),
-	'linkList': new LinkList(),
-	'matrix': new Matrix(),
-	'random': new Random(),
-	'strata': new Strata(),
-	'tree': new Tree()
+	'integer': new Integer(1, 2),
+	'string': new String(1, 2),
+	'null': new Null([null, NaN, 0, '0', false]),
+	// 'array': new Array(),
+	// 'object': new Object(),
+	// 'linkList': new LinkList(),
+	// 'matrix': new Matrix(),
+	// 'random': new Random(),
+	// 'strata': new Strata(),
+	// 'tree': new Tree()
 }
+
+var types = new RefinedTypes(descriptor)
+
+console.log(types.typeOf(1234))
+console.log(types.typeOf('1234'))
+console.log(types.typeOf(0))

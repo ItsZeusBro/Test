@@ -25,7 +25,10 @@ export class Strata{
             'null':false
         }
     }
-
+    exists(){return true}
+    is(strata){
+        //return true if it is an strata
+    }
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

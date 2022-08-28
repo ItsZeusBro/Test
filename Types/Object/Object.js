@@ -21,7 +21,10 @@ export class Object{
             'null':false
         }
     }
-
+    is(object){
+        //return true if it is an object
+    }
+    exists(){return true}
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

@@ -16,7 +16,10 @@ export class LinkList{
             this.v_max-=1
         }
     }
-    
+    exists(){return true}
+    is(llist){
+        //return true if it is an llist
+    }
     context(){
         return {
             'min':this.min,

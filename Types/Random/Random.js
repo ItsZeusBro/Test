@@ -1,5 +1,8 @@
 import * as assert  from "node:assert";
 
+//A random type is a construct of schema that describes one of the other primitive types
+//in a very specific way and has functions that return those random values and also has functions
+//that supports random types
 export class Random{
     constructor(){
 
@@ -72,7 +75,11 @@ export class Random{
 	uniqueId(){
 		return Date.now().toString(36) + Math.random().toString(36).substr(2);
 	}
-
+    is(random){
+        //return true if it is a random type 
+        //what is a random type? I dont know yet... 
+    }
+    exists(){return true}
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

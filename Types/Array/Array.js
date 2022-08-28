@@ -16,7 +16,9 @@ export class Array{
             this.v_max-=1
         }
     }
-    
+    is(array){
+        //return true if it is an array
+    }
     context(){
         return {
             'min':this.min,
@@ -24,6 +26,7 @@ export class Array{
             'map':this.map,        
         }
     }
+    exists(){return true}
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))
