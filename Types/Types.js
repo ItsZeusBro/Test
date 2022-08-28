@@ -5,35 +5,83 @@ export class Types{
 	constructor(){
 		//This should expose all type functions from a general level
 	}	
-	array(context){
-		
-	}
-	integer(context){
+    assert(){
+        
+    }
+
+	random(){
 
 	}
-	string(context){
+	context(){
+		return {
 
-	}
-	object(context){
+			'integer':{
+				'min':undefined,
+				'max':undefined,
+			},
+			'string':{
+				'min':undefined,
+				'max':undefined,
+				'pattern':undefined //some regex pattern (we need that regex generator for this feature)
+			},
+	
+			'null':{
+				
+			},
 
-	}
-	linkedList(context){
+			'array':{
+				'min':undefined,
+				'max':undefined,
+				'map':{
+					//you can map an array to types or patterns
+					'types':[],//whatever types or pattern here
+					'n':undefined
+				},
+				'object':false,
+				'string':false,
+				'tree':false,
+				'strata':false,
+				'linkList':false
+			},
 
-	}
-	tree(context){
+			'object':{
+				'min':undefined,
+				'max':undefined,
+				'map':{
+					//you can map keys to types
+					
+				},
+				'array':false,
+				'string':false,
+				'matrix':false,
+				'strata':false,
+				'linkList':false
+			},
 
-	}
-	matrix(context){
+			'tree':{
+				'min':undefined,
+				'max':undefined,
+				'depth':undefined,
+				'payload':'payload',
+				'map':{
+					//pattern for each layer of the tree
+					//if keys map not used, then normal payload schema will be used with
+					//either defined payload key or default payload key
+				},
+				//these would all be in the payload section
+				'array':false,
+				'string':false,
+				'matrix':false,
+				'strata':false,
+				'linkList':false
+			}
 
-	}
-	null(context){
 
-	}
-	strata(context){
 
-	}
+		}
+	}	
 
-	isEqual(thing1, thing2, equal=[true]){
+	compare(thing1, thing2, equal=[true]){
 		if(!equal[0]){
 			return false
 		}else{
