@@ -1,25 +1,18 @@
 import * as assert  from "node:assert";
 
 export class Array{
-    constructor(descriptor){
-
+    //min and max are kickers if map is a type array
+    constructor(min=1, max=3, map=['int', 'string', 'null']){
+        this.min = min
+        this.max = max
+        this.map = map
     }
     
     context(){
         return {
-            'min':undefined,
-            'max':undefined,
-            'map':{
-                //you can map an array to types or patterns
-                'types':[],//whatever types or pattern here
-                'n':undefined
-            },
-            'object':false,
-            'string':false,
-            'tree':false,
-            'strata':false,
-            'linkList':false,
-            'null':false
+            'min':this.min,
+            'max':this.max,
+            'map':this.map,        
         }
     }
     log(obj){

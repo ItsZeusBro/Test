@@ -1,13 +1,14 @@
 import * as assert  from "node:assert";
 
 export class Integer{
-    constructor(){
-
+    constructor(min, max){
+        this.min=min
+        this.max=max
     }
     context(){
         return {
-            'min':undefined,
-            'max':undefined,
+            'min':this.min,
+            'max':this.max,
         }
     }
     log(obj){
