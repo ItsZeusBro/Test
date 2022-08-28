@@ -227,7 +227,7 @@ var descriptor={
 	'integer': new Integer(1, 2),
 	'string': new String(1, 2),
 	'null': new Null([null, NaN, 0, '0', false]),
-	// 'array': new Array(),
+	'array': new Array(0, 10, ['integer', 'string', 'null']),
 	// 'object': new Object(),
 	// 'linkList': new LinkList(),
 	// 'matrix': new Matrix(),
@@ -241,3 +241,4 @@ var types = new RefinedTypes(descriptor)
 console.log(types.typeOf(1234))
 console.log(types.typeOf('1234'))
 console.log(types.typeOf(NaN))
+console.log(types.typeOf([1, '2', 0, 1, '2', null]))
