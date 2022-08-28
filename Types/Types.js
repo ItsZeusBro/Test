@@ -26,7 +26,7 @@ export class Types{
 			},
 	
 			'null':{
-				
+				'types':[null, NaN, 0, '0', false]
 			},
 
 			'array':{
@@ -41,7 +41,8 @@ export class Types{
 				'string':false,
 				'tree':false,
 				'strata':false,
-				'linkList':false
+				'linkList':false,
+				'null':false
 			},
 
 			'object':{
@@ -55,12 +56,14 @@ export class Types{
 				'string':false,
 				'matrix':false,
 				'strata':false,
-				'linkList':false
+				'linkList':false,
+				'null':false
 			},
 
 			'tree':{
 				'min':undefined,
 				'max':undefined,
+				'descending':false,
 				'depth':undefined,
 				'payload':'payload',
 				'map':{
@@ -70,12 +73,44 @@ export class Types{
 				},
 				//these would all be in the payload section
 				'array':false,
+				'object':false,
 				'string':false,
 				'matrix':false,
 				'strata':false,
-				'linkList':false
-			}
+				'linkList':false,
+				'null':false
 
+			},
+
+			'strata':{
+				'min':undefined,
+				'max':undefined,
+				'descending':false,
+				'depth':undefined,
+				'payload':'payload',
+				'map':{
+					//strata can have a key arrangement that is recursive,
+					//but doesnt need to
+				},
+				'array':false,
+				'object':false,
+				'string':false,
+				'matrix':false,
+				'strata':false,
+				'linkList':false,
+				'null':false
+			},
+
+			'matrix':{
+				'min':undefined,
+				'max':undefined,
+				'descending':false,
+				'depth':undefined,
+				'payload':undefined,
+				'map':{
+					//this is a big subject
+				}
+			}
 
 
 		}
