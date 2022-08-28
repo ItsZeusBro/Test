@@ -1,9 +1,30 @@
 import * as assert  from "node:assert";
 import * as util from "node:util"
+import { Integer } from "./Integer/Integer.js";
+import { String } from "./String/String.js";
+import { Null } from "./Null/Null.js";
+import { Array } from "./Array/Array.js";
+import { LinkList } from "./LinkList/LinkList.js";
+import { Matrix } from "./Matrix/Matrix.js";
+import { Object } from "./Object/Object.js";
+import { Random } from "./Random/Random.js";
+import { Strata } from "./Strata/Strata.js";
+import { Tree } from "./Trees/Trees.js";
 
 export class Types{
-	constructor(){
+	constructor(descriptor){
 		//This should expose all type functions from a general level
+		this.integer=new Integer(descriptor['integer'])
+		this.string=new String(descriptor['string'])
+		this.null=new Null(descriptor['null'])
+		this.array=new Array(descriptor['array'])
+		this.object=new Object(descriptor['object'])
+		this.tree= new Tree(descriptor['tree'])
+		this.matrix = new Matrix(descriptor['matrix'])
+		this.random = new Random(descriptor['random'])
+		this.linkList = new LinkList(descriptor['linkList'])
+		this.strata = new Strata(descriptor['strata'])
+
 	}	
     assert(){
         
@@ -13,138 +34,22 @@ export class Types{
 
 	}
 	context(){
-		return {
-
-			'integer':{
-				'min':undefined,
-				'max':undefined,
-			},
-			'string':{
-				'min':undefined,
-				'max':undefined,
-				'pattern':undefined //some regex pattern (we need that regex generator for this feature)
-			},
-	
-			'null':{
-				'types':[null, NaN, 0, '0', false]
-			},
-
-			'array':{
-				'min':undefined,
-				'max':undefined,
-				'map':{
-					//you can map an array to types or patterns
-					'types':[],//whatever types or pattern here
-					'n':undefined
-				},
-				'object':false,
-				'string':false,
-				'tree':false,
-				'strata':false,
-				'linkList':false,
-				'null':false
-			},
-
-			'object':{
-				'min':undefined,
-				'max':undefined,
-				'map':{
-					//you can map keys to types
-					
-				},
-				'array':false,
-				'string':false,
-				'matrix':false,
-				'strata':false,
-				'linkList':false,
-				'null':false
-			},
-
-			'tree':{
-				'min':undefined,
-				'max':undefined,
-				'descending':false,
-				'depth':undefined,
-				'payload':'payload',
-				'map':{
-					//pattern for each layer of the tree
-					//if keys map not used, then normal payload schema will be used with
-					//either defined payload key or default payload key
-				},
-				//these would all be in the payload section
-				'array':false,
-				'object':false,
-				'string':false,
-				'matrix':false,
-				'strata':false,
-				'linkList':false,
-				'null':false
-
-			},
-
-			'strata':{
-				'min':undefined,
-				'max':undefined,
-				'descending':false,
-				'depth':undefined,
-				'payload':'payload',
-				'map':{
-					//strata can have a key arrangement that is recursive,
-					//but doesnt need to
-				},
-				'array':false,
-				'object':false,
-				'string':false,
-				'matrix':false,
-				'strata':false,
-				'linkList':false,
-				'null':false
-			},
-
-			'matrix':{
-				'min':undefined,
-				'max':undefined,
-				'descending':false,
-				'depth':undefined,
-				'payload':undefined,
-				'map':{
-					//this is a big subject
-				}
-			}
-
-
-		}
+		var context = {}
+		context['integer']=this.integer.context()
+		context['string']=this.string.context()
+		context['null']=this.null.context()
+		context['array']=this.array.context()
+		context['object']=this.object.context()
+		context['tree']=this.tree.context()
+		context['matrix']=this.matrix.context()
+		context['random']=this.random.context()
+		context['linkList']=this.linkList.context()
+		context['strata']=this.strata.context()
+		return context
 	}	
 
-	compare(thing1, thing2, equal=[true]){
-		if(!equal[0]){
-			return false
-		}else{
-			if(this.types.isNullType(thing1)&&this.types.isNullType(thing2)){
-				return this._isEqualNullType(thing1, thing2, equal)
-			}
-			else if(this.types.isInteger(thing1) && this.types.isInteger(thing2)){
-				return this._isEqualNumber(thing1, thing2, equal)
-
-			}else if(this.types.isString(thing1)&&this.types.isString(thing2)){
-				return this._isEqualString(thing1, thing2, equal)
-
-			}else if(this.types.isObject(thing1)&&this.types.isObject(thing2)){
-				return this._isEqualObject(thing1, thing2, equal)
-
-			}else if(this.types.isArray(thing1) && this.types.isArray(thing2)){
-				return this._isEqualArray(thing1, thing2, equal)
-
-			}else if(this.types.isStrata(thing1)&&this.types.isStrata(thing2)){
-				return this._isEqualStrata(thing1, thing2, equal)
-
-			}else if(!thing1 && !thing2){
-				return false
-			}else{
-				equal[0]=false
-				return false
-			}
-		}
+	compare(){
+		
 	}
 
 	log(obj){
