@@ -35,6 +35,33 @@ export class Types{
 
     }
 
+	
+
+	random(type){
+		//generates a random thing of specified type if properties present, otherwise default properties apply
+		if(this.get(type)){this.get(type).random()}
+	}
+
+	context(){
+		var context = {}
+		if(this.has('integer')){context['integer']=this.integer.context()}
+		if(this.has('string')){context['string']=this.string.context()}
+		if(this.has('null')){context['null']=this.null.context()}
+		if(this.has('array')){context['array']=this.array.context()}
+		if(this.has('object')){context['object']=this.object.context()}
+		if(this.has('tree')){context['tree']=this.tree.context()}
+		if(this.has('matrix')){context['matrix']=this.matrix.context()}
+		if(this.has('random')){context['random']=this.random.context()}
+		if(this.has('linkList')){context['linkList']=this.linkList.context()}
+		if(this.has('strata')){context['strata']=this.strata.context()}
+		return context
+	}	
+
+
+
+	has(type){
+		//if Types has the type instantiated return true
+	}
 	get(type){
 		if(type=='integer'){return this.integer}
 		else if(type=='string'){return this.string}
@@ -46,43 +73,29 @@ export class Types{
 		else if(type=='random'){return this.random}
 		else if(type=='linkList'){return this.linkList}
 		else if(type=='strata'){return this.strata}
+		
 	}
 
-	random(type){
-		//generates a random thing of specified type if properties present, otherwise default properties apply
-		if(this.get(type)){this.get(type).random()}
-	}
-
-	context(){
-		var context = {}
-		if(this.isType('integer')){context['integer']=this.integer.context()}
-		if(this.isType('string')){context['string']=this.string.context()}
-		if(this.isType('null')){context['null']=this.null.context()}
-		if(this.isType('array')){context['array']=this.array.context()}
-		if(this.isType('object')){context['object']=this.object.context()}
-		if(this.isType('tree')){context['tree']=this.tree.context()}
-		if(this.isType('matrix')){context['matrix']=this.matrix.context()}
-		if(this.isType('random')){context['random']=this.random.context()}
-		if(this.isType('linkList')){context['linkList']=this.linkList.context()}
-		if(this.isType('strata')){context['strata']=this.strata.context()}
-		return context
-	}	
-
-	compare(thing1, thing2){
-		//compares two things of unknown type
-	}
-
-	isType(type){
-		//check if type actually exists in this.type.isType() which should return true
-		try{
-			if(this.get(type).isType()){return true}
-		}
-		catch{
-			return false
+	is(thing1, thing2, deep=false){
+		if(thing && thing2 && !deep){
+			//compare thing1 and thing2 for type equality
+		}else if (thing1 && thing2 && deep){
+			//compare thing1 and thing2 for deep equality
 		}
 	}
+
+	in(thing, deep=false){
+		if(thing && !deep){
+			//if Types has a type that matches the type of thing return true
+			
+		}else if (thing && deep){
+			//if Types has a type that is deeply equal to thing, return true
+
+		}
+	}
+
 	type(thing){
-		//returns type
+		//returns type of a thing, if its supported by Types, even if its not instantiated
 	}
 
 	log(obj){
