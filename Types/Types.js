@@ -14,42 +14,75 @@ import { Tree } from "./Trees/Trees.js";
 export class Types{
 	constructor(descriptor){
 		//This should expose all type functions from a general level
-		this.integer=new Integer(descriptor['integer'])
-		this.string=new String(descriptor['string'])
-		this.null=new Null(descriptor['null'])
-		this.array=new Array(descriptor['array'])
-		this.object=new Object(descriptor['object'])
-		this.tree= new Tree(descriptor['tree'])
-		this.matrix = new Matrix(descriptor['matrix'])
-		this.random = new Random(descriptor['random'])
-		this.linkList = new LinkList(descriptor['linkList'])
-		this.strata = new Strata(descriptor['strata'])
-
+		this.integer=descriptor['integer']
+		this.string=descriptor['string']
+		this.null=descriptor['null']
+		this.array=descriptor['array']
+		this.object=descriptor['object']
+		this.tree= descriptor['tree']
+		this.matrix = descriptor['matrix']
+		this.random = descriptor['random']
+		this.linkList = descriptor['linkList']
+		this.strata = descriptor['strata']
 	}	
-    assert(){
-        
+    assert(properties={}){
+        //properties is interpreted differently depending on the type in properties
+		//it is a general descriptor of the state of the thing, with keywords that 
+		//reason about the type
+		if(this.get(properties['type'])){
+			this.get(properties['type']).assert(properties)
+		}
+
     }
 
-	random(){
-
+	get(type){
+		if(type=='integer'){return this.integer}
+		else if(type=='string'){return this.string}
+		else if(type=='null'){return this.null}
+		else if(type=='array'){return this.array}
+		else if(type=='object'){return this.object}
+		else if(type=='tree'){return this.tree}
+		else if(type=='matrix'){return this.matrix}
+		else if(type=='random'){return this.random}
+		else if(type=='linkList'){return this.linkList}
+		else if(type=='strata'){return this.strata}
 	}
+
+	random(type){
+		//generates a random thing of specified type if properties present, otherwise default properties apply
+		if(this.get(type)){this.get(type).random()}
+	}
+
 	context(){
 		var context = {}
-		context['integer']=this.integer.context()
-		context['string']=this.string.context()
-		context['null']=this.null.context()
-		context['array']=this.array.context()
-		context['object']=this.object.context()
-		context['tree']=this.tree.context()
-		context['matrix']=this.matrix.context()
-		context['random']=this.random.context()
-		context['linkList']=this.linkList.context()
-		context['strata']=this.strata.context()
+		if(this.isType('integer')){context['integer']=this.integer.context()}
+		if(this.isType('string')){context['string']=this.string.context()}
+		if(this.isType('null')){context['null']=this.null.context()}
+		if(this.isType('array')){context['array']=this.array.context()}
+		if(this.isType('object')){context['object']=this.object.context()}
+		if(this.isType('tree')){context['tree']=this.tree.context()}
+		if(this.isType('matrix')){context['matrix']=this.matrix.context()}
+		if(this.isType('random')){context['random']=this.random.context()}
+		if(this.isType('linkList')){context['linkList']=this.linkList.context()}
+		if(this.isType('strata')){context['strata']=this.strata.context()}
 		return context
 	}	
 
-	compare(){
-		
+	compare(thing1, thing2){
+		//compares two things of unknown type
+	}
+
+	isType(type){
+		//check if type actually exists in this.type.isType() which should return true
+		try{
+			if(this.get(type).isType()){return true}
+		}
+		catch{
+			return false
+		}
+	}
+	type(thing){
+		//returns type
 	}
 
 	log(obj){
@@ -60,3 +93,15 @@ export class Types{
 
 }
 
+var descriptor={
+	'integer': new Integer(),
+	'string': new String(),
+	'null': new Null(),
+	'array': new Array(),
+	'object': new Object(),
+	'linkList': new LinkList(),
+	'matrix': new Matrix(),
+	'random': new Random(),
+	'strata': new Strata(),
+	'tree': new Tree()
+}
