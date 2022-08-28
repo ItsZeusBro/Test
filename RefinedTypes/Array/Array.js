@@ -6,10 +6,17 @@ export class Array{
     constructor(min=1, max=2, map=[]){
         this.min = min
         this.max = max
-        this.map = map
-        this.refinedTypes = new RefinedTypes()
-        this.v_map = this.vMap(map)
         this.v_max = this.max
+
+        this.map = map
+        this.refinedTypes;
+        this.v_map;
+        if(map.length){
+            //this ensures we dont have an infinite circular dependency 
+            this.refinedTypes = new RefinedTypes()
+            this.v_map = this.vMap(map)
+
+        }
     }
     vMap(map){
         //create a Types map for type checking
