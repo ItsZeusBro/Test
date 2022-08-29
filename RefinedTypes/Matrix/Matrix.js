@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Matrix{
+export class _Matrix{
     constructor(){
 
     }

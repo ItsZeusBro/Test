@@ -3,7 +3,7 @@ import * as assert  from "node:assert";
 //A random type is a construct of schema that describes one of the other primitive types
 //in a very specific way and has functions that return those random values and also has functions
 //that supports random types
-export class Random{
+export class _Random{
     constructor(){
 
     }

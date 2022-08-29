@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Integer{
+export class _Integer{
     constructor(min, max){
         this.min=min
         this.max=max

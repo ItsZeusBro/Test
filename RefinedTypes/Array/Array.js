@@ -1,9 +1,9 @@
 import * as assert  from "node:assert";
 import { RefinedTypes } from "../RefinedTypes.js";
 
-export class Array{
+export class _Array{
     //min and max are kickers if map is a type array
-    constructor(min=1, max=2, map=[]){
+    constructor(min, max, map=undefined){
         this.min = min
         this.max = max
         this.v_max = this.max
@@ -11,7 +11,7 @@ export class Array{
         this.map = map
         this.refinedTypes;
         this.v_map;
-        if(map.length){
+        if(map && map.length){
             //this ensures we dont have an infinite circular dependency 
             this.refinedTypes = new RefinedTypes()
             this.v_map = this.vMap(map)
@@ -44,7 +44,7 @@ export class Array{
 
                 }
 			}catch(err){
-				return false
+				return
 			}
         }
 		else if(array && this.min && this.max){
@@ -53,32 +53,33 @@ export class Array{
 				assert.equal(array.length>=this.min, true)
 				assert.equal(array.length<=this.max, true)
 			}catch(err){
-				return false
+				return
 			}
 		}else if(array && this.min){
 			try{
 				assert.equal(this._isArray(array), true)
 				assert.equal(array.length>=this.min, true)
 			}catch(err){
-				return false
+				return
 			}
 		}else if(array && this.max){
 			try{
 				assert.equal(this._isArray(array), true)
 				assert.equal(array.length<=this.max, true)
 			}catch(err){
-				return false
+				return
 			}
 		}else if(array){
 			try{
 				assert.equal(this._isArray(array), true)
 			}catch(err){
-				return false
+				return
 			}
 		}else{
-			return false
+			return
 		}
-		return true
+
+		return 'array'
     }
     _isArray(array){
 		return Array.isArray(array)

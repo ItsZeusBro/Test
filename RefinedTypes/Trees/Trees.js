@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Tree{
+export class _Tree{
     constructor(){
 
     }

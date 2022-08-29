@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Strata{
+export class _Strata{
     constructor(){
 
     }

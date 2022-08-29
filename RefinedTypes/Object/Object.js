@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Object{
+export class _Object{
     constructor(){
 
     }

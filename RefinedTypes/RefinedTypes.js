@@ -1,15 +1,15 @@
 import * as assert  from "node:assert";
 import * as util from "node:util"
-import { Integer } from "./Integer/Integer.js";
-import { String } from "./String/String.js";
-import { Null } from "./Null/Null.js";
-import { Array } from "./Array/Array.js";
-import { LinkList } from "./LinkList/LinkList.js";
-import { Matrix } from "./Matrix/Matrix.js";
-import { Object } from "./Object/Object.js";
-import { Random } from "./Random/Random.js";
-import { Strata } from "./Strata/Strata.js";
-import { Tree } from "./Trees/Trees.js";
+import { _Integer } from "./Integer/Integer.js";
+import { _String } from "./String/String.js";
+import { _Null } from "./Null/Null.js";
+import { _Array } from "./Array/Array.js";
+import { _LinkList } from "./LinkList/LinkList.js";
+import { _Matrix } from "./Matrix/Matrix.js";
+import { _Object } from "./Object/Object.js";
+import { _Random } from "./Random/Random.js";
+import { _Strata } from "./Strata/Strata.js";
+import { _Tree } from "./Trees/Trees.js";
 
 export class RefinedTypes{
 	constructor(descriptor){
@@ -18,6 +18,7 @@ export class RefinedTypes{
 		this.string=descriptor['string']
 		this.null=descriptor['null']
 		this.array=descriptor['array']
+		console.log(this.array)
 		this.object=descriptor['object']
 		this.tree= descriptor['tree']
 		this.matrix = descriptor['matrix']
@@ -101,7 +102,7 @@ export class RefinedTypes{
 
 	typeOf(thing, refined=true){
 		//returns type of a thing, if its supported by Types, even if its not instantiated
-			if(new Null().is(thing)){
+			if(new _Null().is(thing)){
 				if(refined){
 					try{
 						return this.null.is(thing)
@@ -112,7 +113,7 @@ export class RefinedTypes{
 					return 'null'
 				}
 			}
-			else if(new String().is(thing)){
+			else if(new _String().is(thing)){
 				if(refined){
 					try{
 						return this.string.is(thing)
@@ -123,7 +124,7 @@ export class RefinedTypes{
 					return 'string'
 				}
 			}
-			else if(new Integer().is(thing)){
+			else if(new _Integer().is(thing)){
 				if(refined){
 					try{
 						return this.integer.is(thing)
@@ -134,7 +135,7 @@ export class RefinedTypes{
 					return 'integer'
 				}
 			}
-			else if(new Array().is(thing)){
+			else if(new _Array().is(thing)){
 				if(refined){
 					try{
 						return this.array.is(thing)
@@ -145,7 +146,7 @@ export class RefinedTypes{
 					return 'array'
 				}
 			}
-			else if(new LinkList().is(thing)){
+			else if(new _LinkList().is(thing)){
 				if(refined){
 					try{
 						return this.linkList.is(thing)
@@ -156,7 +157,7 @@ export class RefinedTypes{
 					return 'linkList'
 				}
 			}
-			else if(new Matrix().is(thing)){
+			else if(new _Matrix().is(thing)){
 				if(refined){
 					try{
 						return this.matrix.is(thing)
@@ -167,7 +168,7 @@ export class RefinedTypes{
 					return 'matrix'
 				}
 			}
-			else if(new Object().is(thing)){
+			else if(new _Object().is(thing)){
 				if(refined){
 					try{
 						return this.object.is(thing)
@@ -178,7 +179,7 @@ export class RefinedTypes{
 					return 'object'
 				}
 			}
-			else if(new Random().is(thing)){
+			else if(new _Random().is(thing)){
 				if(refined){
 					try{
 						return this.random.is(thing)
@@ -189,7 +190,7 @@ export class RefinedTypes{
 					return 'random'
 				}
 			}
-			else if(new Tree().is(thing)){
+			else if(new _Tree().is(thing)){
 				if(refined){
 					try{
 						return this.tree.is(thing)
@@ -200,7 +201,7 @@ export class RefinedTypes{
 					return 'tree'
 				}
 			}
-			else if(new Strata().is(thing)){
+			else if(new _Strata().is(thing)){
 				if(refined){
 					try{
 						return this.strata.is(thing)

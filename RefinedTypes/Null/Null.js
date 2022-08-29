@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class Null{
+export class _Null{
     constructor(nullTypes=[null, NaN, 0, '0', false]){
         try{
             if(nullTypes.includes(undefined)){throw Error('nullTypes cannot contain undefined')}

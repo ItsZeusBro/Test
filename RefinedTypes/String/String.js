@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 
-export class String{
+export class _String{
     constructor(min, max){
         this.min=min
         this.max=max
