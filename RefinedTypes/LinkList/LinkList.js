@@ -1,7 +1,7 @@
 import * as assert  from "node:assert";
 
 export class _LinkList{
-    constructor(min=1, max=2, map=['int', 'string', 'null', 'object', 'tree', 'array']){
+    constructor(min=1, max=2, map=[]){
         this.min = min
         this.max = max
         this.map = map
@@ -17,10 +17,11 @@ export class _LinkList{
         }
     }
     exists(){return true}
+
     is(llist){
         if(llist && this.min && this.max){
 			try{
-				assert.equal(this._isLinkList(llist), true)
+				assert.equal(this.isLinkList(llist), true)
 				assert.equal(this.getSize(llist)>=this.min, true)
 				assert.equal(this.getSize(llist)<=this.max, true)
 			}catch(err){
@@ -28,21 +29,21 @@ export class _LinkList{
 			}
 		}else if(llist && this.min){
 			try{
-				assert.equal(this._isLinkList(llist), true)
+				assert.equal(this.isLinkList(llist), true)
 				assert.equal(this.getSize(llist)>=this.min, true)
 			}catch(err){
 				return
 			}
 		}else if(llist && this.max){
 			try{
-				assert.equal(this._isLinkList(llist), true)
+				assert.equal(this.isLinkList(llist), true)
 				assert.equal(this.getSize(llist)<=this.max, true)
 			}catch(err){
 				return
 			}
 		}else if(llist){
 			try{
-				assert.equal(this._isLinkList(llist), true)
+				assert.equal(this.isLinkList(llist), true)
 			}catch(err){
 				return
 			}
@@ -53,9 +54,25 @@ export class _LinkList{
 
     }
 
-    _isLinkList(llist){
-
+    isLinkList(llist){
+        //size must be 1 or more
+        if(this.getSize(llist)>=1){
+            return true
+        }
     }
+
+    getSize(llist, n=[0]){
+        if(!(llist instanceof Object)){return n[0]}
+        if((llist['next'] instanceof Object && Object.keys(llist['next']).includes('next')) || llist['next']==null){
+            n[0]+=1
+            this.getSize(llist['next'], n)
+        }else{
+            n[0]=0
+            return n[0]
+        }
+        return n[0]
+    }
+
     context(){
         return {
             'min':this.min,
@@ -69,4 +86,8 @@ export class _LinkList{
             console.log(util.inspect(obj, false, null, true))
         }
     }
+
 }
+
+console.log(new _LinkList().isLinkList({'payload':{}, 'next':{'payload':{}, 'next':{'payload':{}, 'next':null}}}))
+console.log(new _LinkList().isLinkList({'payload':{}, 'next':null}))

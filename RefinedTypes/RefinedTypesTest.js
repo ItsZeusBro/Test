@@ -37,7 +37,10 @@ export class RefinedTypesTest{
         console.log(this.types.typeOf('1234'))
         console.log(this.types.typeOf(NaN))
         console.log(this.types.typeOf([1, '2', 0, 1, '2', null]))
+        console.log(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{'payload':{}, 'next':{}}}}))
+        
     }
+    
 }
 
 
