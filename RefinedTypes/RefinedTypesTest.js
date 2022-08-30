@@ -19,7 +19,7 @@ export class RefinedTypesTest{
             'string': new _String(1, 10),
             'null': new _Null([null, NaN, 0, '0', false]),
             'array': new _Array(0, 10),
-            // 'object': new Object(),
+            'object': new _Object(1, 4),
             'linkList': new _LinkList(1, 2),
             // 'matrix': new Matrix(),
             // 'random': new Random(),
@@ -42,6 +42,9 @@ export class RefinedTypesTest{
         assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':null}}), 'linkList')
         assert.equal(this.types.typeOf({'payload':{}, 'next':null}), 'linkList')
         assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
+        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
+        assert.equal(this.types.typeOf({'next':'should not be a link list'}), 'object')
+        assert.equal(this.types.typeOf({'next':12345}), 'object')
 
     }
 
