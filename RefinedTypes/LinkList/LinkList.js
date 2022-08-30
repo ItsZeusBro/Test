@@ -89,5 +89,3 @@ export class _LinkList{
 
 }
 
-console.log(new _LinkList().is({'payload':{}, 'next':{'payload':{}, 'next':null}}))
-console.log(new _LinkList().is({'payload':{}, 'next':null}))

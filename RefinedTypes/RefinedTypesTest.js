@@ -9,6 +9,8 @@ import { _Object } from "./Object/Object.js";
 import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
 import { _Tree } from "./Trees/Trees.js";
+import * as assert  from "node:assert";
+
 
 export class RefinedTypesTest{
     constructor(){
@@ -18,7 +20,7 @@ export class RefinedTypesTest{
             'null': new _Null([null, NaN, 0, '0', false]),
             'array': new _Array(0, 10),
             // 'object': new Object(),
-            // 'linkList': new LinkList(),
+            'linkList': new _LinkList(1, 2),
             // 'matrix': new Matrix(),
             // 'random': new Random(),
             // 'strata': new Strata(),
@@ -33,14 +35,16 @@ export class RefinedTypesTest{
 
     typeOf(){
         console.log(this.types)
-        console.log(this.types.typeOf(1234))
-        console.log(this.types.typeOf('1234'))
-        console.log(this.types.typeOf(NaN))
-        console.log(this.types.typeOf([1, '2', 0, 1, '2', null]))
-        console.log(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{'payload':{}, 'next':{}}}}))
-        
+        assert.equal(this.types.typeOf(1234), 'integer')
+        assert.equal(this.types.typeOf('1234'), 'string')
+        assert.equal(this.types.typeOf(NaN), 'null')
+        assert.equal(this.types.typeOf([1, '2', 0, 1, '2', null]), 'array')
+        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':null}}), 'linkList')
+        assert.equal(this.types.typeOf({'payload':{}, 'next':null}), 'linkList')
+        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
+
     }
-    
+
 }
 
 
