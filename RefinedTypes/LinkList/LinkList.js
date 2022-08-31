@@ -36,7 +36,7 @@ export class _LinkList{
 
             if(this.min){
                 try{
-                    assert(this.min_width <= this.getSize(llist))
+                    assert.equal(this.min_width <= this.getSize(llist), true)
                 }catch{
                     return
                 }
@@ -44,12 +44,12 @@ export class _LinkList{
 
             if(this.max){
                 try{
-                    assert(this.max_width >= this.getSize(llist))
+                    assert.equal(this.max_width >= this.getSize(llist), true)
                 }catch{
                     return
                 }
             }
-            
+
             return this.context(llist)
         }
     }

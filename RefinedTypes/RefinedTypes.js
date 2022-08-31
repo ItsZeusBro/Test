@@ -14,11 +14,11 @@ import { _Tree } from "./Trees/Tree.js";
 export class RefinedTypes{
 	constructor(descriptor){
 		//This should expose all type functions from a general level
+		console.log(descriptor)
 		this.integer=descriptor['integer']
 		this.string=descriptor['string']
 		this.null=descriptor['null']
 		this.array=descriptor['array']
-		console.log(this.array)
 		this.object=descriptor['object']
 		this.tree= descriptor['tree']
 		this.matrix = descriptor['matrix']
@@ -125,6 +125,7 @@ export class RefinedTypes{
 				}
 			}
 			else if(new _Integer().is(thing)){
+
 				if(refined){
 					try{
 						return this.integer.is(thing)

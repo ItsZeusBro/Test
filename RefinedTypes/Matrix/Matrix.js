@@ -14,10 +14,10 @@ export class _Matrix{
             'type': 'matrix',
             'matrix': this.matrix,
             'depth': this.getDepth(matrix),
-            'min_width': min_width,
-            'max_width': max_width,
-            'min_depth': min_depth,
-            'max_depth': max_depth,
+            'min_width': this.min_width,
+            'max_width': this.max_width,
+            'min_depth': this.min_depth,
+            'max_depth': this.max_depth,
             'map':{
                 //matricies can have arbitrary payload [whatever, [[],[whatever else, []]],[]]
             }
@@ -31,28 +31,28 @@ export class _Matrix{
         if(matrix){
             if(this.min_width){
                 try{
-                    assert(this.min_width, this.getWidth(matrix)['max'])
+                    assert.equal(this.min_width <= this.getWidth(matrix)['min'], true)
                 }catch{
                     return
                 }
             }
             if(this.max_width){
                 try{
-                    assert(this.min_width, this.getWidth(matrix)['min'])
+                    assert.equal(this.max_width >= this.getWidth(matrix)['max'], true)
                 }catch{
                     return
                 }
             }
             if(this.min_depth){
                 try{
-                    assert(this.min_width, this.getDepth(matrix))
+                    assert.equal(this.min_depth <= this.getDepth(matrix), true)
                 }catch{
                     return
                 }
             }
             if(this.max_depth){
                 try{
-                    assert(this.min_width, this.getDepth(matrix))
+                    assert.equal(this.max_depth >= this.getDepth(matrix), true)
                 }catch{
                     return
                 }

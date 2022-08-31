@@ -10,11 +10,14 @@ export class _Null{
         this.nullTypes=nullTypes
     }
 
-    context(){
+    context(nullType){
         return {
+            'type':'null',
+            'null':nullType,
             'nullTypes':this.nullTypes
         }
     }
+
     exists(){return true}
 
     is(nullType){
@@ -23,8 +26,9 @@ export class _Null{
         }catch(err){
             return
         }
-        return 'null'
+        return this.context(nullType)
     }
+
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

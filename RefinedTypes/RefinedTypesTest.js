@@ -30,21 +30,20 @@ export class RefinedTypesTest{
         this.tests()
     }
     tests(){
-        this.typeOf()
+        this.is()
     }
 
-    typeOf(){
-        console.log(this.types)
-        assert.equal(this.types.typeOf(1234), 'integer')
-        assert.equal(this.types.typeOf('1234'), 'string')
-        assert.equal(this.types.typeOf(NaN), 'null')
-        assert.equal(this.types.typeOf([1, '2', 0, 1, '2', null]), 'array')
-        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':null}}), 'linkList')
-        assert.equal(this.types.typeOf({'payload':{}, 'next':null}), 'linkList')
-        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
-        assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
-        assert.equal(this.types.typeOf({'next':'should not be a link list'}), 'object')
-        assert.equal(this.types.typeOf({'next':12345}), 'object')
+    is(){
+        assert.equal(this.types.is(1234)['type']=='integer', true)
+        assert.equal(this.types.is('1234')['type']=='string', true)
+        assert.equal(this.types.is(NaN)['type']=='null', true)
+        assert.equal(this.types.is([1, '2', 0, 1, '2', null])['type']=='array', true)
+        // assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':null}}), 'linkList')
+        // assert.equal(this.types.typeOf({'payload':{}, 'next':null}), 'linkList')
+        // assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
+        // assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
+        // assert.equal(this.types.typeOf({'next':'should not be a link list'}), 'object')
+        // assert.equal(this.types.typeOf({'next':12345}), 'object')
     }
 
 }

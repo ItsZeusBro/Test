@@ -47,7 +47,7 @@ export class _Array{
 
             if(this.min){
                 try{
-                    assert(this.min <= array.length)
+                    assert.equal(this.min <= array.length, true)
                 }catch{
                     return
                 }
@@ -55,7 +55,7 @@ export class _Array{
 
             if(this.max){
                 try{
-                    assert(this.max >= array.length)
+                    assert.equal(this.max >= array.length, true)
                 }catch{
                     return
                 }

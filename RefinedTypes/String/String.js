@@ -5,8 +5,10 @@ export class _String{
         this.min=min
         this.max=max
     }
-    context(){
+    context(string){
         return {
+			'type':'string',
+			'string':string,
             'min':this.min,
             'max':this.max,
             //'pattern':undefined //some regex pattern (we need that regex generator for this feature)
@@ -16,38 +18,30 @@ export class _String{
 
     is(string){
         //return true if it is a string
-        if(string && this.min && this.max){
+        if(string){
 			try{
 				assert.equal(this._isString(string), true)
-				assert.equal(string.length>=this.min, true)
-				assert.equal(string.length<=this.max, true)
-			}catch(err){
+			}catch{
 				return
 			}
-		}else if(string && this.min){
-			try{
-				assert.equal(this._isString(string), true)
-				assert.equal(str.length>=this.min, true)
-			}catch(err){
-				return
-			}
-		}else if(string && this.max){
-			try{
-				assert.equal(this._isString(string), true)
-				assert.equal(string.length<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(string){
-			try{
-				assert.equal(this._isString(string), true)
-			}catch(err){
-				return
-			}
-		}else{
-			return
-		}
-		return 'string'
+
+            if(this.min){
+				try{
+					assert.equal(this.min <= string.length, true)
+				}catch{
+					return
+				}
+            }
+
+            if(this.max){
+				try{
+					assert.equal(this.max >= string.length, true)
+				}catch{
+					return
+				}
+            }
+			return this.context(string)
+        }
     }
 
     _isString(string) {
