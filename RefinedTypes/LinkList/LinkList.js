@@ -1,7 +1,8 @@
 import * as assert  from "node:assert";
 
 export class _LinkList{
-    constructor(min=1, max=2, map=[]){
+    constructor(min=1, max=2, map=[], llist){
+        this.llist=llist
         this.min = min
         this.max = max
         this.map = map
@@ -16,42 +17,41 @@ export class _LinkList{
             this.v_max-=1
         }
     }
+
     exists(){return true}
 
-    is(llist){
-        if(llist && this.min && this.max){
-			try{
-				assert.equal(this.isLinkList(llist), true)
-				assert.equal(this.getSize(llist)>=this.min, true)
-				assert.equal(this.getSize(llist)<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(llist && this.min){
-			try{
-				assert.equal(this.isLinkList(llist), true)
-				assert.equal(this.getSize(llist)>=this.min, true)
-			}catch(err){
-				return
-			}
-		}else if(llist && this.max){
-			try{
-				assert.equal(this.isLinkList(llist), true)
-				assert.equal(this.getSize(llist)<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(llist){
-			try{
-				assert.equal(this.isLinkList(llist), true)
-			}catch(err){
-				return
-			}
-		}else{
-			return
-		}
-		return 'linkList'
+    context(llist){
+        return {
+            'type':'linkList',
+            'linkList':llist,
+            'size':this.getSize(llist),
+            'min':this.min,
+            'max':this.max,
+            'map':this.map
+        }
+    }
 
+    is(llist){
+        if(llist){
+
+            if(this.min){
+                try{
+                    assert(this.min_width <= this.getSize(llist))
+                }catch{
+                    return
+                }
+            }
+
+            if(this.max){
+                try{
+                    assert(this.max_width >= this.getSize(llist))
+                }catch{
+                    return
+                }
+            }
+            
+            return this.context(llist)
+        }
     }
 
     isLinkList(llist){
@@ -73,13 +73,7 @@ export class _LinkList{
         return n[0]
     }
 
-    context(){
-        return {
-            'min':this.min,
-            'max':this.max,
-            'map':this.map,        
-        }
-    }
+
 
     log(obj){
         if(obj){

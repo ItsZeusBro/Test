@@ -9,7 +9,7 @@ import { _Matrix } from "./Matrix/Matrix.js";
 import { _Object } from "./Object/Object.js";
 import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
-import { _Tree } from "./Trees/Trees.js";
+import { _Tree } from "./Trees/Tree.js";
 
 export class RefinedTypes{
 	constructor(descriptor){
@@ -100,7 +100,7 @@ export class RefinedTypes{
 		}
 	}
 
-	typeOf(thing, refined=true){
+	is(thing, refined=true){
 		//returns type of a thing, if its supported by Types, even if its not instantiated
 			if(new _Null().is(thing)){
 				if(refined){
@@ -110,7 +110,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'null'
+					return new _Null().is(thing)
 				}
 			}
 			else if(new _String().is(thing)){
@@ -121,7 +121,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'string'
+					return new _String().is(thing)
 				}
 			}
 			else if(new _Integer().is(thing)){
@@ -132,7 +132,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'integer'
+					return new _Integer().is(thing)
 				}
 			}
 			else if(new _Array().is(thing)){
@@ -143,7 +143,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'array'
+					return new _Array().is(thing)
 				}
 			}
 			else if(new _LinkList().is(thing)){
@@ -154,7 +154,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'linkList'
+					return new _LinkList().is(thing)
 				}
 			}
 			else if(new _Matrix().is(thing)){
@@ -165,7 +165,7 @@ export class RefinedTypes{
 						return undefined
 					}
 				}else{
-					return 'matrix'
+					return new _Matrix(thing).is(thing)
 				}
 			}
 			else if(new _Object().is(thing)){

@@ -8,7 +8,7 @@ import { _Matrix } from "./Matrix/Matrix.js";
 import { _Object } from "./Object/Object.js";
 import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
-import { _Tree } from "./Trees/Trees.js";
+import { _Tree } from "./Trees/Tree.js";
 import * as assert  from "node:assert";
 
 
@@ -21,10 +21,10 @@ export class RefinedTypesTest{
             'array': new _Array(0, 10),
             'object': new _Object(1, 4),
             'linkList': new _LinkList(1, 2),
+            //'tree': new Tree()
             // 'matrix': new Matrix(),
             // 'random': new Random(),
             // 'strata': new Strata(),
-            // 'tree': new Tree()
         }
         this.types  = new RefinedTypes(descriptor)
         this.tests()
@@ -45,7 +45,6 @@ export class RefinedTypesTest{
         assert.equal(this.types.typeOf({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
         assert.equal(this.types.typeOf({'next':'should not be a link list'}), 'object')
         assert.equal(this.types.typeOf({'next':12345}), 'object')
-
     }
 
 }

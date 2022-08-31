@@ -5,46 +5,37 @@ export class _Integer{
         this.min=min
         this.max=max
     }
-    context(){
+    context(integer){
         return {
+			'type':'integer',
+			'integer':integer,
             'min':this.min,
-            'max':this.max,
+            'max':this.max
         }
     }
+
     is(integer){
-        //return true if it is an integer
-        if(integer && this.min && this.max){
-			try{
-				assert.equal(this._isInteger(integer), true)
-				assert.equal(integer>=this.min, true)
-				assert.equal(integer<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(integer && this.min){
-			try{
-				assert.equal(this._isInteger(integer), true)
-				assert.equal(integer>=this.min, true)
-			}catch(err){
-				return
-			}
-		}else if(integer && this.max){
-			try{
-				assert.equal(this._isInteger(integer), true)
-				assert.equal(integer<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(integer || integer==0){
-			try{
-				assert.equal(this._isInteger(integer), true)
-			}catch(err){
-				return
-			}
-		}else{
-			return
-		}
-		return 'integer'
+        if(integer){
+			assert(this._isInteger(integer), true)
+
+            if(this.min){
+				try{
+					assert(this.min <= integer)
+				}catch{
+					return
+				}
+            }
+
+            if(this.max){
+				try{
+					assert(this.max >= integer)
+				}catch{
+					return
+				}
+            }
+			return this.context(integer)
+        }
+
     }
 
     _isInteger(integer){
@@ -52,6 +43,7 @@ export class _Integer{
 	}
 
     exists(){return true}
+
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

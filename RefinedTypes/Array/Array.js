@@ -18,6 +18,7 @@ export class _Array{
 
         }
     }
+
     vMap(map){
         //create a Types map for type checking
         var v_map=[]
@@ -25,73 +26,61 @@ export class _Array{
             v_map.push(this.refinedTypes.typeOf(map[i]))
         }
     }
+
     reset(){
         this.v_max=this.max
     }
+
     dec(){
         if(this.v_max){
             this.v_max-=1
         }
     }
+
     is(array){
-        //return true if it is an array
-        	//n_min means assert that array arr.length is greater than n_min
-		//n_max means assert that array arr.length is less than n_max
-        if(array&&this.min&&this.max&&this.map){
+        if(array){
             try{
-                //check to make sure that pattern in map matches the type pattern in the array
-                for(var i = 0; i<array.length; i++){
+                assert.equal(this._isArray(array), true)
+            }catch{
+                return
+            }
 
+            if(this.min){
+                try{
+                    assert(this.min <= array.length)
+                }catch{
+                    return
                 }
-			}catch(err){
-				return
-			}
-        }
-		else if(array && this.min && this.max){
-			try{
-				assert.equal(this._isArray(array), true)
-				assert.equal(array.length>=this.min, true)
-				assert.equal(array.length<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(array && this.min){
-			try{
-				assert.equal(this._isArray(array), true)
-				assert.equal(array.length>=this.min, true)
-			}catch(err){
-				return
-			}
-		}else if(array && this.max){
-			try{
-				assert.equal(this._isArray(array), true)
-				assert.equal(array.length<=this.max, true)
-			}catch(err){
-				return
-			}
-		}else if(array){
-			try{
-				assert.equal(this._isArray(array), true)
-			}catch(err){
-				return
-			}
-		}else{
-			return
-		}
+            }
 
-		return 'array'
+            if(this.max){
+                try{
+                    assert(this.max >= array.length)
+                }catch{
+                    return
+                }
+            }
+            return this.context(array)
+        }
+        
     }
+
     _isArray(array){
 		return Array.isArray(array)
 	}
-    context(){
+
+    context(array){
         return {
+            'type':'array',
+            'array':array,
             'min':this.min,
             'max':this.max,
-            'map':this.map,        
+            'map':this.map  
         }
     }
+
     exists(){return true}
+
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))
