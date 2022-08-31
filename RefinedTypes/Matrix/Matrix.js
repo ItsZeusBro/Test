@@ -28,7 +28,7 @@ export class _Matrix{
     }
 
     is(matrix){
-        if(matrix){
+        if(this.getDepth(matrix)){
             if(this.min_width){
                 try{
                     assert.equal(this.min_width <= this.getWidth(matrix)['min'], true)
@@ -60,6 +60,7 @@ export class _Matrix{
             return this.context(matrix)
         }
     }
+
 
     getWidth(matrix, min=[matrix.length], max=[0]){
         if(matrix.length<=min[0]){min[0]=matrix.length}

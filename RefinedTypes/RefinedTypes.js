@@ -100,115 +100,85 @@ export class RefinedTypes{
 		}
 	}
 
+
 	is(thing, refined=true){
 		//returns type of a thing, if its supported by Types, even if its not instantiated
 			if(new _Null().is(thing)){
+				console.log('null')
 				if(refined){
-					try{
-						return this.null.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.null.is(thing)}catch{return}
 				}else{
 					return new _Null().is(thing)
 				}
 			}
 			else if(new _String().is(thing)){
+				console.log('string')
 				if(refined){
-					try{
-						return this.string.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.string.is(thing)}catch{return}
 				}else{
 					return new _String().is(thing)
 				}
 			}
 			else if(new _Integer().is(thing)){
-
+				console.log('integer')
 				if(refined){
-					try{
-						return this.integer.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.integer.is(thing)}catch{return}
 				}else{
 					return new _Integer().is(thing)
 				}
 			}
 			else if(new _Array().is(thing)){
+				console.log('array')
 				if(refined){
-					try{
-						return this.array.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.array.is(thing)}catch{return}
 				}else{
 					return new _Array().is(thing)
 				}
 			}
 			else if(new _LinkList().is(thing)){
+				console.log('link list')
 				if(refined){
-					try{
-						return this.linkList.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.linkList.is(thing)}catch{return}
 				}else{
 					return new _LinkList().is(thing)
 				}
 			}
 			else if(new _Matrix().is(thing)){
+				console.log('matrix')
 				if(refined){
-					try{
-						return this.matrix.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.matrix.is(thing)}catch{return}
 				}else{
 					return new _Matrix(thing).is(thing)
 				}
 			}
 			else if(new _Object().is(thing)){
+				console.log('object')
 				if(refined){
-					try{
-						return this.object.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.object.is(thing)}catch{return}
 				}else{
-					return 'object'
+					return new _Object(thing).is(thing)
 				}
 			}
 			else if(new _Random().is(thing)){
+				console.log('random')
 				if(refined){
-					try{
-						return this.random.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.random.is(thing)}catch{return}
 				}else{
 					return 'random'
 				}
 			}
 			else if(new _Tree().is(thing)){
+				console.log('tree')
 				if(refined){
-					try{
-						return this.tree.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.tree.is(thing)}catch{return}
 				}else{
 					return 'tree'
 				}
 			}
 			else if(new _Strata().is(thing)){
+				console.log('strata')
 				if(refined){
-					try{
-						return this.strata.is(thing)
-					}catch{
-						return undefined
-					}
+					try{return this.strata.is(thing)}catch{return}
 				}else{
 					return 'strata'
 				}

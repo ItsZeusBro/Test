@@ -29,9 +29,7 @@ export class RefinedTypesTest{
         this.types  = new RefinedTypes(descriptor)
         this.tests()
     }
-    tests(){
-        this.is()
-    }
+    tests(){this.is()}
 
     is(){
         assert.equal(this.types.is(1234)['type']=='integer', true)
@@ -42,7 +40,7 @@ export class RefinedTypesTest{
         assert.equal(this.types.is({'payload':{}, 'next':null})['type']=='linkList', true)
         assert.equal(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
         assert.equal(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
-        // assert.equal(this.types.typeOf({'next':'should not be a link list'}), 'object')
+        assert.equal(this.types.is({'next':'should not be a link list'})['type']=='object', true)
         // assert.equal(this.types.typeOf({'next':12345}), 'object')
     }
 

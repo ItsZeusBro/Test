@@ -7,61 +7,28 @@ export class _Object{
         this.map=map;
     }
 
-    context(){
+    context(object){
         return {
+            'type':'object',
+            'object': object,
             'min_width':this.min_width,
             'max_width':this.max_width,
             'map':{
                 //you can map keys to types
-            },
-            'array':false,
-            'string':false,
-            'matrix':false,
-            'strata':false,
-            'linkList':false,
-            'null':false
+            }
         }
     }
     is(object){
         //return true if it is an object
-        if(object && this.min_width && this.max_width){
-            try{
-                assert.equal(this._isObject(object), true)
-                assert.equal(this.width(object)>=this.min_width, true)
-                assert.equal(this.width(object)<=this.max_width, true)
-            }catch(err){
-                return false
-            }
-        }else if(object && this.min_width){
-            try{
-                assert.equal(this._isObject(object), true)
-                assert.equal(this.width(object)>=this.min_width, true)
-            }catch(err){
-                return false
-            }
-        }else if(object && this.max_width){
-            try{
-                assert.equal(this._isObject(object), true)
-                assert.equal(this.width(object)<=this.max_width, true)
-            }catch(err){
-                return false
-            }
-        }else if(object){
-            try{
-                assert.equal(this._isObject(object), true)
-            }catch(err){
-                return false
-            }
-        }else{
-            return false
-        }
-        return 'object'
-    }
-    width(object){
-        if(this._isObject(object)){
-            return Object.keys(object).length
+        if(object){
+            try{assert.equal(this._isObject(object), true)}catch{return}
+            if(this.min_width){try{assert.equal(this.min_width <= this.width(object), true)}catch{return}}
+            if(this.max_width){try{assert.equal(this.max_width >= this.width(object), true)}catch{return}}
+            return this.context(object)
         }
     }
+
+    width(object){if(this._isObject(object)){return Object.keys(object).length}}
 
     _isObject(obj){
 		if(obj instanceof Object && obj!==null){
@@ -77,9 +44,6 @@ export class _Object{
 		}
 	}
     exists(){return true}
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
