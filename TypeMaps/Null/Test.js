@@ -7,6 +7,7 @@ export class NullTest{
         this.tests(1000)
     }
     tests(n){
+        
         var _null = new _Null([null, NaN, false, 0, '0', 'null', 'undefined'])
         for(var i = 0; i<n; i++){
             var testVal = _null.randomNull()
