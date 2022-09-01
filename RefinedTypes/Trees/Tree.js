@@ -1,36 +1,56 @@
 import * as assert  from "node:assert";
-
+import { _Object } from "../Object/Object.js";
 export class _Tree{
-    constructor(){
-
+    constructor(min_width, max_width, min_depth, max_depth, map){
+        this.min_width=min_width
+        this.max_width=max_width
+        this.min_depth=min_depth
+        this.max_depth=max_depth
+        this.map=map
     }
-    context(){
+    context(tree){
         return {
-            'min':undefined,
-            'max':undefined,
-            'descending':false,
-            'depth':undefined,
-            'payload':'payload',
-            'map':{
-                //pattern for each layer of the tree
-                //if keys map not used, then normal payload schema will be used with
-                //either defined payload key or default payload key
-            },
-            //these would all be in the payload section
-            'array':false,
-            'object':false,
-            'string':false,
-            'matrix':false,
-            'strata':false,
-            'linkList':false,
-            'null':false
-
+            'type':'tree',
+            'tree':tree,
+            'min_width':this.min_width,
+            'max_width':this.max_width,
+            'min_depth':this.min_depth,
+            'max_depth':this.max_depth,
+            'map':this.map
         }
     }
 
-    is(tree){
-        //return true if it is an tree
+    is(tree){if(this.depth(tree)){return this.context(tree)}}
+
+    depth(tree, d=[0]){
+        if(new _Object().is(tree)&&d[0]){
+            this.apply(Object.keys(tree))
+            for(var i = 0; i<new _Object().width(tree); i++){
+                var key = Object.keys(tree)[i];
+                d[0]+=1
+                this.depth(tree[key], d)
+            }
+
+        }else if(new _Object().is(tree)){
+            for(var i = 0; i<new _Object().width(tree); i++){
+                var key = Object.keys(tree)[i];
+                this.depth(tree[key], d)
+            }
+
+        }else{
+            return d[0]
+        }
     }
+
+    apply(tree){
+        //apply the map if it exists
+        if(new _Object().is(this.map)){
+            for (var i = 0; i<Object.keys(this.map); i++){
+                this.map[i] //a map is a key type association
+            }
+        }
+    }
+    
 
     exists(){return true}
     

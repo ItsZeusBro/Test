@@ -1,85 +1,39 @@
 import * as assert  from "node:assert";
-
+import { _Tree } from "../Trees/Tree.js";
 export class _LinkList{
-    constructor(min=1, max=2, map=[], llist){
-        this.llist=llist
+    constructor(
+        min=1, 
+        max=2, 
+        map={
+                'type':'typeMap', 'typeMap':{
+                    'next':'linkList', 'payload':{
+                        'type':'typeMap', 'typeMap':{
+                            'data':'object', 'meta-data':'object'
+                        }
+                    }
+                }
+            }
+    ){
         this.min = min
         this.max = max
         this.map = map
-        this.v_max = this.max
-    }
-
-    reset(){
-        this.v_max=this.max
-    }
-    dec(){
-        if(this.v_max){
-            this.v_max-=1
-        }
     }
 
     exists(){return true}
 
     context(llist){
         return {
-            'type':'linkList',
-            'linkList':llist,
-            'size':this.getSize(llist),
-            'min':this.min,
-            'max':this.max,
-            'map':this.map
+            'type': 'linkList',
+            'linkList': llist,
+            'size': new _Tree(2, 2, this.map).depth(llist),
+            'min': this.min,
+            'max': this.max,
+            'map': this.map
         }
     }
 
-    is(llist){
-        if(llist){
+    is(llist){if(new _Tree(2, 2, this.map).is(llist)){return this.context(llist)}}
 
-            if(this.min){
-                try{
-                    assert.equal(this.min <= this.getSize(llist), true)
-                }catch{
-                    return
-                }
-            }
-
-            if(this.max){
-                try{
-                    assert.equal(this.max >= this.getSize(llist), true)
-                }catch{
-                    return
-                }
-            }
-
-            return this.context(llist)
-        }
-    }
-
-    isLinkList(llist){
-        //size must be 1 or more
-        if(this.getSize(llist)>=1){
-            return true
-        }
-    }
-
-    getSize(llist, n=[0]){
-        if(!(llist instanceof Object)){return n[0]}
-        if((llist['next'] instanceof Object && Object.keys(llist['next']).includes('next')) || llist['next']==null){
-            n[0]+=1
-            this.getSize(llist['next'], n)
-        }else{
-            n[0]=0
-            return n[0]
-        }
-        return n[0]
-    }
-
-
-
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
-
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
 

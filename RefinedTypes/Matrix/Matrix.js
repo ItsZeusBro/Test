@@ -1,8 +1,7 @@
 import * as assert  from "node:assert";
 import { _Array } from "../Array/Array.js";
 export class _Matrix{
-    constructor(matrix, min_width, max_width, min_depth, max_depth, map){
-        this.matrix = matrix
+    constructor(min_width, max_width, min_depth, max_depth, map){
         this.min_width = min_width
         this.max_width = max_width
         this.min_depth = min_depth
@@ -12,7 +11,7 @@ export class _Matrix{
     context(matrix){
         return {
             'type': 'matrix',
-            'matrix': this.matrix,
+            'matrix': matrix,
             'depth': this.getDepth(matrix),
             'min_width': this.min_width,
             'max_width': this.max_width,
@@ -23,44 +22,18 @@ export class _Matrix{
             }
         }
     }
-    exists(){
-        return true
-    }
+
+    exists(){return true}
 
     is(matrix){
         if(this.getDepth(matrix)){
-            if(this.min_width){
-                try{
-                    assert.equal(this.min_width <= this.getWidth(matrix)['min'], true)
-                }catch{
-                    return
-                }
-            }
-            if(this.max_width){
-                try{
-                    assert.equal(this.max_width >= this.getWidth(matrix)['max'], true)
-                }catch{
-                    return
-                }
-            }
-            if(this.min_depth){
-                try{
-                    assert.equal(this.min_depth <= this.getDepth(matrix), true)
-                }catch{
-                    return
-                }
-            }
-            if(this.max_depth){
-                try{
-                    assert.equal(this.max_depth >= this.getDepth(matrix), true)
-                }catch{
-                    return
-                }
-            }
+            if(this.min_width){try{assert.equal(this.min_width <= this.getWidth(matrix)['min'], true)}catch{return}}
+            if(this.max_width){try{assert.equal(this.max_width >= this.getWidth(matrix)['max'], true)}catch{return}}
+            if(this.min_depth){try{assert.equal(this.min_depth <= this.getDepth(matrix), true)}catch{return}}
+            if(this.max_depth){try{assert.equal(this.max_depth >= this.getDepth(matrix), true)}catch{return}}
             return this.context(matrix)
         }
     }
-
 
     getWidth(matrix, min=[matrix.length], max=[0]){
         if(matrix.length<=min[0]){min[0]=matrix.length}
@@ -73,7 +46,6 @@ export class _Matrix{
         }
         return {'min':min[0], 'max':max[0]}
     }
-
 
     getDepth(matrix, depth=[0]){
         var arr = new _Array()
@@ -88,9 +60,5 @@ export class _Matrix{
         return depth[0]
     }
 
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }

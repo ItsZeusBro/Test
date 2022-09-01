@@ -20,7 +20,7 @@ export class RefinedTypesTest{
             'null': new _Null([null, NaN, 0, '0', false]),
             'array': new _Array(0, 10),
             'object': new _Object(1, 4),
-            'linkList': new _LinkList(1, 2),
+            'linkList': new _LinkList(1, 2, ),
             //'tree': new Tree()
             // 'matrix': new Matrix(),
             // 'random': new Random(),
@@ -36,12 +36,15 @@ export class RefinedTypesTest{
         assert.equal(this.types.is('1234')['type']=='string', true)
         assert.equal(this.types.is(NaN)['type']=='null', true)
         assert.equal(this.types.is([1, '2', 0, 1, '2', null])['type']=='array', true)
+        //console.log(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':null}}))
+        
         assert.equal(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':null}})['type']=='linkList', true)
         assert.equal(this.types.is({'payload':{}, 'next':null})['type']=='linkList', true)
         assert.equal(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
         assert.equal(this.types.is({'payload':{}, 'next':{'payload':{}, 'next':{}}}), undefined)
         assert.equal(this.types.is({'next':'should not be a link list'})['type']=='object', true)
-        // assert.equal(this.types.typeOf({'next':12345}), 'object')
+        //this is not a link list, why is it showing as one?
+        console.log(this.types.is({'again':{'and':{'again':{}}}}))
     }
 
 }
