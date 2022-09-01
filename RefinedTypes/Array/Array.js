@@ -1,5 +1,5 @@
 import * as assert  from "node:assert";
-import { RefinedTypes } from "../RefinedTypes.js";
+import { RefinedTypes } from "../TypeMap.js";
 
 export class _Array{
     //min and max are kickers if map is a type array
