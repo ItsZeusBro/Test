@@ -9,6 +9,7 @@ import { _Object } from "./Object/Object.js";
 import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
 import { _Tree } from "./Trees/Tree.js";
+import { _TypeMap } from "./TypeMap/TypeMap.js"
 import * as assert  from "node:assert";
 
 
@@ -20,7 +21,15 @@ export class RefinedTypesTest{
             'null': new _Null([null, NaN, 0, '0', false]),
             'array': new _Array(0, 10),
             'object': new _Object(1, 4),
-            'linkList': new _LinkList(1, 2, ),
+            'linkList': new _LinkList(1, 2, new _TypeMap({
+                'type':'typeMap', 'typeMap':{
+                    'next':'linkList', 'payload':{
+                        'type':'typeMap', 'typeMap':{
+                            'data':'object', 'meta-data':'object'
+                        }
+                    }
+                }
+            })),
             //'tree': new Tree()
             // 'matrix': new Matrix(),
             // 'random': new Random(),

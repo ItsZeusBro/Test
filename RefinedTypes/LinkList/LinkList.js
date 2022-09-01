@@ -4,19 +4,11 @@ export class _LinkList{
     constructor(
         min=1, 
         max=2, 
-        map={
-                'type':'typeMap', 'typeMap':{
-                    'next':'linkList', 'payload':{
-                        'type':'typeMap', 'typeMap':{
-                            'data':'object', 'meta-data':'object'
-                        }
-                    }
-                }
-            }
+        map
     ){
         this.min = min
         this.max = max
-        this.map = map
+        this.map = map //this should be a typeMap
     }
 
     exists(){return true}
