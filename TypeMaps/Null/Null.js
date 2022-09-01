@@ -1,4 +1,5 @@
 import * as assert  from "node:assert";
+import { _Integer } from "../Integer/Integer.js";
 
 export class _Null{
     constructor(nullTypes=[null, NaN, 0, '0', false]){
@@ -28,6 +29,8 @@ export class _Null{
         }
         return this.context(nullType)
     }
+
+    randomNull(){return this.nullTypes[new _Integer().randomRange(0, this.nullTypes.length-1)]}
 
     log(obj){
         if(obj){

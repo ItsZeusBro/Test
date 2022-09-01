@@ -1,9 +1,10 @@
 import * as assert  from "node:assert";
-
+import { _Integer } from "../Integer/Integer.js";
 export class _String{
-    constructor(min, max){
+    constructor(min, max, charSet){
         this.min=min
         this.max=max
+        this.charSet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     }
     context(string){
         return {
@@ -46,6 +47,14 @@ export class _String{
 
     _isString(string) {
 		return (string instanceof String || typeof(string) === 'string');
+	}
+
+    randomString(min, max){
+		var str='';
+        for (var i=0; i<new _Integer().randomRange(min, max); i++){
+			str+=this.charSet.charAt(Math.floor(Math.random()*this.charSet.length))
+		}
+        return str;
 	}
 
     log(obj){

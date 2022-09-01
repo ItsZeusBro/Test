@@ -1,6 +1,7 @@
 import { TypeMap } from "./TypeMap.js"
 import { IntegerTest } from "./Integer/Test.js"
-
+import { StringTest } from "./String/Test.js"
+import { NullTest } from "./Null/Test.js"
 
 
 class TypeMapTest{
@@ -9,6 +10,8 @@ class TypeMapTest{
     }
     tests(){
         new IntegerTest()
+        new StringTest()
+        new NullTest()
     }
 }
 
