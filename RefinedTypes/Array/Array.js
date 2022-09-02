@@ -39,7 +39,7 @@ export class _Array{
         }
     }
 
-    randomArray(min, max){
+    random(min, max){
         //generate random array of length range(min, max) of types in map
         var _min; var _max; var arr = [];
         if(min){_min=min}else if(this.min){_min=this.min}else{_min=0}

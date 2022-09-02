@@ -20,9 +20,11 @@ export class RefinedTypes{
 
     //what kind of functions does a typemap need?
     random(){
-        //generates random data with real values
-        //corresponding to the type map
+        return this.rawTypeMap[this.randomSample(Object.keys(this.rawTypeMap))].random()
     }
+
+    randomSample(arr){return arr[new _Integer().randomRange(0, arr.length-1)]}
+
     //These assertions are for broad general type tests and range tests 
     assert(){
         //asserts the validity of data according to a typemap

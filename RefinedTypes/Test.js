@@ -20,22 +20,26 @@ class RefinedTypeTest{
         this.tests()
     }
     tests(){
-        this.refinedTypes
-        new IntegerTest()
-        new StringTest()
-        new NullTest()
-        new ArrayTest()
+        this.refinedTypes()
+        // new IntegerTest()
+        // new StringTest()
+        // new NullTest()
+        // new ArrayTest()
     }
     refinedTypes(){
         var refinedTypes = new RefinedTypes({
             'integer':new _Integer(0, 100),
             'string': new _String(1, 20),
-            'array': new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]})
+            'array': new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]}),
+            'null': new _Null([null, 'null', false, 'false', 0, '0'])
         })
 
-        console.log(refinedTypes.is('some string'))
-        console.log(refinedTypes.is(100))
-        console.log(refinedTypes.is([1, 2, 3, '4', '5']))
+        for(var i = 0; i<1000; i++){
+            console.log(refinedTypes.random())
+        }
+        // console.log(refinedTypes.is('some string'))
+        // console.log(refinedTypes.is(100))
+        // console.log(refinedTypes.is([1, 2, 3, '4', '5']))
     }
 }
 

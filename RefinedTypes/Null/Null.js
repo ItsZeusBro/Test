@@ -11,6 +11,8 @@ export class _Null{
         this.nullTypes=nullTypes
     }
 
+    random(){return this.nullTypes[new _Integer().randomRange(0, this.nullTypes.length-1)]}
+
     context(nullType){
         return {
             'type':'null',
@@ -30,7 +32,6 @@ export class _Null{
         return this.context(nullType)
     }
 
-    randomNull(){return this.nullTypes[new _Integer().randomRange(0, this.nullTypes.length-1)]}
 
     log(obj){
         if(obj){
