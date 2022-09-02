@@ -35,9 +35,7 @@ export class RefinedTypes{
     }
     
 
-    is(thing){
-        return this.rawTypeMap[this.getRawTypeOf(thing)].is(thing)
-    }
+    is(thing){return this.rawTypeMap[this.getRawTypeOf(thing)].is(thing)}
 
     getRawTypeOf(thing){
 		//returns type of a thing, if its supported by Types, even if its not instantiated

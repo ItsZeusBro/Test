@@ -10,7 +10,7 @@ export class _String{
     context(string){
         return {
 			'type':'string',
-			'string':string,
+			'data':string,
             'min':this.min,
             'max':this.max,
             //'pattern':undefined //some regex pattern (we need that regex generator for this feature)
@@ -64,9 +64,5 @@ export class _String{
         return str;
 	}
 
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }

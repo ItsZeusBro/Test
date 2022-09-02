@@ -16,7 +16,7 @@ export class _LinkList{
     context(llist){
         return {
             'type': 'linkList',
-            'linkList': llist,
+            'data': llist,
             'size': new _Tree(2, 2, this.map).depth(llist),
             'min': this.min,
             'max': this.max,

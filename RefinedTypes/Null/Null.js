@@ -16,7 +16,7 @@ export class _Null{
     context(nullType){
         return {
             'type':'null',
-            'null':nullType,
+            'data':nullType,
             'nullTypes':this.nullTypes
         }
     }

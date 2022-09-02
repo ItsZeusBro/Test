@@ -58,7 +58,7 @@ export class _Array{
     context(array){
         return {
             'type':'array',
-            'array':array,
+            'data':array,
             'min':this.min,
             'max':this.max,
             'map':this.map  

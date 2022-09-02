@@ -8,7 +8,7 @@ export class _Integer{
     context(integer){
         return {
 			'type':'integer',
-			'integer':integer,
+			'data':integer,
             'min':this.min,
             'max':this.max
         }
