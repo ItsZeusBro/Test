@@ -1,5 +1,5 @@
 import * as assert  from "node:assert";
-import { _Tree } from "../Trees/Tree.js";
+import { _Tree } from "../Tree/Tree.js";
 export class _LinkList{
     constructor(
         min=1, 

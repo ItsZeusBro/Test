@@ -9,10 +9,10 @@ import { _Matrix } from "./Matrix/Matrix.js";
 import { _Object } from "./Object/Object.js";
 import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
-import { _Tree } from "./Trees/Tree.js";
+import { _Tree } from "./Tree/Tree.js";
 import { _CharSet } from "./CharSet/CharSet.js";
 
-export class TypeMap{
+export class RefinedTypes{
 	constructor(rawTypeMap){
 
         this.rawTypeMap=rawTypeMap
@@ -31,7 +31,25 @@ export class TypeMap{
     compare(){
         //compares type maps by type
     }
+    
 
+    is(thing){
+        return this.rawTypeMap[this.getRawTypeOf(thing)].is(thing)
+    }
+
+    getRawTypeOf(thing){
+		//returns type of a thing, if its supported by Types, even if its not instantiated
+        if(new _Null().is(thing)){return 'null'}
+        else if(new _String().is(thing)){return 'string'}
+        else if(new _Integer().is(thing)){return 'integer'}
+        else if(new _Array().is(thing)){return 'array'}
+        else if(new _Object().is(thing)){return 'object'}
+        else if(new _Matrix().is(thing)){return 'matrix'}
+        else if(new _Tree().is(thing)){return 'tree'}
+        else if(new _Strata().is(thing)){return 'strata'}
+        else if(new _LinkList().is(thing)){return 'linkList'}
+        else{return}
+	}
     diff(){
         //takes the difference between type maps
     }
@@ -42,18 +60,3 @@ export class TypeMap{
         }
     }
 }
-
-var typemap = new TypeMap({
-    'integer': new _Integer(0, 5000),
-    // 'string': new _String(0, 20, new _CharSet()),
-    // 'array': new _Array(0, 10, {'types':[new _Integer(0, 5000), new _String(0, 10)]}),
-    // 'object': new _Object(0, 5, {'key1':new _Integer(0, 10), 'key2':new _String(0, 5)}),
-    
-    // 'strata': new _Strata(),
-    // 'random': new _Random(),
-    // 'tree': new _Tree(),
-    // 'matrix': new _Matrix(),
-    // 'linkList': new _LinkList(),
-    // 'null': new _Null(),
-    // 'charSet':new _CharSet(),
-})

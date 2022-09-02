@@ -6,6 +6,7 @@ export class _String{
         this.max=max
         this.charSet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     }
+    
     context(string){
         return {
 			'type':'string',
@@ -15,7 +16,6 @@ export class _String{
             //'pattern':undefined //some regex pattern (we need that regex generator for this feature)
         }
     }
-    exists(){return true}
 
     is(string){
         //return true if it is a string
@@ -45,7 +45,7 @@ export class _String{
         }
     }
 
-    random(){
+    random(min, max){
         var _min; var _max;
         if(min){_min=min}else if(this.min){_min=this.min}else{_min=1}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=10}

@@ -44,14 +44,14 @@ export class _Array{
         var _min; var _max; var arr = [];
         if(min){_min=min}else if(this.min){_min=this.min}else{_min=0}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=10000}
-        var n = new _Integer().randomRange(min, max)
+        var n = new _Integer().randomRange(_min, _max)
         for (var i = 0; i<n; i++){
             var type = this.randomSample(this.map['types'])
             arr.push(type.random())
         }
         return arr
     }
-    randomSample(arr){return arr[this.randomRange(0, arr.length-1)]}
+    randomSample(arr){return arr[new _Integer().randomRange(0, arr.length-1)]}
 
     _isArray(array){return Array.isArray(array)}
 
