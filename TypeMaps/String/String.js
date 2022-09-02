@@ -45,6 +45,13 @@ export class _String{
         }
     }
 
+    random(){
+        var _min; var _max;
+        if(min){_min=min}else if(this.min){_min=this.min}else{_min=1}
+        if(max){_max=max}else if(this.max){_max=this.max}else{_max=10}
+        return this.randomString(_min, _max)
+    }
+
     _isString(string) {
 		return (string instanceof String || typeof(string) === 'string');
 	}

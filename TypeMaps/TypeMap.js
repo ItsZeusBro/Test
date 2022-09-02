@@ -46,7 +46,7 @@ export class TypeMap{
 var typemap = new TypeMap({
     'integer': new _Integer(0, 5000),
     // 'string': new _String(0, 20, new _CharSet()),
-    // 'array': new _Array(0, 10, {'typs':[new _Integer(0, 5000), new _String(0, 10)]}),
+    // 'array': new _Array(0, 10, {'types':[new _Integer(0, 5000), new _String(0, 10)]}),
     // 'object': new _Object(0, 5, {'key1':new _Integer(0, 10), 'key2':new _String(0, 5)}),
     
     // 'strata': new _Strata(),

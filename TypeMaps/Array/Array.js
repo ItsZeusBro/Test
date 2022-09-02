@@ -1,41 +1,16 @@
 import * as assert  from "node:assert";
-//import { RefinedTypes } from "../TypeMap.js";
+import { _Integer } from "../Integer/Integer.js";
 
 export class _Array{
-    //min and max are kickers if map is a type array
-    constructor(min, max, map=undefined){
+    constructor(min, max, map){
         this.min = min
         this.max = max
-        this.v_max = this.max
-
         this.map = map
-        this.refinedTypes;
-        this.v_map;
-        if(map && map.length){
-            //this ensures we dont have an infinite circular dependency 
-            this.refinedTypes = new RefinedTypes()
-            this.v_map = this.vMap(map)
+        //a map for an array would have an array of types that are possible values for the array
+        //{'types':[new _Integer(0, 5000), new _String(0, 10)]}
 
-        }
     }
 
-    vMap(map){
-        //create a Types map for type checking
-        var v_map=[]
-        for(var i=0; i<map.length; i++){
-            v_map.push(this.refinedTypes.typeOf(map[i]))
-        }
-    }
-
-    reset(){
-        this.v_max=this.max
-    }
-
-    dec(){
-        if(this.v_max){
-            this.v_max-=1
-        }
-    }
 
     is(array){
         if(array){
@@ -62,12 +37,23 @@ export class _Array{
             }
             return this.context(array)
         }
-        
     }
 
-    _isArray(array){
-		return Array.isArray(array)
-	}
+    randomArray(min, max){
+        //generate random array of length range(min, max) of types in map
+        var _min; var _max; var arr = [];
+        if(min){_min=min}else if(this.min){_min=this.min}else{_min=0}
+        if(max){_max=max}else if(this.max){_max=this.max}else{_max=10000}
+        var n = new _Integer().randomRange(min, max)
+        for (var i = 0; i<n; i++){
+            var type = this.randomSample(this.map['types'])
+            arr.push(type.random())
+        }
+        return arr
+    }
+    randomSample(arr){return arr[this.randomRange(0, arr.length-1)]}
+
+    _isArray(array){return Array.isArray(array)}
 
     context(array){
         return {
@@ -79,12 +65,6 @@ export class _Array{
         }
     }
 
-    exists(){return true}
-
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
 

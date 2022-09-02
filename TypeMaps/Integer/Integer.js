@@ -41,6 +41,12 @@ export class _Integer{
         }
 
     }
+    random(min, max){
+        var _min; var _max;
+        if(min){_min=min}else if(this.min){_min=this.min}else{_min=0}
+        if(max){_max=max}else if(this.max){_max=this.max}else{_max=10000}
+        return this.randomRange(_min, _max)
+    }
 
     _isInteger(integer){
 		return Number.isInteger(integer);
