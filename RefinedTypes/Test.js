@@ -33,14 +33,16 @@ class RefinedTypeTest{
             'array': new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]}),
             'null': new _Null([null, 'null', false, 'false', 0, '0']),
             'object': new _Object(
-                0, 10, 
+                0, 5, 
                 {
                     //types are used to fill in the rest if there are any, or all of them if no keys are present
                     '1':new _Integer(0, 100),
                     '2':new _String(1, 10),
                     '3':new _Integer(101, 200),
                     '4':new _String(11, 20),
-                    'types':[new _Null([null, 'null', false, 'false', 0, '0']), new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]})]
+                    'types':[
+                        new _Null([null, 'null', false, 'false', 0, '0']), 
+                        new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]})]
                 }
             )
         })

@@ -3,14 +3,9 @@ import * as util from "node:util"
 import { _Integer } from "./Integer/Integer.js";
 import { _String } from "./String/String.js";
 import { _Null } from "./Null/Null.js";
-import { _Array } from "./Array/Array.js";
-import { _LinkList } from "./LinkList/LinkList.js";
 import { _Matrix } from "./Matrix/Matrix.js";
-import { _Object } from "./Object/Object.js";
-import { _Random } from "./Random/Random.js";
 import { _Strata } from "./Strata/Strata.js";
 import { _Tree } from "./Tree/Tree.js";
-import { _CharSet } from "./CharSet/CharSet.js";
 
 export class RefinedTypes{
 	constructor(rawTypeMap){
@@ -19,10 +14,9 @@ export class RefinedTypes{
     }
 
     //what kind of functions does a typemap need?
-    random(){
+    random(n){
         var type = this.randomSample(Object.keys(this.rawTypeMap))
-        console.log(type)
-        return this.rawTypeMap[type].random()
+        return this.rawTypeMap[type].random(n-1)
     }
 
     randomSample(arr){return arr[new _Integer().randomRange(0, arr.length-1)]}
@@ -44,12 +38,9 @@ export class RefinedTypes{
         if(new _Null().is(thing)){return 'null'}
         else if(new _String().is(thing)){return 'string'}
         else if(new _Integer().is(thing)){return 'integer'}
-        else if(new _Array().is(thing)){return 'array'}
-        else if(new _Object().is(thing)){return 'object'}
         else if(new _Matrix().is(thing)){return 'matrix'}
         else if(new _Tree().is(thing)){return 'tree'}
         else if(new _Strata().is(thing)){return 'strata'}
-        else if(new _LinkList().is(thing)){return 'linkList'}
         else{return}
 	}
     diff(){
