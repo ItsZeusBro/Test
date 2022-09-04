@@ -5,7 +5,9 @@ export class _Object{
         this.min_width=min_width;
         this.max_width=max_width;
         this.map=map;
+
     }
+    
 
 
     context(object){
@@ -42,14 +44,6 @@ export class _Object{
         }else{
             return false
         }
-    // {
-    //     //types are used to fill in the rest if there are any, or all of them if no keys are present
-    //     '1':new _Integer(0, 100),
-    //     '2':new _String(1, 10),
-    //     '3':new _Integer(101, 200),
-    //     '4':new _String(11, 20),
-    //     'types':[new _Null([null, 'null', false, 'false', 0, '0']), new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]})]
-    // }
     }
     width(object){if(this._isObject(object)){return Object.keys(object).length}}
 
@@ -69,3 +63,23 @@ export class _Object{
 
     log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
+
+new _Object(3, 7,{
+    //random()rules: object maps are evaluated on a specific to general basis
+    //where random() must produce the specified keys in total before resorting
+    // to random keys associated with random types specified by the array
+    //is() rules: checking whether some object 'exists' as a refined _Object
+    //checks against the existing well defined keys, and if all of those keys are
+    //not present, it will not be evaluated any further
+    //furthermore, typemaps must also abide by the min max rules if they exist
+    //for an _Object
+    '1':new _Integer(0, 100),
+    '2':new _String(1, 10),
+    '3':new _Integer(101, 200),
+    '4':new _String(11, 20),
+    'types':[
+        new _Null([null, 'null', false, 'false', 0, '0']), 
+        new _Array(1, 10, {'types':[new _Integer(0, 50), 
+            new _String(1, 20)]})
+    ]
+})
