@@ -20,7 +20,9 @@ export class RefinedTypes{
 
     //what kind of functions does a typemap need?
     random(){
-        return this.rawTypeMap[this.randomSample(Object.keys(this.rawTypeMap))].random()
+        var type = this.randomSample(Object.keys(this.rawTypeMap))
+        console.log(type)
+        return this.rawTypeMap[type].random()
     }
 
     randomSample(arr){return arr[new _Integer().randomRange(0, arr.length-1)]}

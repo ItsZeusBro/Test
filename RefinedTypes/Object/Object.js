@@ -7,6 +7,7 @@ export class _Object{
         this.map=map;
     }
 
+
     context(object){
         return {
             'type':'object',
@@ -21,6 +22,7 @@ export class _Object{
     is(object){
         //return true if it is an object
         if(object){
+            if(this.map){if(!this._isMapped(object)){return}}
             try{assert.equal(this._isObject(object), true)}catch{return}
             if(this.min_width){try{assert.equal(this.min_width <= this.width(object), true)}catch{return}}
             if(this.max_width){try{assert.equal(this.max_width >= this.width(object), true)}catch{return}}
@@ -28,6 +30,27 @@ export class _Object{
         }
     }
 
+    _isMapped(object){
+        if(this._isObject(object)){
+            //object keys and values must correspond to the map
+            var keys = Object.keys(object)
+            var mapKeys= Object.keys(this.map)
+            mapKeys = mapKeys.filter(v => v !== 'types');
+            for(var i = 0; i<mapKeys.length; i++){
+                mapKeys[i]
+            }
+        }else{
+            return false
+        }
+    // {
+    //     //types are used to fill in the rest if there are any, or all of them if no keys are present
+    //     '1':new _Integer(0, 100),
+    //     '2':new _String(1, 10),
+    //     '3':new _Integer(101, 200),
+    //     '4':new _String(11, 20),
+    //     'types':[new _Null([null, 'null', false, 'false', 0, '0']), new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]})]
+    // }
+    }
     width(object){if(this._isObject(object)){return Object.keys(object).length}}
 
     _isObject(obj){
@@ -43,7 +66,6 @@ export class _Object{
 			return false
 		}
 	}
-    exists(){return true}
 
     log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
