@@ -11,7 +11,7 @@ export class _Null{
         this.nullTypes=nullTypes
     }
 
-    random(){return this.nullTypes[new _Integer().randomRange(0, this.nullTypes.length-1)]}
+    random(){return this.nullTypes[new _Integer()._randomRange(0, this.nullTypes.length-1)]}
 
     context(nullType){
         return {
@@ -20,22 +20,14 @@ export class _Null{
             'nullTypes':this.nullTypes
         }
     }
-
-    exists(){return true}
-
+    assert(nullType){
+        assert.equal(this.nullTypes.includes(nullType), true)
+        return true
+    }
     is(nullType){
-        try{
-            assert.equal(this.nullTypes.includes(nullType), true)
-        }catch(err){
-            return
-        }
+        try{this.assert(nullType)}catch(err){return}
         return this.context(nullType)
     }
 
-
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }

@@ -22,9 +22,10 @@ export class _Float{
 
         if(max){assert.equal(float<=max, true)}
         else{assert.equal(float<=this.max, true)}
-        
+
         return true
     }
+    
     compare(float1, float2, operation, precision=10){
         if(operation=='gt'){
             return this.greaterThan(float1, float2)
