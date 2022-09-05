@@ -6,14 +6,9 @@ import { ArrayTest } from "./Array/Test.js"
 
 import {_Integer} from "./Integer/Integer.js"
 import {_String} from "./String/String.js"
-import {_Array} from "./Array/Array.js"
 import {_Matrix} from "./Matrix/Matrix.js"
 import {_Null} from "./Null/Null.js"
 import {_Tree} from "./Tree/Tree.js"
-import {_Strata} from "./Strata/Strata.js"
-import {_Object} from "./Object/Object.js"
-import {_LinkList} from "./LinkList/LinkList.js"
-
 
 class RefinedTypeTest{
     constructor(){
@@ -32,7 +27,7 @@ class RefinedTypeTest{
             'string': new _String(1, 20),
             'array': new _Array(1, 10, {'types':[new _Integer(0, 50), new _String(1, 20)]}),
             'null': new _Null([null, 'null', false, 'false', 0, '0']),
-            'object': new _Object(
+            'tree': new _Tree(
                 0, 5, 
                 {
                     //types are used to fill in the rest if there are any, or all of them if no keys are present
