@@ -1,5 +1,7 @@
 import * as assert  from "node:assert";
-import { _Array } from "../Array/Array.js";
+import { _Integer } from "../Integer/Integer.js";
+import * as util from "node:util"
+
 export class _Matrix{
     constructor(min_width, max_width, min_depth, max_depth, map){
         this.min_width = min_width
@@ -23,42 +25,29 @@ export class _Matrix{
         }
     }
 
-    exists(){return true}
-
     is(matrix){
-        if(this.getDepth(matrix)){
-            if(this.min_width){try{assert.equal(this.min_width <= this.getWidth(matrix)['min'], true)}catch{return}}
-            if(this.max_width){try{assert.equal(this.max_width >= this.getWidth(matrix)['max'], true)}catch{return}}
-            if(this.min_depth){try{assert.equal(this.min_depth <= this.getDepth(matrix), true)}catch{return}}
-            if(this.max_depth){try{assert.equal(this.max_depth >= this.getDepth(matrix), true)}catch{return}}
-            return this.context(matrix)
-        }
+
     }
 
-    getWidth(matrix, min=[matrix.length], max=[0]){
-        if(matrix.length<=min[0]){min[0]=matrix.length}
-        if(matrix.length>=max[0]){max[0]=matrix.length}
-        for(var i = 0; i<matrix.length; i++){
-            //min should represent the smallest width in the matrix
-            if(new _Array().is(matrix[i])){
-                this.getWidth(matrix[i], min, max)
+    random(matrix=[],depth=new _Integer(this.min_depth, this.max_depth).random()['data'], width=new _Integer(this.min_width, this.max_width).random()['data']){
+        //we want to load the matrix with sub-matricies so long as depth > 0
+        //if depth == 0 we want to fill it with some data
+        if(depth){
+            for(var i = 0; i<width; i++){
+                matrix.push([])
+                this.random(matrix[i], depth-1, width)
+            }
+        }else{
+            for(var i = 0; i<width; i++){
+                matrix.push(new _Integer(0, 100).random()['data'])
             }
         }
-        return {'min':min[0], 'max':max[0]}
-    }
 
-    getDepth(matrix, depth=[0]){
-        var arr = new _Array()
-        if(arr.is(matrix)){
-            for(var i = 0; i<matrix.length; i++){
-                if(arr.is(matrix[i])){
-                    depth[0]+=1
-                    this.getDepth(matrix[i], depth)
-                }
-            }
-        }
-        return depth[0]
+        return matrix
     }
+    
 
     log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
+
+new _Matrix().log(new _Matrix(2, 5, 5, 7).random())
