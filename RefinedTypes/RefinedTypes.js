@@ -1,6 +1,6 @@
 import * as assert  from "node:assert";
 import * as util from "node:util"
-import { _Number } from "./Number/Number.js";
+import { _Number } from "./Integer/Integer.js";
 import { _String } from "./String/String.js";
 import { _Null } from "./Null/Null.js";
 import { _Matrix } from "./Matrix/Matrix.js";

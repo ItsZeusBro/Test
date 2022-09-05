@@ -1,9 +1,9 @@
 import { RefinedTypes } from "./RefinedTypes.js"
-import { IntegerTest } from "./Number/Test.js"
+import { IntegerTest } from "./Integer/Test.js"
 import { StringTest } from "./String/Test.js"
 import { NullTest } from "./Null/Test.js"
 
-import {_Integer} from "./Number/Number.js"
+import {_Integer} from "./Integer/Integer.js"
 import {_String} from "./String/String.js"
 import {_Matrix} from "./Matrix/Matrix.js"
 import {_Null} from "./Null/Null.js"

@@ -1,5 +1,5 @@
 import * as assert  from "node:assert";
-import { _Number } from "../Number/Number.js";
+import { _Number } from "../Integer/Integer.js";
 export class _String{
     constructor(min, max, charSet){
         this.min=min
