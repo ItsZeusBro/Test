@@ -8,8 +8,8 @@ export class _MatrixTest{
 
         for(var i=0; i<n; i++){
             var matrix = new _Matrix(min_width, max_width, min_depth, max_depth).random()
-            new _Matrix(min_width, max_width, min_depth, max_depth).assert(matrix)
-            new _Matrix().log(matrix)
+            console.log(matrix)
+            new _Matrix(min_width, max_width, min_depth, max_depth).assert(matrix['data'])
         }
     }
 }

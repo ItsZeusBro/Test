@@ -13,7 +13,7 @@ export class _Matrix{
     context(matrix){
         return {
             'type': 'matrix',
-            'matrix': matrix,
+            'data': matrix,
             'depth': this.depth(matrix),
             'min_width': this.min_width,
             'max_width': this.max_width,
@@ -74,7 +74,7 @@ export class _Matrix{
                 matrix.push(new _Integer(0, 100).random()['data'])
             }
         }
-        return matrix
+        return this.context(matrix)
     }
     
 
