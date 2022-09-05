@@ -1,5 +1,5 @@
 import * as assert  from "node:assert";
-import { _Integer } from "../Integer/Integer.js";
+import { _Number } from "../Number/Number.js";
 export class _String{
     constructor(min, max, charSet){
         this.min=min
@@ -19,28 +19,9 @@ export class _String{
 
     is(string){
         //return true if it is a string
-        if(string){
-			try{
-				assert.equal(this._isString(string), true)
-			}catch{
-				return
-			}
-
-            if(this.min){
-				try{
-					assert.equal(this.min <= string.length, true)
-				}catch{
-					return
-				}
-            }
-
-            if(this.max){
-				try{
-					assert.equal(this.max >= string.length, true)
-				}catch{
-					return
-				}
-            }
+        if(string){try{assert.equal(this._isString(string), true)}catch{return}
+            if(this.min){try{assert.equal(this.min <= string.length, true)}catch{return}}
+            if(this.max){try{assert.equal(this.max >= string.length, true)}catch{return}}
 			return this.context(string)
         }
     }
@@ -52,9 +33,7 @@ export class _String{
         return this.randomString(_min, _max)
     }
 
-    _isString(string) {
-		return (string instanceof String || typeof(string) === 'string');
-	}
+    _isString(string) {return (string instanceof String || typeof(string) === 'string');}
 
     randomString(min, max){
 		var str='';
