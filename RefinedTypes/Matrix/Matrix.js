@@ -42,7 +42,6 @@ export class _Matrix{
                 matrix.push(new _Integer(0, 100).random()['data'])
             }
         }
-
         return matrix
     }
     

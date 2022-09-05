@@ -1,5 +1,8 @@
 import * as assert  from "node:assert";
-import { _Object } from "../Object/Object.js";
+import { _String } from "../String/String.js";
+import { _Integer } from "../Integer/Integer.js";
+import * as util from "node:util"
+
 export class _Tree{
     constructor(min_width, max_width, min_depth, max_depth, map){
         this.min_width=min_width
@@ -22,6 +25,23 @@ export class _Tree{
 
     is(tree){if(this.depth(tree)){return this.context(tree)}}
 
+    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random()['data'], width=new _Integer(this.min_width, this.max_width).random()['data']){
+        //we want to load the matrix with sub-matricies so long as depth > 0
+        //if depth == 0 we want to fill it with some data
+        if(depth){
+            for(var i = 0; i<width; i++){
+                var key = new _String(5, 20).random()['data']
+                tree[key]={}
+                this.random(tree[key], depth-1, width)
+            }
+        }else{
+            for(var i = 0; i<width; i++){
+                var key = new _String(5, 20).random()['data']
+                tree[key]=new _Integer(0, 100).random()['data']
+            }
+        }
+        return tree
+    }
     depth(tree, d=[0]){
         if(new _Object().is(tree)&&d[0]){
             this.apply(Object.keys(tree))
@@ -61,3 +81,5 @@ export class _Tree{
     }
    
 }
+
+new _Tree().log(new _Tree(2, 5, 5, 7).random())
