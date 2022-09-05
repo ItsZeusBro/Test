@@ -7,7 +7,7 @@ export class _Float{
 
     is(float){if(float){try{this.assert(float)}catch{return;} return this.context(float)}}
 
-    random(min, max, precision=10){
+    random(min, max, precision=100){
         var _min; var _max;
         if(min){_min=min}else if(this.min || this.compare(this.min, 0.0)){_min=this.min}else{_min=0.0000000001}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=1.0000000000}
