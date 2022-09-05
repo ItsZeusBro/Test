@@ -15,11 +15,14 @@ export class _Float{
     }
 
     assert(float, min, max){
-        if(float){assert.equal(this._isFloat(float), true)}
+        assert.equal(this._isFloat(float), true)
+
         if(min){assert.equal(float>=min, true)}
-        else if(this.min){assert.equal(float>=this.min, true)}
+        else{assert.equal(float>=this.min, true)}
+
         if(max){assert.equal(float<=max, true)}
-        else if(this.max){assert.equal(float<=this.max, true)}
+        else{assert.equal(float<=this.max, true)}
+        
         return true
     }
     compare(float1, float2, operation, precision=10){

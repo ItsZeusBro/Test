@@ -7,4 +7,3 @@ export class _IntegerTest{
         for(var i = 0; i<n; i++){console.log(new _Integer(i, n).is(new _Integer(i, n).random()['data']))}
     }
 }
-new _IntegerTest(10000)

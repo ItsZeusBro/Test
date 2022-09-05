@@ -11,4 +11,3 @@ export class _FloatTest{
         }
     }
 }
-new _FloatTest(1.0)

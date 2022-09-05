@@ -1,10 +1,10 @@
 import { _String } from "./String.js"
 import * as assert from "node:assert"
 
-export class StringTest{
-    constructor(){
+export class _StringTest{
+    constructor(n){
         this.charSet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-        this.tests(1000)
+        this.tests(n)
     }
     tests(n){
         var string = new _String(1, 10, this.charSet)

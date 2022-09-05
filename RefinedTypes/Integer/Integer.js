@@ -15,11 +15,14 @@ export class _Integer{
     }
 
     assert(integer, min, max){
-        if(integer){assert.equal(this._isInteger(integer), true)}
+        assert.equal(this._isInteger(integer), true)
+
         if(min){assert.equal(integer>=min, true)}
-        else if(this.min){assert.equal(integer>=this.min, true)}
+        else{assert.equal(integer>=this.min, true)}
+
         if(max){assert.equal(integer<=max, true)}
-        else if(this.max){assert.equal(integer<=this.max, true)}
+        else{assert.equal(integer<=this.max, true)}
+
         return true
     }
     
