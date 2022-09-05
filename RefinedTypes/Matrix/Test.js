@@ -1,4 +1,6 @@
 import { _Matrix } from "./Matrix.js";
+import * as assert  from "node:assert";
+
 export class _MatrixTest{
     constructor(n){
         var min_width = 2
@@ -10,6 +12,13 @@ export class _MatrixTest{
             var matrix = new _Matrix(min_width, max_width, min_depth, max_depth).random()
             console.log(matrix)
             new _Matrix(min_width, max_width, min_depth, max_depth).assert(matrix['data'])
+            matrix=new _Matrix(min_width, max_width, min_depth, max_depth).is(matrix['data'])
+            assert.equal(typeof matrix ==='object', true)
+            assert.equal(matrix['depth'], new _Matrix().depth(matrix['data']))
+            assert.equal(matrix['min_width'], min_width)
+            assert.equal(matrix['max_width'], max_width)
+            assert.equal(matrix['min_depth'], min_depth)
+            assert.equal(matrix['max_depth'], max_depth)
         }
     }
 }
