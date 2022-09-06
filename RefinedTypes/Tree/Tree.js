@@ -35,29 +35,32 @@ export class _Tree{
     }
 
     _min_width(tree, w=[Infinity]){
-        if(Object.keys(tree).length<=w[0]){w[0]=Object.keys(tree).length}
-        for(var i = 0; i<Object.keys(tree).length; i++){
-            var key = Object.keys(tree)[i]
-            this._min_width(tree[key], w)
+        if(this._isObject(tree)){
+            if(Object.keys(tree).length<=w[0]){w[0]=Object.keys(tree).length}
+            for(var i = 0; i<Object.keys(tree).length; i++){
+                var key = Object.keys(tree)[i]
+                this._min_width(tree[key], w)
+            }
         }
+
         return w[0]
     }
 
     _max_width(tree, w=[0]){
-        if(Object.keys(tree).length>=w[0]){w[0]=Object.keys(tree).length}
-        for(var i = 0; i<Object.keys(tree).length; i++){
-            var key = Object.keys(tree)[i]
-            this._max_width(tree[key], w)
+        if(this._isObject(tree)){
+            if(Object.keys(tree).length>=w[0]){w[0]=Object.keys(tree).length}
+            for(var i = 0; i<Object.keys(tree).length; i++){
+                var key = Object.keys(tree)[i]
+                this._max_width(tree[key], w)
+            }
         }
         return w[0]
     }
 
     depth(tree, n=0, d=[0]){
-        if(tree instanceof Object){
+        if(this._isObject(tree)){
             for(var i = 0; i<Object.keys(tree).length; i++){
-                if(n>=d[0]){
-                    d[0]=n
-                }
+                if(n>=d[0]){d[0]=n}
                 var key = Object.keys(tree)[i]
                 this.depth(tree[key], n+1, d)
             }
@@ -65,25 +68,27 @@ export class _Tree{
         return d[0]
     }
 
-    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random()['data'], width=new _Integer(this.min_width, this.max_width).random()['data']){
+    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random()){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
         if(depth>=1){
             for(var i = 0; i<width; i++){
-                var key = new _String(5, 20).random()['data']
+                var key = new _String(5, 20).random()
                 tree[key]={}
                 this.random(tree[key], depth-1, width)
             }
         }else{
             for(var i = 0; i<width; i++){
-                var key = new _String(5, 20).random()['data']
-                tree[key]=new _Integer(0, 100).random()['data']
+                var key = new _String(5, 20).random()
+                tree[key]=new _Integer(0, 100).random()
             }
         }
         this.context = this._context(tree)
         return this.context['data']
     }
-
+    _isObject(object){
+        return (object && typeof object === 'object' && object.constructor === Object);
+    }
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

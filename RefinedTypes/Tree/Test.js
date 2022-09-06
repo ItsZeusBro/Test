@@ -1,4 +1,6 @@
 import { _Tree } from "./Tree.js";
+import * as assert  from "node:assert";
+import { _Integer } from "../Integer/Integer.js";
 
 export class _TreeTest{
     constructor(n){
@@ -8,19 +10,18 @@ export class _TreeTest{
         var max_depth=2
 
         for(var i=0; i<n; i++){
-            var tree = new _Tree(min_width, max_width, min_depth, max_depth).random()
+            var _tree = new _Tree(min_width, max_width, min_depth, max_depth)
+            var tree = _tree.random()
             console.log(tree)
-            console.log(new _Tree().depth(tree['data']))
-            // console.log(tree)
-            new _Tree(min_width, max_width, min_depth, max_depth).assert(tree['data'])
-            tree=new _Tree(min_width, max_width, min_depth, max_depth).is(tree['data'])
+            assert.equal(_tree._min_width(tree), 2)
+            assert.equal(_tree._max_width(tree), 2)
+            assert.equal(new _Tree().depth(tree), 2)
+            _tree.assert(tree)
             assert.equal(typeof tree ==='object', true)
-            assert.equal(tree['depth'], new _Matrix().depth(tree['data']))
-            assert.equal(tree['min_width'], min_width)
-            assert.equal(tree['max_width'], max_width)
-            assert.equal(tree['min_depth'], min_depth)
-            assert.equal(tree['max_depth'], max_depth)
+            assert.equal(_tree.context['min_width'], min_width)
+            assert.equal(_tree.context['max_width'], max_width)
+            assert.equal(_tree.context['min_depth'], min_depth)
+            assert.equal(_tree.context['max_depth'], max_depth)
         }
     }
 }
-new _TreeTest(1000)

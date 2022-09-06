@@ -36,16 +36,20 @@ export class _Matrix{
         return true
     }
     _min_width(matrix, w=[Infinity]){
-        if(matrix.length<=w[0]){w[0]=matrix.length}
-        for(var i = 0; i<matrix.length; i++){
-            this._min_width(matrix[i], w)
+        if(Array.isArray(matrix)){
+            if(matrix.length<=w[0]){w[0]=matrix.length}
+            for(var i = 0; i<matrix.length; i++){
+                this._min_width(matrix[i], w)
+            }
         }
         return w[0]
     }
     _max_width(matrix, w=[0]){
-        if(matrix.length>=w[0]){w[0]=matrix.length}
-        for(var i = 0; i<matrix.length; i++){
-            this._max_width(matrix[i], w)
+        if(Array.isArray(matrix)){
+            if(matrix.length>=w[0]){w[0]=matrix.length}
+            for(var i = 0; i<matrix.length; i++){
+                this._max_width(matrix[i], w)
+            }
         }
         return w[0]
     }
