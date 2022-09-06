@@ -9,15 +9,12 @@ export class _StringTest{
     tests(n){
         var string = new _String(1, 10, this.charSet)
         for(var i = 0; i<n; i++){
-            var testVal = string.randomString(1, 10)
-            console.log('asserting', testVal, 'is in range')
-            assert.equal(string.is(testVal)['type'], 'string')
-        }
-
-        for(var i = 0; i<n; i++){
-            var testVal = string.randomString(11, 20)
-            console.log('asserting', testVal, 'is not in range')
-            assert.equal(string.is(testVal), undefined)
+            string.random()
+            console.log('asserting', string.context, 'is in range')
+            assert.equal(string.context['type'], 'string')
+            assert.equal(typeof string.context['data'], 'string')
+            assert.equal(string.context['data'].length<=10, true)
+            assert.equal(string.context['data'].length>=1, true)
         }
     }
 }

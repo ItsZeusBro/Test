@@ -8,7 +8,7 @@ export class _String{
         this.context;
     }
     
-    context(string){
+    _context(string){
         return {
 			'type':'string',
 			'data':string,
