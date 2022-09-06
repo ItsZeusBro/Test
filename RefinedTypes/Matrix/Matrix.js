@@ -62,7 +62,7 @@ export class _Matrix{
         return d[0]
     }
 
-    random(matrix=[],depth=new _Integer(this.min_depth, this.max_depth).random()['data'], width=new _Integer(this.min_width, this.max_width).random()['data']){
+    random(matrix=[],depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random()){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
         if(depth){
@@ -73,7 +73,7 @@ export class _Matrix{
         }else{
             for(var i = 0; i<width; i++){
                 //TODO: import Refined Types and choose a random payload
-                matrix.push(new _Integer(0, 100).random()['data'])
+                matrix.push(new _Integer(0, 100).random())
             }
         }
         this.context = this._context(matrix)
