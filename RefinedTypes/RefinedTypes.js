@@ -43,7 +43,7 @@ export class RefinedTypes{
     
     //checks the thing or data against the definition of the type map. If it exists in 
     //a pre-defined form returns the type
-    is(thing){return this.typeMap[this.typeOf(thing)].is(thing)}
+    //is(thing){return this.typeMap[this.typeOf(thing)].is(thing)}
 
     typeOf(thing){
 		//returns type of a thing, if its supported by Types, even if its not instantiated

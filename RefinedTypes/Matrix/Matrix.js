@@ -8,9 +8,10 @@ export class _Matrix{
         this.max_width = max_width
         this.min_depth = min_depth
         this.max_depth = max_depth
+        this.context;
     }
 
-    context(matrix){
+    _context(matrix){
         return {
             'type': 'matrix',
             'data': matrix,
@@ -32,7 +33,7 @@ export class _Matrix{
     }
     is(matrix){
         try{this.assert}catch{return false}
-        return this.context(matrix)
+        return true
     }
     _min_width(matrix, w=[Infinity]){
         if(matrix.length<=w[0]){w[0]=matrix.length}
@@ -71,10 +72,12 @@ export class _Matrix{
             }
         }else{
             for(var i = 0; i<width; i++){
+                //TODO: import Refined Types and choose a random payload
                 matrix.push(new _Integer(0, 100).random()['data'])
             }
         }
-        return this.context(matrix)
+        this.context = this._context(matrix)
+        return this.context['data']
     }
     
 

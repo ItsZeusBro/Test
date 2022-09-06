@@ -5,6 +5,7 @@ export class _String{
         this.min=min
         this.max=max
         this.charSet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        this.context;
     }
     
     context(string){
@@ -20,7 +21,7 @@ export class _String{
     is(string){
         //return true if it is a string
         try{this.assert(string)}catch{return}
-        return this.context(string)
+        return true
     }
     assert(string){
         assert.equal(this._isString(string), true)
@@ -32,7 +33,8 @@ export class _String{
         var _min; var _max;
         if(min){_min=min}else if(this.min){_min=this.min}else{_min=1}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=10}
-        return this.context(this.randomString(_min, _max))
+        this.context = this._context(this.randomString(_min, _max))
+        return this.context['data']
     }
 
     _isString(string) {return (string instanceof String || typeof(string) === 'string');}

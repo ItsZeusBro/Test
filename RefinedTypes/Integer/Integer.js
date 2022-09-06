@@ -1,17 +1,22 @@
 import * as assert  from "node:assert";
 
 export class _Integer{
-    constructor(min, max){this.min=min; this.max=max}
+    constructor(min, max){
+        this.min=min; 
+        this.max=max;
+        this.context;
+    }
 
-    context(integer){return {'type':'integer','data':integer,'min':this.min,'max':this.max}}
+    _context(integer){return {'type':'integer','data':integer,'min':this.min,'max':this.max}}
 
-    is(integer){if(integer){try{this.assert(integer)}catch{return;}return this.context(integer)}}
+    is(integer){if(integer){try{this.assert(integer)}catch{return;}return true;}}
 
     random(min, max){
         var _min; var _max;
         if(min){_min=min}else if(this.min || this.min==0){_min=this.min}else{_min=-10000}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=10000}
-        return this.context(this._randomRange(_min, _max))
+        this.context = this._context(this._randomRange(_min, _max))
+        return this.context['data']
     }
 
     assert(integer, min, max){

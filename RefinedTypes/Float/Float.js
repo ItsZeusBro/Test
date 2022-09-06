@@ -1,17 +1,22 @@
 import * as assert  from "node:assert";
 
 export class _Float{
-    constructor(min, max){this.min=min; this.max=max}
+    constructor(min, max){
+        this.min=min; 
+        this.max=max;
+        this.context;
+    }
 
-    context(float){return {'type':'float','data':float,'min':this.min,'max':this.max}}
+    _context(float){return {'type':'float','data':float,'min':this.min,'max':this.max}}
 
-    is(float){if(float){try{this.assert(float)}catch{return;} return this.context(float)}}
+    is(float){if(float){try{this.assert(float)}catch{return;} return true}}
 
     random(min, max, precision=100){
         var _min; var _max;
         if(min){_min=min}else if(this.min || this.compare(this.min, 0.0)){_min=this.min}else{_min=0.0000000001}
         if(max){_max=max}else if(this.max){_max=this.max}else{_max=1.0000000000}
-        return this.context(this._randomRange(_min, _max, precision))
+        this.context = this._context(this._randomRange(_min, _max, precision))
+        return this.context['data']
     }
 
     assert(float, min, max){

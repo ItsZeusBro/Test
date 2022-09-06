@@ -11,8 +11,8 @@ export class _MatrixTest{
         for(var i=0; i<n; i++){
             var matrix = new _Matrix(min_width, max_width, min_depth, max_depth).random()
             console.log(matrix)
-            new _Matrix(min_width, max_width, min_depth, max_depth).assert(matrix['data'])
-            matrix=new _Matrix(min_width, max_width, min_depth, max_depth).is(matrix['data'])
+            new _Matrix(min_width, max_width, min_depth, max_depth).assert(matrix)
+            context=new _Matrix(min_width, max_width, min_depth, max_depth).is(matrix)
             assert.equal(typeof matrix ==='object', true)
             assert.equal(matrix['depth'], new _Matrix().depth(matrix['data']))
             assert.equal(matrix['min_width'], min_width)
