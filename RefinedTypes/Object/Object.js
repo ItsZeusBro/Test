@@ -2,13 +2,16 @@ import * as assert  from "node:assert";
 import { _Integer } from "../Integer/Integer.js";
 import { _Tree } from "../Tree/Tree.js";
 import { RefinedTypes } from "../RefinedTypes.js";
+import { DefaultMap } from "../Default/DefaultMap.js";
 import * as util from "node:util"
 
 export class _Object{
     constructor(min_width, max_width, map){
-        this.min_width = min_width
-        this.max_width = max_width
-        this.object = new _Tree(min_width, max_width, 1, 1, map)
+        this.min_width;
+        this.max_width;
+        if(min_width){this.min_width=min_width}else{this.min_width=DefaultMap['object_min_width']}
+        if(max_width){this.max_width=max_width}else{this.max_width=DefaultMap['object_max_width']}
+        this.object = new _Tree(this.min_width, this.max_width, 1, 1, map)
         this.context;
     }
 
