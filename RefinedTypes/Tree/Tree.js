@@ -2,14 +2,15 @@ import * as assert  from "node:assert";
 import { _String } from "../String/String.js";
 import { _Integer } from "../Integer/Integer.js";
 import * as util from "node:util"
+import { DefaultMap } from "../Default/DefaultMap.js";
 
 export class _Tree{
     constructor(min_width, max_width, min_depth, max_depth, map){
-        this.min_width=min_width
-        this.max_width=max_width
-        this.min_depth=min_depth
-        this.max_depth=max_depth
-        this.map=map
+        this.min_width; this.max_width; this.min_depth; this.max_depth;
+        if(min_width||min_width==0){this.min_width=min_width;}else{this.min_width=DefaultMap['tree_min_width']}
+        if(max_width||max_width==0){this.max_width=max_width;}else{this.max_width=DefaultMap['tree_max_width']}
+        if(min_depth||min_depth==0){this.min_depth=min_depth;}else{this.min_depth=DefaultMap['tree_min_depth']}
+        if(max_depth||max_depth==0){this.max_depth=max_depth;}else{this.max_depth=DefaultMap['tree_max_depth']}
         this.context;
     }
     _context(tree){
@@ -71,7 +72,10 @@ export class _Tree{
     random(tree={}, depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random(), n=0){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
-        if(n==0 && depth==0){return {}}
+        if(n==0 && depth==0){
+            this.context = this._context(tree)
+            return this.context['data']
+        }
         if(depth>1){
             for(var i = 0; i<width; i++){
                 var key = new _String(5, 20).random()
