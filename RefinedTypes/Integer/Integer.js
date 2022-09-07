@@ -1,9 +1,12 @@
 import * as assert  from "node:assert";
-
+import { DefaultMap } from "../Default/DefaultMap.js";
 export class _Integer{
     constructor(min, max){
-        this.min=min; 
-        this.max=max;
+        this.min;
+        this.max;
+        if(min||min==0){this.min=min;}else{this.min=DefaultMap['integer_min']}
+        if(max||max==0){this.max=max;}else{this.max=DefaultMap['integer_max']}
+
         this.context;
     }
 
@@ -11,11 +14,8 @@ export class _Integer{
 
     is(integer){if(integer){try{this.assert(integer)}catch{return;}return true;}}
 
-    random(min, max){
-        var _min; var _max;
-        if(min){_min=min}else if(this.min || this.min==0){_min=this.min}else{_min=-10000}
-        if(max){_max=max}else if(this.max){_max=this.max}else{_max=10000}
-        this.context = this._context(this._randomRange(_min, _max))
+    random(){
+        this.context = this._context(this._randomRange(this.min, this.max))
         return this.context['data']
     }
 

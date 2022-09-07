@@ -1,12 +1,13 @@
 import * as assert  from "node:assert";
 import { _Integer } from "../Integer/Integer.js";
-import { RefinedTypes } from "../RefinedTypes.js";
+import { _Matrix } from "../Matrix/Matrix.js";
 import * as util from "node:util"
 
 export class _Array{
     constructor(min_width, max_width, map){
         this.min_width = min_width
         this.max_width = max_width
+        this.array = new _Matrix(min_width, max_width, 0, 0, map)
         this.context;
     }
 
@@ -33,15 +34,8 @@ export class _Array{
         return true
     }
 
-    random(width=new _Integer(this.min_width, this.max_width).random()){
-        //we want to load the matrix with sub-matricies so long as depth > 0
-        //if depth == 0 we want to fill it with some data
-        var array=[]
-        for(var i = 0; i<width; i++){
-            //TODO: import Refined Types and choose a random payload
-            array.push(new RefinedTypes().random(['array']))
-        }
-        this.context = this._context(array)
+    random(){
+        this.context = this._context(this.array.random())
         return this.context['data']
     }
 

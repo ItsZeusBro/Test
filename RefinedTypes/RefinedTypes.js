@@ -1,11 +1,15 @@
 import * as assert  from "node:assert";
 import * as util from "node:util"
-import { _Integer, _Number } from "./Integer/Integer.js";
+import { _Integer } from "./Integer/Integer.js";
+import { _Float } from "./Float/Float.js";
+import { _Stat } from "./Stat/Stat.js";
+import { _Array } from "./Array/Array.js";
 import { _String } from "./String/String.js";
 import { _Null } from "./Null/Null.js";
 import { _Matrix } from "./Matrix/Matrix.js";
 import { _Strata } from "./Strata/Strata.js";
 import { _Tree } from "./Tree/Tree.js";
+import { _Object } from "./Object/Object.js";
 
 export class RefinedTypes{
 	constructor(map){
@@ -13,19 +17,34 @@ export class RefinedTypes{
         if(map){this.map=map}
         else{
             this.map={
-                'null': new _Null([null, NaN, false, 0, '0', 'null', 'undefined']),
-                'integer': new _Integer(-100000, 100000),
-                'string': new _String(0, Infinity),
-                'matrix': new _Matrix()
-                'tree': 
+                'null': new _Null(),
+                'integer': new _Integer(),
+                'float': new _Float(),
+                'stat': new _Stat(),            
+                'string': new _String(),
+                'array': new _Array(),
+                'matrix': new _Matrix(),
+                'object': new _Object(),
+                'tree': new _Tree(),
+                'strata': new _Strata()
             }
         }
     }
 
     //what kind of functions does a typemap need?
-    random(except=[]){
-        var type = this.randomSample(Object.keys(this.typeMap))
+    random(exceptions=[]){
+        var type = this.randomSample(Object.keys(this.subset(this.map, exceptions)))
         return this.typeMap[type].random()
+    }
+    subset(set, exceptions){
+        var subset={}
+        for(var i=0; i<Object.keys(set).length; i++){
+            var key = Object.keys(set)[i];
+            if(!exceptions.includes(key)){
+                subset[key]=set[key]
+            }
+        }
+        return subset
     }
     //These assertions are for broad general type tests and range tests 
     assert(){

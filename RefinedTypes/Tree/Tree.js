@@ -68,16 +68,17 @@ export class _Tree{
         return d[0]
     }
 
-    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random()){
+    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random(), n=0){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
-        if(depth>=1){
+        if(n==0 && depth==0){return {}}
+        if(depth>1){
             for(var i = 0; i<width; i++){
                 var key = new _String(5, 20).random()
                 tree[key]={}
                 this.random(tree[key], depth-1, width)
             }
-        }else{
+        }else if(depth==1){
             for(var i = 0; i<width; i++){
                 var key = new _String(5, 20).random()
                 tree[key]=new _Integer(0, 100).random()
@@ -103,3 +104,5 @@ export class _Tree{
     }
    
 }
+//a tree of depth 0 is: {}
+//a tree of depth 1 is: {'1':{}} etc.

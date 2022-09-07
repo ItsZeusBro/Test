@@ -1,30 +1,24 @@
-import { _Array } from "./Object.js";
+import { _Object } from "./Object.js";
 import * as assert  from "node:assert";
 
-export class _ArrayTest{
+export class _ObjectTest{
 
     constructor(n){
 
-        var min_width=2
-        var max_width=2
-        var min_depth=2 
-        var max_depth=2
+        var min_width=1
+        var max_width=10
 
         for(var i=0; i<n; i++){
-            var matrix = new _Matrix(min_width, max_width, min_depth, max_depth)
-            var mtx = matrix.random()
-            console.log(mtx)
-            assert.equal(matrix._min_width(mtx), 2)
-            assert.equal(matrix._max_width(mtx), 2)
-            matrix.assert(mtx)
-            assert.equal(matrix.is(mtx), true)
-            assert.equal(typeof matrix.context ==='object', true)
-            assert.equal(matrix.context['depth'], new _Matrix().depth(mtx))
-            assert.equal(matrix['min_width'], min_width)
-            assert.equal(matrix['max_width'], max_width)
-            assert.equal(matrix['min_depth'], min_depth)
-            assert.equal(matrix['max_depth'], max_depth)
+            var object = new _Object(1, 10)
+            console.log(object.random())
+            console.log(object.context)
+            assert.equal(object.context['type'], 'object')
+            assert.equal(typeof object.context['data'], 'object')
+            assert.equal(object.context['size']<=max_width, true)
+            assert.equal(object.context['size']>=min_width, true)
+            assert.equal(object.context['min_width'], min_width)
+            assert.equal(object.context['max_width'], max_width)
         }
     }
 }
-// new _MatrixTest(1000)
+new _ObjectTest(1000)
