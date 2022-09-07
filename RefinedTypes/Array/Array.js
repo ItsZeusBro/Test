@@ -2,12 +2,15 @@ import * as assert  from "node:assert";
 import { _Integer } from "../Integer/Integer.js";
 import { _Matrix } from "../Matrix/Matrix.js";
 import * as util from "node:util"
+import { DefaultMap } from "../Default/DefaultMap.js";
 
 export class _Array{
     constructor(min_width, max_width, map){
-        this.min_width = min_width
-        this.max_width = max_width
-        this.array = new _Matrix(min_width, max_width, 0, 0, map)
+        this.min_width;
+        this.max_width;
+        if(min_width){this.min_width=min_width}else{this.min_width=DefaultMap['array_min_width']}
+        if(max_width){this.max_width=max_width}else{this.max_width=DefaultMap['array_max_width']}
+        this.array = new _Matrix(this.min_width, this.max_width, 1, 1, map)
         this.context;
     }
 
@@ -46,4 +49,3 @@ export class _Array{
 
     log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
-

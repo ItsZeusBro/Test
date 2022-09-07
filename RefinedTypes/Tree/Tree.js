@@ -68,7 +68,7 @@ export class _Tree{
         return d[0]
     }
 
-    random(tree={},depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random(), n=0){
+    random(tree={}, depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random(), n=0){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
         if(n==0 && depth==0){return {}}
@@ -88,20 +88,14 @@ export class _Tree{
         return this.context['data']
     }
     
-    _isObject(object){
-        return (object && typeof object === 'object' && object.constructor === Object);
-    }
+    _isObject(object){return (object && typeof object === 'object' && object.constructor === Object);}
 
     compare(){
         //compares data by type map (shallow comparison)
         //or compares data deeply for which a type map is not needed
     }
 
-    log(obj){
-        if(obj){
-            console.log(util.inspect(obj, false, null, true))
-        }
-    }
+    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
    
 }
 //a tree of depth 0 is: {}

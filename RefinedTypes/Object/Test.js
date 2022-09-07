@@ -4,8 +4,6 @@ import * as assert  from "node:assert";
 export class _ObjectTest{
 
     constructor(n){
-
-
         for(var i=0; i<n; i++){
             var object = new _Object()
             console.log(object.random())

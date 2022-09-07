@@ -29,8 +29,8 @@ export class _Object{
     }
 
     assert(object){
-        assert.equal(object.length>=this.min_width, true)
-        assert.equal(object.length<=this.max_width, true)
+        assert.equal(Object.keys(object).length>=this.min_width, true)
+        assert.equal(Object.keys(object).length<=this.max_width, true)
     }
 
     is(object){
