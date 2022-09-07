@@ -86,9 +86,16 @@ export class _Tree{
         this.context = this._context(tree)
         return this.context['data']
     }
+    
     _isObject(object){
         return (object && typeof object === 'object' && object.constructor === Object);
     }
+
+    compare(){
+        //compares data by type map (shallow comparison)
+        //or compares data deeply for which a type map is not needed
+    }
+
     log(obj){
         if(obj){
             console.log(util.inspect(obj, false, null, true))

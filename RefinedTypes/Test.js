@@ -5,6 +5,7 @@ import { _StringTest } from "./String/Test.js"
 import { _NullTest } from "./Null/Test.js"
 import { _MatrixTest } from "./Matrix/Test.js"
 import { _TreeTest } from "./Tree/Test.js"
+import { RefinedTypes } from "./RefinedTypes.js"
 // import { StringTest } from "./String/Test.js"
 // import { NullTest } from "./Null/Test.js"
 
@@ -25,6 +26,7 @@ class RefinedTypeTest{
         new _NullTest()
         new _MatrixTest(1000)
         new _TreeTest(1000)
+        new RefinedTypes()
         //this.refinedTypes()
     }
     // refinedTypes(){

@@ -1,10 +1,14 @@
 import * as assert  from "node:assert";
 import { _Integer } from "../Integer/Integer.js";
+import { DefaultMap } from "../Default/DefaultMap.js"
 export class _String{
     constructor(min, max, charSet){
-        this.min=min
-        this.max=max
-        this.charSet='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        this.min;
+        this.max;
+        this.charSet;
+        if(!min){this.min=DefaultMap['string_min_size']}else{this.min=min}
+        if(!max){this.max=DefaultMap['string_max_size']}else{this.max=max}
+        if(!charSet){this.charSet=DefaultMap['string_charset']}else{this.charSet=charSet}
         this.context;
     }
     
@@ -23,6 +27,12 @@ export class _String{
         try{this.assert(string)}catch{return}
         return true
     }
+    
+    compare(){
+        //compares data by type map (shallow comparison)
+        //or compares data deeply for which a type map is not needed
+    }
+
     assert(string){
         assert.equal(this._isString(string), true)
         assert.equal(this.min <= string.length, true)
@@ -31,8 +41,8 @@ export class _String{
 
     random(min, max){
         var _min; var _max;
-        if(min){_min=min}else if(this.min){_min=this.min}else{_min=1}
-        if(max){_max=max}else if(this.max){_max=this.max}else{_max=10}
+        if(min){_min=min}else if(this.min){_min=this.min}else{_min=this.d_min}
+        if(max){_max=max}else if(this.max){_max=this.max}else{_max=this.d_max}
         this.context = this._context(this.randomString(_min, _max))
         return this.context['data']
     }

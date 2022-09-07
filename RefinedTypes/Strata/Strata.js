@@ -25,7 +25,12 @@ export class _Strata{
             'null':false
         }
     }
-    exists(){return true}
+
+    compare(){
+        //compares data by type map (shallow comparison)
+        //or compares data deeply for which a type map is not needed
+    }
+    
     is(strata){
         //return true if it is an strata
     }

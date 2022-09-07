@@ -30,6 +30,11 @@ export class _Integer{
 
         return true
     }
+
+    compare(){
+        //compares data by type map (shallow comparison)
+        //or compares data deeply for which a type map is not needed
+    }
     
     _isInteger(integer){return Number(integer) === integer && integer % 1 === 0;}
     

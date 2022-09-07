@@ -84,6 +84,10 @@ export class _Matrix{
         return this.context['data']
     }
     
+    compare(){
+        //compares data by type map (shallow comparison)
+        //or compares data deeply for which a type map is not needed
+    }
 
     log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
 }
