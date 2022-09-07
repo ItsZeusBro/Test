@@ -2,8 +2,11 @@ import * as assert  from "node:assert";
 import { DefaultMap } from "../Default/DefaultMap.js";
 export class _Stat{
     constructor(min, max){
-        this.min=min; 
-        this.max=max;
+        this.min;
+        this.max;
+        if(min||min==0){this.min=min;}else{this.min=DefaultMap['stat_min']}
+        if(max||max==0){this.max=max;}else{this.max=DefaultMap['stat_max']}
+
         this.context;
     }
 
@@ -12,12 +15,9 @@ export class _Stat{
     is(stat){if(stat){try{this.assert(stat)}catch{return;} return true}}
 
     random(precision=100){
-        var _min;
-        var _max;
-        if(this.min || this.compare(this.min, 0.0)){_min=this.min
-        }else{_min=DefaultMap['stat_min']}
+        var _min; var _max;
+        if(this.min || this.compare(this.min, 0.0)){_min=this.min}
         if(this.max){_max=this.max}
-        else{_max=DefaultMap['stat_max']}
         this.context = this._context(this._randomRange(_min, _max, precision))
         return this.context['data']
     }

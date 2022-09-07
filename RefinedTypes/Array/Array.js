@@ -47,5 +47,5 @@ export class _Array{
         //or compares data deeply for which a type map is not needed
     }
 
-    log(obj){if(obj){console.log(util.inspect(obj, false, null, true))}}
+    log(array){if(array){console.log(util.inspect(array, false, null, true))}}
 }

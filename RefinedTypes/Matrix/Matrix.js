@@ -1,13 +1,15 @@
 import * as assert  from "node:assert";
 import { _Integer } from "../Integer/Integer.js";
 import * as util from "node:util"
+import { DefaultMap } from "../Default/DefaultMap.js";
 
 export class _Matrix{
     constructor(min_width, max_width, min_depth, max_depth, map){
-        this.min_width = min_width
-        this.max_width = max_width
-        this.min_depth = min_depth
-        this.max_depth = max_depth
+        this.min_width; this.max_width; this.min_depth; this.max_depth;
+        if(min_width||min_width==0){this.min_width=min_width;}else{this.min_width=DefaultMap['matrix_min_width']}
+        if(max_width||max_width==0){this.max_width=max_width;}else{this.max_width=DefaultMap['matrix_max_width']}
+        if(min_depth||min_depth==0){this.min_depth=min_depth;}else{this.min_depth=DefaultMap['matrix_min_depth']}
+        if(max_depth||max_depth==0){this.max_depth=max_depth;}else{this.max_depth=DefaultMap['matrix_max_depth']}
         this.context;
     }
 
@@ -26,6 +28,7 @@ export class _Matrix{
         }
     }
     assert(matrix){
+        console.log(this.depth(matrix), this.max_depth)
         assert.equal(this.depth(matrix)<=this.max_depth, true)
         assert.equal(this.depth(matrix)>=this.min_depth, true)
         assert.equal(this._max_width(matrix)<=this.max_width, true)
@@ -69,7 +72,10 @@ export class _Matrix{
     random(matrix=[], depth=new _Integer(this.min_depth, this.max_depth).random(), width=new _Integer(this.min_width, this.max_width).random(), n=0){
         //we want to load the matrix with sub-matricies so long as depth > 0
         //if depth == 0 we want to fill it with some data
-        if(n==0 && depth==0){return []}
+        if(n==0 && depth==0){
+            this.context = this._context(matrix)
+            return this.context['data']
+        }
 
         if(depth>1){
             for(var i = 0; i<width; i++){
@@ -84,6 +90,7 @@ export class _Matrix{
         }
         this.context = this._context(matrix)
         return this.context['data']
+        
     }
     
     compare(){
