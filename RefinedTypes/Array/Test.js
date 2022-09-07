@@ -17,4 +17,3 @@ export class _ArrayTest{
         }
     }
 }
-new _ArrayTest(1000)

@@ -6,26 +6,22 @@ import { _NullTest } from "./Null/Test.js"
 import { _MatrixTest } from "./Matrix/Test.js"
 import { _TreeTest } from "./Tree/Test.js"
 import { RefinedTypes } from "./RefinedTypes.js"
-// import { StringTest } from "./String/Test.js"
-// import { NullTest } from "./Null/Test.js"
-
-// import {_Integer} from "./Integer/Integer.js"
-// import {_String} from "./String/String.js"
-// import {_Matrix} from "./Matrix/Matrix.js"
-// import {_Null} from "./Null/Null.js"
-// import {_Tree} from "./Tree/Tree.js"
+import { _ObjectTest } from "./Object/Test.js"
+import { _ArrayTest } from "./Array/Test.js"
 
 class RefinedTypeTest{
     constructor(){
         this.tests()
     }
     tests(){
-        new _IntegerTest(10000)
+        new _IntegerTest(1000)
         new _FloatTest(1.0)
-        new _StringTest(10000)
+        new _StringTest(1000)
         new _NullTest()
-        new _MatrixTest(1000)
-        new _TreeTest(1000)
+        new _ArrayTest(100)
+        new _MatrixTest(100)
+        new _ObjectTest(100)
+        new _TreeTest(100)
         new RefinedTypes()
         //this.refinedTypes()
     }

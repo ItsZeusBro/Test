@@ -17,4 +17,3 @@ export class _ObjectTest{
         }
     }
 }
-new _ObjectTest(1000)
