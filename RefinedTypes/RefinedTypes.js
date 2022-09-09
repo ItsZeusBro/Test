@@ -14,7 +14,18 @@ import { _Object } from "./Object/Object.js";
 export class RefinedTypes{
 	constructor(map){
         this.map;
-        if(map){this.map=map}
+        if(new Object().is(map)['type']=='object'){
+            try{map['null'].is()['type']=='null'}catch{map['null']=new _Null()}
+            try{map['integer'].is()['integer']=='integer'}catch{map['integer']=new _Integer()}
+            try{map['float'].is()['float']=='float'}catch{map['float']=new _Float()}
+            try{map['stat'].is()['stat']=='stat'}catch{map['stat']=new _Stat()}
+            try{map['string'].is()['string']=='string'}catch{map['string']=new _String()}
+            try{map['array'].is()['array']=='array'}catch{map['array']=new _Array()}
+            try{map['matrix'].is()['matrix']=='matrix'}catch{map['matrix']=new _Matrix()}
+            try{map['object'].is()['object']=='object'}catch{map['object']=new _Object()}
+            try{map['tree'].is()['tree']=='tree'}catch{map['tree']=new _Tree()}
+            this.map=map
+        }
         else{
             this.map={
                 'null': new _Null(),
@@ -82,6 +93,9 @@ export class RefinedTypes{
         if(new _Null().is(thing)){return 'null'}
         else if(new _String().is(thing)){return 'string'}
         else if(new _Integer().is(thing)){return 'integer'}
+        else if(new _Null().is(thing)){return 'null'}
+        else if(new _Array().is(thing)){return 'array'}
+        else if(new _Object().is(thing)){return 'object'}
         else if(new _Matrix().is(thing)){return 'matrix'}
         else if(new _Tree().is(thing)){return 'tree'}
         else if(new _Strata().is(thing)){return 'strata'}
