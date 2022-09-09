@@ -5,24 +5,9 @@ export class _Strata{
 
     }
     
-    context(){
+    _context(strata){
         return {
-            'min':undefined,
-            'max':undefined,
-            'descending':false,
-            'depth':undefined,
-            'payload':'payload',
-            'map':{
-                //strata can have a key arrangement that is recursive,
-                //but doesnt need to
-            },
-            'array':false,
-            'object':false,
-            'string':false,
-            'matrix':false,
-            'strata':false,
-            'linkList':false,
-            'null':false
+            'refType':this           
         }
     }
 
@@ -33,6 +18,7 @@ export class _Strata{
     
     is(strata){
         //return true if it is an strata
+        return this._context(strata)
     }
     log(obj){
         if(obj){

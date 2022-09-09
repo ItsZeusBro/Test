@@ -10,9 +10,9 @@ export class _Stat{
         this.context;
     }
 
-    _context(stat){return {'type':'stat','data':stat,'min':this.min,'max':this.max}}
+    _context(stat){return {'type':'stat', 'refType':this, 'data':stat,'min':this.min,'max':this.max}}
 
-    is(stat){if(stat){try{this.assert(stat)}catch{return;} return true}}
+    is(stat){if(stat){try{this.assert(stat)}catch{return;} return this._context(stat)}}
 
     random(precision=100){
         var _min; var _max;

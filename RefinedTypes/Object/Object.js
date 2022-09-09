@@ -19,6 +19,7 @@ export class _Object{
         return {
             'type': 'object',
             'data': object,
+            'refType':this,
             'size': Object.keys(object).length,
             'min_width': this.min_width,
             'max_width': this.max_width,
@@ -35,7 +36,7 @@ export class _Object{
 
     is(object){
         try{this.assert(object)}catch{return false}
-        return true
+        return this._context(object)
     }
 
     random(){

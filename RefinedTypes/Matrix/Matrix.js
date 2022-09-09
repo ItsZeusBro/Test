@@ -17,6 +17,7 @@ export class _Matrix{
         return {
             'type': 'matrix',
             'data': matrix,
+            'refType':this,
             'depth': this.depth(matrix),
             'min_width': this.min_width,
             'max_width': this.max_width,
@@ -36,7 +37,7 @@ export class _Matrix{
     }
     is(matrix){
         try{this.assert}catch{return false}
-        return true
+        return this._context(matrix)
     }
     _min_width(matrix, w=[Infinity]){
         if(Array.isArray(matrix)){

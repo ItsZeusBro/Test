@@ -25,8 +25,8 @@ export class RefinedTypes{
                 'array': new _Array(),
                 'matrix': new _Matrix(),
                 'object': new _Object(),
-                'tree': new _Tree(),
-                'strata': new _Strata()
+                'tree': new _Tree()
+                // 'strata': new _Strata()
             }
         }
     }
@@ -34,7 +34,7 @@ export class RefinedTypes{
     //what kind of functions does a typemap need?
     random(exceptions=[]){
         var type = this.randomSample(Object.keys(this.subset(this.map, exceptions)))
-        return this.typeMap[type].random()
+        return this.map[type].random()
     }
     subset(set, exceptions){
         var subset={}
@@ -47,12 +47,26 @@ export class RefinedTypes{
         return subset
     }
     //These assertions are for broad general type tests and range tests 
-    assert(){
-        //asserts the data is in accordance with typemap. If typemap is not present, assert
-        //always returns true, unless it is of undefined type
+    assert(refType){
+        if(this.is(refType)){
+            return this.is(refType)['refType'].assert(refType)
+        }else{
+            throw Error('Error when calling assert(refType): refType is not an actual refined type')
+        }
     }
-    is(){
-
+    is(refType){
+        //returns the context of the refType
+        if(this.map['null'].is(refType)){return this.map['null'].is(refType)}
+        else if(this.map['integer'].is(refType)){return this.map['integer'].is(refType)}
+        else if(this.map['stat'].is(refType)){return this.map['stat'].is(refType)}
+        else if(this.map['float'].is(refType)){return this.map['float'].is(refType)}
+        else if(this.map['object'].is(refType)){return this.map['object'].is(refType)}
+        else if(this.map['string'].is(refType)){return this.map['string'].is(refType)}
+        else if(this.map['matrix'].is(refType)){return this.map['matrix'].is(refType)}
+        else if(this.map['tree'].is(refType)){return this.map['tree'].is(refType)}
+        else if(this.map['array'].is(refType)){return this.map['array'].is(refType)}
+        else if(this.map['strata'].is(refType)){return this.map['strata'].is(refType)}
+        else{return}
     }
 
     compare(){
@@ -60,14 +74,8 @@ export class RefinedTypes{
         //or compares data deeply for which a type map is not needed
     }
 
-    randomSample(arr){return arr[new _Integer().randomRange(0, arr.length-1)]}
+    randomSample(arr){return arr[new _Integer(0, arr.length-1).random()]}
 
-
-
-    
-    //checks the thing or data against the definition of the type map. If it exists in 
-    //a pre-defined form returns the type
-    //is(thing){return this.typeMap[this.typeOf(thing)].is(thing)}
 
     typeOf(thing){
 		//returns type of a thing, if its supported by Types, even if its not instantiated
@@ -81,5 +89,6 @@ export class RefinedTypes{
 	}
     //diff(){}//takes the difference between type maps
 
-	log(){if(this.typeMap){console.log(util.inspect(this.rawTypeMap, false, null, true))}}
+	log(refType){console.log(util.inspect(refType, false, null, true))}
 }
+

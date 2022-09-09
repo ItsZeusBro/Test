@@ -16,6 +16,7 @@ export class _String{
         return {
 			'type':'string',
 			'data':string,
+            'refType':this,
             'min':this.min,
             'max':this.max,
             //'pattern':undefined //some regex pattern (we need that regex generator for this feature)
@@ -25,7 +26,8 @@ export class _String{
     is(string){
         //return true if it is a string
         try{this.assert(string)}catch{return}
-        return true
+        return this._context(string)
+
     }
     
     compare(){

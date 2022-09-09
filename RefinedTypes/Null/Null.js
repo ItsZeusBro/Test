@@ -13,10 +13,11 @@ export class _Null{
 
     random(){return this.nullTypes[new _Integer()._randomRange(0, this.nullTypes.length-1)]}
 
-    context(nullType){
+    _context(nullType){
         return {
             'type':'null',
             'data':nullType,
+            'refType':this,
             'nullTypes':this.nullTypes
         }
     }
@@ -26,7 +27,7 @@ export class _Null{
     }
     is(nullType){
         try{this.assert(nullType)}catch(err){return}
-        return this.context(nullType)
+        return this._context(nullType)
     }
 
     compare(){

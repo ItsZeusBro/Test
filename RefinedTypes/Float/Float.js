@@ -9,9 +9,9 @@ export class _Float{
         this.context;
     }
 
-    _context(float){return {'type':'float','data':float,'min':this.min,'max':this.max}}
+    _context(float){return {'type':'float','refType':this,'data':float,'min':this.min,'max':this.max}}
 
-    is(float){if(float){try{this.assert(float)}catch{return;} return true}}
+    is(float){if(float){try{this.assert(float)}catch{return;} return this._context(float)}}
 
     random(precision=100){
         var _min; var _max;

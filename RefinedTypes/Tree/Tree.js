@@ -18,6 +18,7 @@ export class _Tree{
             'type':'tree',
             'data':tree,
             'depth': this.depth(tree),
+            'refType':this,
             'min_width':this.min_width,
             'max_width':this.max_width,
             'min_depth':this.min_depth,
@@ -26,7 +27,8 @@ export class _Tree{
         }
     }
 
-    is(tree){try{this.assert(tree)}catch{return}; return true}
+    is(tree){try{this.assert(tree)}catch{return}; return this._context(tree)
+}
 
     assert(tree){
         assert.equal(this.depth(tree)<=this.max_depth, true)

@@ -10,9 +10,9 @@ export class _Integer{
         this.context;
     }
 
-    _context(integer){return {'type':'integer','data':integer,'min':this.min,'max':this.max}}
+    _context(integer){return {'type':'integer', 'refType':this, 'data':integer,'min':this.min,'max':this.max}}
 
-    is(integer){if(integer){try{this.assert(integer)}catch{return;}return true;}}
+    is(integer){if(integer){try{this.assert(integer)}catch{return;}return this._context(integer);}}
 
     random(){
         this.context = this._context(this._randomRange(this.min, this.max))

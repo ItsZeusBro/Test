@@ -17,6 +17,7 @@ export class _Array{
     _context(array){
         return {
             'type': 'array',
+            'refType':this,
             'data': array,
             'size': array.length,
             'min_width': this.min_width,
@@ -33,8 +34,8 @@ export class _Array{
     }
 
     is(array){
-        try{this.assert(array)}catch{return false}
-        return true
+        try{this.assert(array)}catch{return }
+        return this._context(array)
     }
 
     random(){
