@@ -80,7 +80,20 @@ export class RefinedTypes{
         else{return}
     }
 
-    compare(){
+    compare(thing1, thing2, comparison){
+        if(!comparison){
+            //do a simple type comparison
+            if(this.typeOf(thing1)==this.typeOf(thing2)){return true}
+        }else if(comparison=='shallow'){
+            if(this.typeOf(thing1)==this.typeOf(thing2)){
+                return this.map[this.typeOf(thing1)].compare(thing1, thing2, 'shallow')
+            }
+        }else if(comparison=='deep'){
+            return this.map[this.typeOf(thing1)].compare(thing1, thing2, 'deep')
+        }else{
+            throw Error('compare needs comparison type')
+        }
+
         //compares data by type map (shallow comparison)
         //or compares data deeply for which a type map is not needed
     }
